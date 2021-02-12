@@ -1,0 +1,199 @@
+<div class="cabecera">
+  <nav
+    id="nav"
+    [ngClass]="{ menu__fixed: fijarMenu, 'menu__fixed-movil': fijarMenuMovil }"
+    class="cabecera__nav"
+  >
+    <div class="cabecera__icono-movil">
+      <i (click)="ocultarMenuMovil()" class="fas fa-bars"></i>
+    </div>
+    <img
+      *ngIf="!fijarMenu"
+      class="cabecera__img"
+      src="{{ './assets/img/logo_seda.png' }}"
+      alt="logo-seda"
+    />
+    <ul class="cabecera__menu">
+      <li
+        [routerLink]="['home']"
+        [routerLinkActive]="['active']"
+        class="cabecera__menu-elemento"
+      >
+        {{ "home" | uppercase }}
+      </li>
+      <li 
+          [routerLink]="['catalogo']"
+          [routerLinkActive]="['active']"
+          class="cabecera__menu-elemento">
+        {{ "Catálogo impreso" | uppercase }}
+      </li>
+      <li
+      [routerLink]="['locales']"
+      [routerLinkActive]="['active']"
+      class="cabecera__menu-elemento"
+    >
+      {{ "Locales" | uppercase }}
+    </li>
+      <li *ngIf="false" class="cabecera__menu-elemento">{{ "Mi cuenta" | uppercase }}</li>
+      <li
+      *ngIf="!usuarioLogin" 
+      [routerLink]="['login']"
+      [routerLinkActive]="['active']"
+      class="cabecera__menu-elemento">{{ "login" | uppercase }}</li>
+      <li
+      *ngIf="usuario&&usuarioLogin" 
+      [routerLink]="['usuario']"
+      [routerLinkActive]="['active']"
+      class="cabecera__menu-elemento">{{ nombreUsuario  | uppercase }}
+     
+    </li>
+    <li
+    (click)="cerrarLogin()"
+    *ngIf="usuarioLogin" 
+    [routerLink]="['login']"
+    [routerLinkActive]="['active']"
+    class="cabecera__menu-elemento">{{ 'cerrar'  | uppercase }}
+    </li>
+    </ul>
+    
+  </nav>
+</div>
+<div
+  id="menuflotante"
+  [ngClass]="{'menu__fixed-movil': fijarMenu}"
+  class="menu"
+>
+  <ul class="menu__lista">
+    <li
+      class="menu__lista-elemento"
+      (mouseenter)="mostrarMenu('menu__flotante3')"
+    >
+      Lineas <i class="fas fa-angle-down"></i>
+    </li>
+  </ul>
+  <div class="menu__derecha">
+    <div class="menu__buscar">
+      <input
+        #buscarTermino
+        class="menu__buscar-texto"
+        type="text"
+        placeholder="Buscar en el catálogo"
+        (keyup.enter)="buscarMercaderia(buscarTermino.value)"
+      />
+      <i (click)="buscarMercaderia(buscarTermino.value)" class="menu__buscar-buscar fas fa-search"></i>
+    </div>
+    <div class="menu__carrito">
+      <i class="fas fa-cart-plus"></i>
+    </div>
+    <span class="circulo">0</span>
+  </div>
+</div>
+<div class="">
+  <app-tarjeta-menu-flotante
+    (mouseleave)="ocultarMenu()"
+    [fijarMenu]="fijarMenu"
+  ></app-tarjeta-menu-flotante>
+</div>
+<div  [ngClass]="{ 'menu__movil-oculto': menuOculto }" class="menu__movil">
+  <ul
+    [ngClass]="{ 'menu__movil-ocultar': !menuOculto }"
+    class="menu__movil-contenedor"
+  >
+    <li 
+    (click)="subirInicio()"
+    (click)="LineasOculto = cambiarValor(LineasOculto)"
+    (click)="promocionesOculto = true"
+    (click)="productoOculto = true"
+    class="menu__movil-elementos">
+      Lineas <i [ngClass]="{ 'oculto': !LineasOculto }" class="menu__movil-mas fas fa-angle-down"></i>
+                <i [ngClass]="{ 'oculto': LineasOculto }" class="menu__movil-mas fas fa-angle-up"></i>
+    </li>
+
+    <li class="menu__movil-elementos">
+      <ul [ngClass]="{ 'oculto': LineasOculto }" class="menu__movil-contenedor">
+        <hr>
+        <li 
+        (click)="buscarMercaderia('ROUBAIX')"
+        (click)="ocultarMenuMovil()" 
+        class="menu__movil-subelemento"><img class="menu__movil-subelemento-img" src="{{ './assets/img/roubaix color.png' }}" alt="">
+        </li>
+        <hr>
+        <li 
+        (click)="buscarMercaderia('REAL COLOR')"
+        (click)="ocultarMenuMovil()" 
+        class="menu__movil-subelemento"><img class="menu__movil-subelemento-img" src="{{ './assets/img/real_color.png' }}" alt="">
+        </li>
+        <hr>
+        <li 
+        (click)="buscarMercaderia('NEVADA')"
+        (click)="ocultarMenuMovil()" 
+        class="menu__movil-subelemento"><img class="menu__movil-subelemento-img" src="{{ './assets/img/nevada.png' }}" alt="">
+        </li>
+        <hr>
+        <li 
+        (click)="buscarMercaderia('ROSENTAL')"
+        (click)="ocultarMenuMovil()" 
+        class="menu__movil-subelemento"><img class="menu__movil-subelemento-img" src="{{ './assets/img/rosental.png' }}" alt="">
+        </li>
+        <hr>
+        <li 
+        (click)="buscarMercaderia('SKAFE')"
+        (click)="ocultarMenuMovil()" 
+        class="menu__movil-subelemento"><img class="menu__movil-subelemento-img" src="{{ './assets/img/skafe color.png' }}" alt="">
+        </li>
+        <hr>
+      </ul>
+    </li>
+    <li
+      (click)="ocultarMenuMovil()"
+      [routerLink]="['home']"
+      [routerLinkActive]="['active']"
+      class="menu__movil-elementos"
+    >
+      {{ "home" | uppercase }}
+    </li>
+    <li 
+        (click)="ocultarMenuMovil()"
+        [routerLink]="['catalogo']"
+        [routerLinkActive]="['active']"
+        class="menu__movil-elementos">
+      {{ "Catálogo impreso" | uppercase }}
+    </li>
+    <li
+      (click)="ocultarMenuMovil()"
+      [routerLink]="['locales']"
+      [routerLinkActive]="['active']"
+      class="menu__movil-elementos"
+    >
+      {{ "Locales" | uppercase }}
+    </li>
+    <li *ngIf="false" class="menu__movil-elementos">{{ "Mi cuenta" | uppercase }}</li>
+    <li
+      (click)="ocultarMenuMovil()"
+      *ngIf="!usuarioLogin" 
+      [routerLink]="['login']"
+      [routerLinkActive]="['active']"
+      class="menu__movil-elementos">{{ "login" | uppercase }}</li>
+      <li
+      (click)="ocultarMenuMovil()"
+      *ngIf="usuario&&usuarioLogin" 
+      [routerLink]="['usuario']"
+      [routerLinkActive]="['active']"
+      class="menu__movil-elementos">{{ nombreUsuario  | uppercase }}
+    </li>
+    <li
+    (click)="ocultarMenuMovil()"
+    (click)="cerrarLogin()"
+    *ngIf="usuarioLogin" 
+    [routerLink]="['login']"
+    [routerLinkActive]="['active']"
+    class="menu__movil-elementos">{{ 'cerrar'  | uppercase }}
+    </li>
+  </ul>
+</div>
+<div
+  [ngClass]="{ 'menu__movil-cerrar-oculto': menuOculto }"
+  class="menu__movil-cerrar"
+>
+  <i (click)="ocultarMenuMovil()" class="fas fa-times"></i>
+</div>

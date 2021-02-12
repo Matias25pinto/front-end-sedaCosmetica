@@ -1,0 +1,9 @@
+<div class="paginacion">
+    <div
+        [ngClass]="{paginaActiva: pagina == elemento+1 ? true : false}"
+        class="paginacion__pagina" 
+        *ngFor="let elemento of paginas; let i = index;" 
+        (click)="buscarMercaderia(elemento*10)" >
+        <p class="paginacion__nro">{{elemento+1}}</p>
+    </div>
+</div>

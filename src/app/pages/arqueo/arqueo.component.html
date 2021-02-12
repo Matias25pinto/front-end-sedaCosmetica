@@ -1,0 +1,34 @@
+<div class="arqueo">
+    <form *ngIf="adminRole"  
+          class="arqueo__arqueo-formulario"
+          [formGroup]="formularioArqueo" 
+          (ngSubmit)="enviarFormulario()">
+        <p class="arqueo__arqueo-titulo">Arqueo de Sucursales</p>
+
+        <div class="crear__comprobantes-formulario-elemento">
+            <label for="tipoComprobante">Sucursal: </label>
+            <div class="crear__comprobantes-formulario-select-container">
+                <select class="custom-select" formControlName="sucursal">
+                    <option value="" selected>Seleccione Sucursal</option>
+                    <option *ngFor="let sucursal of sucursales" value="{{sucursal._id}}">{{sucursal.titulo}}</option>
+                </select>
+                <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
+            </div>
+        </div>
+
+        <div class="crear__comprobantes-formulario-elemento">
+            <mat-label>Fecha: </mat-label>
+            <input formControlName="fecha"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>   
+        </div>
+
+       <div class="arqueo__arqueo-formulario-input-container">
+        <input formControlName="venta" class="arqueo__arqueo-formulario-input" type="number" placeholder="Ventas">
+       </div>
+       <div class="arqueo__arqueo-formulario-input-container">
+        <input formControlName="totalCosto" class="arqueo__arqueo-formulario-input" type="number" placeholder="Costo">
+       </div>
+       <button class="arqueo__arqueo-btn" type="submit">Cargar</button>
+    </form>
+</div>
