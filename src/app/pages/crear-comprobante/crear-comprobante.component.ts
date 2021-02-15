@@ -141,6 +141,18 @@ export class CrearComprobanteComponent implements OnInit {
         comprobante:['CHEQUE', Validators.required]
       });
     }
+    if (this.mostrar == 'DESCUENTO') {
+      this.formularioComprobante = this.fb.group({
+        autorizaNA: ['', Validators.required],
+        autorizaCI: ['', Validators.required],
+        empleadoNA: ['', Validators.required],
+        empleadoCI: ['', Validators.required],
+        fPago: ['', Validators.required],
+        observacion:['', Validators.required],
+        monto: ['', Validators.required],
+        comprobante:['DESCUENTO', Validators.required]
+      });
+    }
     
   }
   guardarFormulario() {
@@ -287,6 +299,18 @@ export class CrearComprobanteComponent implements OnInit {
         fPago: [''],
         monto: [''],
         comprobante:['CHEQUE']
+      });
+    }
+    if (this.mostrar == 'DESCUENTO') {
+      this.formularioComprobante = this.fb.group({
+        autorizaNA: [''],
+        autorizaCI: [''],
+        empleadoNA: [''],
+        empleadoCI: [''],
+        fPago: [''],
+        observacion:[''],
+        monto: [''],
+        comprobante:['DESCUENTO']
       });
     }
   }

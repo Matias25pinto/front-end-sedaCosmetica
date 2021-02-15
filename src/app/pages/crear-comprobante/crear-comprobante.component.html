@@ -1,5 +1,4 @@
 <div  class="crear__comprobantes">
-  
    <div class="crear__comprobantes-formulario-select-container">
     <select 
     class="custom-select" 
@@ -15,10 +14,10 @@
         <option value="SERVICIOS">SERVICIOS</option>
         <option value="ANDE">ANDE</option>
         <option value="IMPUESTO">IMPUESTO</option>  
+	<option value="DESCUENTO">DESCUENTO</option>
     </select>
     <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
    </div>
-    
    <form 
         *ngIf="mostrar == 'ANDE'" 
         class="crear__comprobantes-container"
@@ -59,13 +58,11 @@
         </div>
         <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
    </form>
-
    <form 
         *ngIf="mostrar == 'SERVICIOS'" 
         class="crear__comprobantes-container"
         [formGroup]="formularioComprobante"
         (ngSubmit)="guardarFormulario()">
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="servicio">Servicio: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -73,7 +70,6 @@
                   formControlName="servicio"
                   name="servicio">
         </div>
-        
         <div class="crear__comprobantes-formulario-elemento">
             <label for="tipoComprobante">Tipo Comprobante: </label>
             <div class="crear__comprobantes-formulario-select-container">
@@ -93,20 +89,17 @@
                   formControlName="nroComprobante"
                   name="nroComprobante">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <mat-label>Fecha: </mat-label>
             <input formControlName="fPago"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>   
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="observacion">Observación: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="observacion"
             name="observacion" cols="30" rows="4"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="monto">Monto: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -116,13 +109,11 @@
         </div>
         <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
    </form>
-
    <form 
         *ngIf="mostrar == 'IMPUESTO'" 
         class="crear__comprobantes-container"
         [formGroup]="formularioComprobante"
         (ngSubmit)="guardarFormulario()">
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="impuesto">Impuesto: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -130,7 +121,6 @@
                   formControlName="impuesto"
                   name="impuesto">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="tipoComprobante">Tipo Comprobante: </label>
             <div class="crear__comprobantes-formulario-select-container">
@@ -143,7 +133,6 @@
                 <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
             </div>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="nroComprobante">Nro. Comprobante: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -151,20 +140,17 @@
                   formControlName="nroComprobante"
                   name="nroComprobante">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <mat-label>Fecha: </mat-label>
             <input formControlName="fPago"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>   
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="observacion">Observación: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="observacion"
             name="observacion" cols="30" rows="4"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="monto">Monto: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -174,13 +160,11 @@
         </div>
         <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
    </form>
-
    <form 
         *ngIf="mostrar == 'SALARIO'" 
         class="crear__comprobantes-container"
         [formGroup]="formularioComprobante"
         (ngSubmit)="guardarFormulario()">
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="nombreApellido">Nombre y Apellido: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -188,7 +172,6 @@
                   formControlName="nombreApellido"
                   name="nombreApellido">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="cedula">Nro. Cédula: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -196,7 +179,6 @@
                   formControlName="cedula"
                   name="cedula">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="cargo">Cargo: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -204,7 +186,6 @@
                   formControlName="cargo"
                   name="cargo">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="tipoComprobante">Tipo Comprobante: </label>
             <div class="crear__comprobantes-formulario-select-container">
@@ -217,7 +198,6 @@
                 <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
             </div>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="nroComprobante">Nro. Comprobante: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -225,20 +205,17 @@
                   formControlName="nroComprobante"
                   name="nroComprobante">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <mat-label>Fecha: </mat-label>
             <input formControlName="fPago"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>   
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="observacion">Observación: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="observacion"
             name="observacion" cols="30" rows="4"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="monto">Monto: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -248,13 +225,11 @@
         </div>
         <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
    </form>
-
    <form 
         *ngIf="mostrar == 'INSUMOS'" 
         class="crear__comprobantes-container"
         [formGroup]="formularioComprobante"
         (ngSubmit)="guardarFormulario()">
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="comercial">Comercial: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -262,13 +237,11 @@
                   formControlName="comercial"
                   name="comercial">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="insumos">Insumos: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="insumos"
             name="insumos" cols="30" rows="6"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="tipoComprobante">Tipo Comprobante: </label>
             <div class="crear__comprobantes-formulario-select-container">
@@ -281,7 +254,6 @@
                 <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
             </div>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="nroComprobante">Nro. Comprobante: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -289,20 +261,17 @@
                   formControlName="nroComprobante"
                   name="nroComprobante">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <mat-label>Fecha: </mat-label>
             <input formControlName="fPago"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>   
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="observacion">Observación: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="observacion"
             name="observacion" cols="30" rows="4"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="monto">Monto: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -312,13 +281,11 @@
         </div>
         <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
    </form>
-
    <form 
         *ngIf="mostrar == 'RETIRO'" 
         class="crear__comprobantes-container"
         [formGroup]="formularioComprobante"
         (ngSubmit)="guardarFormulario()">
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="autorizaNA">Autoriza: </label>
             <div class="crear__comprobantes-formulario-elemento">
@@ -336,7 +303,6 @@
                       placeholder="Cédula">
             </div>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="autorizaNA">Retira: </label>
             <div class="crear__comprobantes-formulario-elemento">
@@ -354,13 +320,11 @@
                   placeholder="Cédula">
             </div>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="motivo">Motivo: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="motivo"
             name="motivo" cols="30" rows="3"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="tipoComprobante">Tipo Comprobante: </label>
             <div class="crear__comprobantes-formulario-select-container">
@@ -373,7 +337,6 @@
                 <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
             </div>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="nroComprobante">Nro. Comprobante: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -381,20 +344,17 @@
                   formControlName="nroComprobante"
                   name="nroComprobante">
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <mat-label>Fecha: </mat-label>
             <input formControlName="fPago"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>   
         </div>
-
         <div class="crear__comprobantes-formulario-elemento-textarea">
             <label for="observacion">Observación: </label>
             <textarea class="crear__comprobantes-formulario-textarea" formControlName="observacion"
             name="observacion" cols="30" rows="4"></textarea>
         </div>
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="monto">Monto: </label>
            <input class="crear__comprobantes-formulario-input" 
@@ -409,7 +369,6 @@
         class="crear__comprobantes-container"
         [formGroup]="formularioComprobante"
         (ngSubmit)="guardarFormulario()">
-
         <div class="crear__comprobantes-formulario-elemento">
             <label for="banco">Banco: </label>
             <div class="crear__comprobantes-formulario-select-container">
@@ -422,7 +381,6 @@
                 <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
             </div>
         </div>
-
         <div  class="crear__comprobantes-formulario-elemento">
             <label for="cuentaBancaria">Cuentas Bancarias: </label>
            <div class="crear__comprobantes-formulario-select-container">
@@ -575,5 +533,65 @@
    </div>
    <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
 </form>
+
+<form 
+        *ngIf="mostrar == 'DESCUENTO'" 
+        class="crear__comprobantes-container"
+        [formGroup]="formularioComprobante"
+        (ngSubmit)="guardarFormulario()">
+        <div class="crear__comprobantes-formulario-elemento">
+            <label for="autorizaNA">Autoriza: </label>
+            <div class="crear__comprobantes-formulario-elemento">
+                <input class="crear__comprobantes-formulario-input" 
+                      type="text"
+                      formControlName="autorizaNA"
+                      name="autorizaNA"
+                      placeholder="Nombre y Apellido">
+            </div>
+            <div class="crear__comprobantes-formulario-elemento">
+                <input class="crear__comprobantes-formulario-input" 
+                      type="text"
+                      formControlName="autorizaCI"
+                      name="autorizaCI"
+                      placeholder="Cédula">
+            </div>
+        </div>
+        <div class="crear__comprobantes-formulario-elemento">
+            <label for="autorizaNA">Empleado: </label>
+            <div class="crear__comprobantes-formulario-elemento">
+                <input class="crear__comprobantes-formulario-input" 
+                type="text"
+                formControlName="empleadoNA"
+                name="empleadoNA"
+                placeholder="Nombre y Apellido">
+            </div>
+            <div class="crear__comprobantes-formulario-elemento">
+                <input class="crear__comprobantes-formulario-input" 
+                  type="text"
+                  formControlName="empleadoCI"
+                  name="empleadoCI"
+                  placeholder="Cédula">
+            </div>
+        </div>
+        <div class="crear__comprobantes-formulario-elemento">
+            <mat-label>Fecha: </mat-label>
+            <input formControlName="fPago"  class="crear__comprobantes-formulario-input-fecha"  matInput [matDatepicker]="picker2" placeholder="Mes/Día/Año">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>   
+        </div>
+        <div class="crear__comprobantes-formulario-elemento-textarea">
+            <label for="observacion">Observación: </label>
+            <textarea class="crear__comprobantes-formulario-textarea" formControlName="observacion"
+            name="observacion" cols="30" rows="4"></textarea>
+        </div>
+        <div class="crear__comprobantes-formulario-elemento">
+            <label for="monto">Monto: </label>
+           <input class="crear__comprobantes-formulario-input" 
+                  type="text"
+                  formControlName="monto"
+                  name="monto">
+        </div>
+        <button class="crear__comprobantes-btn" *ngIf="mostrar != ''" type="submit">Cargar Comprobante</button>
+   </form>
 
 </div>

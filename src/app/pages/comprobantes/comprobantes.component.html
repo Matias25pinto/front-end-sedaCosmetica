@@ -97,6 +97,13 @@
             <p>Fecha de Emisión: {{comprobante.fPago | date:'dd/MM/yyyy'}}</p>
             <p>Monto: {{comprobante.monto | number:'1.0-0'}} GS.</p>
         </div>
-        
+        <div *ngIf="comprobante.comprobante == 'DESCUENTO'" class="comprobantes__ande">
+            <span *ngIf="adminRole" (click)="eliminarComprobante(arqueo._id,i)" class="comprobantes__container-eliminar">Eliminar <i class="fas fa-trash-alt"></i></span>
+            <p class="comprobantes__container-titulo" >{{comprobante.comprobante}}</p>
+            <p>Autoriza: {{comprobante.autorizaNA+' - '+comprobante.autorizaCI}}</p>
+            <p>Empleado: {{comprobante.empleadoNA+' - '+comprobante.empleadoCI}}</p>
+            <p>Fecha: {{comprobante.fPago | date:'dd/MM/yyyy'}}</p>
+            <p>Monto: {{comprobante.monto | number:'1.0-0'}} GS.</p>
+        </div>
    </div>
 </div>
