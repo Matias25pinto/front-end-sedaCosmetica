@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ArqueoService {
 
   //public url = 'http://localhost:3000';// servicio local
-    public url = 'https://api-sedacosmetica.herokuapp.com'; //trabajar en el servidor
+  public url = 'https://api-sedacosmetica.herokuapp.com'; //trabajar en el servidor
 
   constructor(private http:HttpClient) { 
 

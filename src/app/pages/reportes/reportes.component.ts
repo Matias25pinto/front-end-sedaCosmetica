@@ -71,9 +71,9 @@ export class ReportesComponent implements OnInit {
   async enviarFormulario() {
     let loginToken = localStorage.getItem('loginToken');
     let sucursal = this.formulario.controls.sucursal.value;
-    let fehcaStart = this.formulario.controls.start.value;
+    let fechaStart = this.formulario.controls.start.value;
     let fechaEnd = this.formulario.controls.end.value;
-    let start = `${fehcaStart.getFullYear()}-${fehcaStart.getMonth()+1}-${fehcaStart.getDate()}`;
+    let start = `${fechaStart.getFullYear()}-${fechaStart.getMonth()+1}-${fechaStart.getDate()}`;
     let end = `${fechaEnd.getFullYear()}-${fechaEnd.getMonth()+1}-${fechaEnd.getDate()}`;
     if (this.formulario.valid) {
       if (this.usuario.role == 'ADMIN_ROLE') {
@@ -139,14 +139,79 @@ export class ReportesComponent implements OnInit {
                       .decorationStyle('dotted')
                       .fontSize(12)
       .alignment('center').end;
-    //Cargar al arreglo
-    datos.push(ventaNeta)
-    datos.push(costo);
-    datos.push(utilidad);
-    datos.push(gasto);
-    datos.push(ganancia);
+    let deposito = new Txt(`TOTAL DEPOSITO: ${this.number_format(informe.totalDeposito, 0)} Gs.`)
+      .bold()
+      .decorationStyle('dotted')
+      .fontSize(12)
+      .alignment('center').end;
+        //Cargar al arreglo
+        datos.push(ventaNeta)
+        datos.push(costo);
+        datos.push(utilidad);
+        datos.push(gasto);
+        datos.push(ganancia);
+    datos.push(deposito);
+    
+    //Calcular las cuentas cuentas bancarias
+    let cuentasbancos = new Set();
+    //obtener todos los bancos y su cuenta en una colección set
+    for (const comprobante of informe.comprobantesDeposito) {
+      cuentasbancos.add(comprobante.cuentaBancaria);
+    }
+    let cuentaMonto = [];
+    let indexCuentaMonto = 0;
+    for (const cuenta of cuentasbancos) {
+      cuentaMonto[indexCuentaMonto] = 0;
+      for (const comprobante of informe.comprobantesDeposito) {
+        if (comprobante.cuentaBancaria === cuenta) {
+          cuentaMonto[indexCuentaMonto] = cuentaMonto[indexCuentaMonto] + Number(comprobante.monto);
+        }
+      }
+      indexCuentaMonto++;
+    }
+    //imprimir los reportes por bancoDeposito
+    indexCuentaMonto = 0;
+    for (const banco of cuentasbancos) {
+      let bancoReporteDepositoCuenta = new Txt(`DEPOSITO: ${banco}: ${this.number_format(cuentaMonto[indexCuentaMonto], 0)} Gs.`)
+        .bold()
+        .decorationStyle('dotted')
+        .fontSize(12)
+        .alignment('center').end;
+      datos.push(bancoReporteDepositoCuenta);
+      indexCuentaMonto++;
+    }
+
+     //Calcular los bancos de deposito 
+     let bancos = new Set();
+     //obtener todos los bancos en una colección set
+     for (const comprobante of informe.comprobantesDeposito) {
+       bancos.add(comprobante.banco);
+     }
+     let bancosMonto = [];
+     let indexBancoMonto = 0;
+     for (const banco of bancos) {
+       bancosMonto[indexBancoMonto] = 0;
+       for (const comprobante of informe.comprobantesDeposito) {
+         if (comprobante.banco === banco) {
+           bancosMonto[indexBancoMonto] = bancosMonto[indexBancoMonto] + Number(comprobante.monto);
+         }
+       }
+       indexBancoMonto++;
+     }
+    //imprimir los reportes por bancoDeposito
+    indexBancoMonto = 0;
+    for (const banco of bancos) {
+      let bancoReporteDeposito = new Txt(`DEPOSITO: ${banco}: ${this.number_format(bancosMonto[indexBancoMonto], 0)} Gs.`)
+        .bold()
+        .decorationStyle('dotted')
+        .fontSize(12)
+        .alignment('center').end;
+      datos.push(bancoReporteDeposito);
+      indexBancoMonto++;
+    }
+    
+    //Encabezado de la tabla de comprobanteGastos
     let datosTabla = [];
-    //Encabezado de la tabla
     let encabezadoTabla = [];
     let comprobante = new Txt('Gasto')
                       .bold()
@@ -168,7 +233,7 @@ export class ReportesComponent implements OnInit {
     encabezadoTabla.push(fechaGasto);
     datosTabla.push(encabezadoTabla);
     let informeGasto = informe.comprobantesGasto;
-    //Cargar JSON para la tabla
+    //Cargar JSON para la tabla de comprobanteGasto
     for (const comprobante of informe.comprobantesGasto) {
       let comprobantes = [];
       comprobantes.push(comprobante.comprobante);
@@ -180,14 +245,116 @@ export class ReportesComponent implements OnInit {
       comprobantes.push(this.fecha_format(yyyyFp, mmFp, ddFp));
       datosTabla.push(comprobantes);
     }
+
+    //Encabezado de la tabla de comprobanteDeposito
+    let datosTablaDeposito = [];
+    let encabezadoTablaDeposito = [];
+    let comprobanteDeposito = new Txt('Deposito')
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    let montoDeposito = new Txt('Monto')
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    let fechaDeposito = new Txt('Fecha')
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    let bancoDeposito = new Txt('Banco')
+                    .bold()
+                    .decorationStyle('dotted')
+                    .fontSize(12)
+                    .alignment('center').end;
+    encabezadoTablaDeposito.push(comprobanteDeposito);
+    encabezadoTablaDeposito.push(montoDeposito);
+    encabezadoTablaDeposito.push(fechaDeposito);
+    encabezadoTablaDeposito.push(bancoDeposito);
+    datosTablaDeposito.push(encabezadoTablaDeposito);
+    //Cargar JSON para la tabla de comprobanteDeposito
+    for (const comprobante of informe.comprobantesDeposito) {
+      let comprobantes = [];
+      comprobantes.push(comprobante.comprobante);
+      comprobantes.push(`${this.number_format(comprobante.monto, 0)} Gs.`);
+      let fechaPago = new Date(comprobante.fPago);
+      let yyyyFp = fechaPago.getFullYear();
+      let mmFp = fechaPago.getMonth();
+      let ddFp = fechaPago.getDate();
+      comprobantes.push(this.fecha_format(yyyyFp, mmFp, ddFp));
+      comprobantes.push(comprobante.banco);
+      datosTablaDeposito.push(comprobantes);
+    }
+
+    //Encabezado de la tabla de comprobanteDeposito CUENTAS BANCO
+    let datosTablaDepositoCuenta = [];
+    let encabezadoTablaDepositoCuenta = [];
+    let comprobanteDepositoCuenta = new Txt('Deposito')
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    let montoDepositoCuenta = new Txt('Monto')
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    let fechaDepositoCuenta = new Txt('Fecha')
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    let bancoDepositoCuenta = new Txt('Banco')
+                    .bold()
+                    .decorationStyle('dotted')
+                    .fontSize(12)
+                    .alignment('center').end;
+    let cuentaDepositoCuenta = new Txt('Cuenta')
+                    .bold()
+                    .decorationStyle('dotted')
+                    .fontSize(12)
+                    .alignment('center').end;
+    encabezadoTablaDepositoCuenta.push(comprobanteDepositoCuenta);
+    encabezadoTablaDepositoCuenta.push(montoDepositoCuenta);
+    encabezadoTablaDepositoCuenta.push(fechaDepositoCuenta);
+    encabezadoTablaDepositoCuenta.push(bancoDepositoCuenta);
+    encabezadoTablaDepositoCuenta.push(cuentaDepositoCuenta);
+    datosTablaDepositoCuenta.push(encabezadoTablaDepositoCuenta);
+    //Cargar JSON para la tabla de comprobanteDeposito CUENTAS BANCO
+    for (const comprobante of informe.comprobantesDeposito) {
+      let comprobantes = [];
+      comprobantes.push(comprobante.comprobante);
+      comprobantes.push(`${this.number_format(comprobante.monto, 0)} Gs.`);
+      let fechaPago = new Date(comprobante.fPago);
+      let yyyyFp = fechaPago.getFullYear();
+      let mmFp = fechaPago.getMonth();
+      let ddFp = fechaPago.getDate();
+      comprobantes.push(this.fecha_format(yyyyFp, mmFp, ddFp));
+      comprobantes.push(comprobante.banco);
+      comprobantes.push(comprobante.cuentaBancaria);
+      datosTablaDepositoCuenta.push(comprobantes);
+    }
+
     //Crear el objeto pdf
     const pdf = new PdfMakeWrapper();
     //Cargar los datos al pdf
     pdf.add(datos);
-     //Crear tabla
-    let tabla = new Table(datosTabla).relativePosition(250,22).alignment('center').layout('lightHorizontalLines').end;
-    //Cargar la tabla al pdf
+     //Crear tabla comprobanteGasto
+    let tabla = new Table(datosTabla).relativePosition(70,10).alignment('center').layout('lightHorizontalLines').end;
+    //Cargar la tabla de comprobanteGasto al pdf
     pdf.add(tabla);
+
+    //Crear tabla comprobanteDeposito
+    let tablaDeposito = new Table(datosTablaDeposito).relativePosition(380,10).alignment('center').layout('lightHorizontalLines').end;
+    //Cargar la tabla de comprobanteDeposito al pdf
+    pdf.add(tablaDeposito);
+
+    //Crear tabla comprobanteDeposito
+    let tablaCuentas = new Table(datosTablaDepositoCuenta).relativePosition(380, 10).alignment('center').layout('lightHorizontalLines').end;
+    //Cargar la tabla de comprobanteDeposito al pdf
+    pdf.add(tablaCuentas);
     //Generar estilos al pdf
     pdf.defaultStyle({
       bold: false,
@@ -197,9 +364,9 @@ export class ReportesComponent implements OnInit {
     //pdf.pageSize('EXECUTIVE');
     
     //Generar margenes
-    pdf.pageMargins([30, 80, 30, 60]); //left, top, right, botton
+    pdf.pageMargins([30, 80, 30, 70]); //left, top, right, botton
     //Horientacion del documento
-    pdf.pageOrientation('landscape'); // 'portrait'
+    pdf.pageOrientation('landscape'); // 'portrait' o 'landscape'
     //Generar el Encabezado
     let encabezado = new Txt(`Seda Cosmética`)
       .bold()
@@ -212,13 +379,22 @@ export class ReportesComponent implements OnInit {
                       .decorationStyle('dotted')
                       .fontSize(12)
       .alignment('center').end;
-    let arrayDesde = informe.desde.split('-');
-    let arrayHasta = informe.hasta.split('-');
-    let textoRango = new Txt(`Periodo desde el ${this.fecha_format(arrayDesde[0], arrayDesde[1]-1, arrayDesde[2])}, hasta el ${this.fecha_format(arrayHasta[0], arrayHasta[1]-1, arrayHasta[2])}`)
+    let fechaDesde = new Date(informe.desde);
+    let fechaHasta = new Date(informe.hasta);
+    let textoRango;
+    if (informe.desde === informe.hasta) {
+       textoRango = new Txt(`Informe diario, ${this.fecha_format(fechaDesde.getFullYear(), fechaDesde.getMonth(), fechaDesde.getDate())}`)
                       .bold()
                       .decorationStyle('dotted')
                       .fontSize(12)
                       .alignment('center').end;
+    } else {
+       textoRango = new Txt(`Periodo desde el ${this.fecha_format(fechaDesde.getFullYear(), fechaDesde.getMonth(), fechaDesde.getDate())}, hasta el ${this.fecha_format(fechaHasta.getFullYear(), fechaHasta.getMonth(), fechaHasta.getDate())}`)
+                      .bold()
+                      .decorationStyle('dotted')
+                      .fontSize(12)
+                      .alignment('center').end;
+    }
     head.push(encabezado);
     head.push(textoSucursal);
     head.push(textoRango);

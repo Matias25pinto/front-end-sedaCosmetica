@@ -11,6 +11,8 @@ import { CrearComprobanteComponent } from './pages/crear-comprobante/crear-compr
 import { HomeComponent } from './pages/home/home.component';
 import { LocalesComponent } from './pages/locales/locales.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
+import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'comprobantes/:id', component: ComprobantesComponent, canActivate: [AuthGuard] },
   { path: 'crear/comprobante/:id', component: CrearComprobanteComponent, canActivate: [AuthGuard] },
   { path: 'reportes', component:ReportesComponent, canActivate:[AuthGuard]},
+  { path: 'reporte/general', component: ReporteGeneralComponent, canActivate: [AuthGuard] },
+  { path:'reportes/cuentas', component:ReportesCuentasComponent, canActivate:[AuthGuard]},
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];

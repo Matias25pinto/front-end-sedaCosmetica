@@ -46,7 +46,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';//Para utilizar formularios de Angular Material
 import {MAT_DATE_LOCALE} from '@angular/material/core';
-import { ReportesComponent } from './pages/reportes/reportes.component';//Para cambiar el lenguaje de DataPicker
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
+import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';//Para cambiar el lenguaje de DataPicker
 
 
 
@@ -72,6 +74,8 @@ import { ReportesComponent } from './pages/reportes/reportes.component';//Para c
     ComprobantesComponent,
     CrearComprobanteComponent,
     ReportesComponent,
+    ReporteGeneralComponent,
+    ReportesCuentasComponent,
   ],
   imports: [BrowserModule,
     AppRoutingModule,

@@ -81,8 +81,15 @@ export class UsuarioComponent implements OnInit {
     this.router.navigate(['arqueos']);
   }
 
-  reportes() {
+  reporteBanco() {
     this.router.navigate(['reportes']);
+  }
+  reporteCuenta() {
+    this.router.navigate(['reportes','cuentas']);
+  }
+
+  reporteGeneral() {
+    this.router.navigate(['reporte','general']);
   }
 
 

@@ -3,6 +3,11 @@
 
     <button *ngIf="adminRole || userRole" (click)="verArqueos()" class="usuario__arqueo-btn" type="button">Ver Arqueos</button>
 
-    <button *ngIf="adminRole" (click)="reportes()" class="usuario__arqueo-btn" type="button">Reportes</button>
+    <button *ngIf="adminRole" (click)="reporteBanco()" class="usuario__arqueo-btn" type="button">Reporte por Banco</button>
+
+    <button *ngIf="adminRole" (click)="reporteCuenta()" class="usuario__arqueo-btn" type="button">Reporte por Cuenta</button>
+
+    <button *ngIf="adminRole" (click)="reporteGeneral()" class="usuario__arqueo-btn" type="button">Reporte General</button>
+    
 
 </div>

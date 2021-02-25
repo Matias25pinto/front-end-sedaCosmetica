@@ -1,0 +1,31 @@
+<div class="arqueo">
+    <form *ngIf="adminRole"  
+          class="arqueo__arqueo-formulario"
+          [formGroup]="formulario" 
+          (ngSubmit)="enviarFormulario()">
+        <p class="arqueo__arqueo-titulo">Reporte</p>
+        <div class="crear__comprobantes-formulario-elemento">
+            <div class="crear__comprobantes-formulario-select-container">
+                <select  class="custom-select" formControlName="sucursal">
+                    <option value="" selected>Seleccionar Sucursal</option>
+                    <option *ngFor="let sucursal of sucursales" value="{{sucursal._id}}">{{sucursal.titulo}}</option>
+                </select>
+                <span class="custom-arrow"><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i></span>
+            </div>
+        </div>
+        <div class="reporte__comprobantes-formulario-elemento">
+            <mat-form-field appearance="fill">
+                <mat-label>Rango de fecha</mat-label>
+                <mat-date-range-input [formGroup]="formulario" [rangePicker]="picker">
+                  <input class="crear__comprobantes-formulario-input-fecha" matStartDate formControlName="start" placeholder="Desde">
+                  <input class="crear__comprobantes-formulario-input-fecha" matEndDate formControlName="end" placeholder="Hasta">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="formulario.controls.start.hasError('matStartDateInvalid')">Fecha inicial no valida</mat-error>
+                <mat-error *ngIf="formulario.controls.end.hasError('matEndDateInvalid')">Fecha final no valida</mat-error>
+              </mat-form-field>
+        </div>
+       <button *ngIf="formulario.valid" class="arqueo__arqueo-btn" type="submit">Generar Reporte</button>
+    </form>
+</div>
