@@ -32,7 +32,6 @@ export class ArqueoComponent implements OnInit {
     this.subirInicio();
     this.sucursalesService.getSucursales().subscribe(data => {
       this.sucursales = data['sucursalesBD'];
-      console.log(this.sucursales)
     });
 
     this.login();
@@ -56,11 +55,9 @@ export class ArqueoComponent implements OnInit {
           this.adminRole = true;
         } else if (this.usuario.role == 'USER_ROLE') {
           this.vendedorRole = true;
-          console.log(this.usuario.sucursal)
         }
 
         this.crearFormulaio();
-        console.log(this.usuario);
       }, err => {
           console.warn(err);
           // Remover el token
@@ -90,7 +87,8 @@ export class ArqueoComponent implements OnInit {
   async enviarFormulario() {
     let loginToken = localStorage.getItem('loginToken');
     let body = this.formularioArqueo.value;
-    console.log(body);
+    console.log('fecha de formulario:',body.fecha);
+
     if (this.formularioArqueo.valid) {
       if (this.usuario.role == 'ADMIN_ROLE') {
         this.arqueoService.iniciarArqueo(loginToken, body).subscribe(data => {
