@@ -17,6 +17,8 @@ export class CrearComprobanteComponent implements OnInit {
 
   public banco: string;
 
+  public creandoComprobante:Boolean = false;
+
   constructor(private fb: FormBuilder, private arqueoService:ArqueoService, private route:ActivatedRoute) { 
     this.mostrar = '';
     this.banco = '';
@@ -158,6 +160,7 @@ export class CrearComprobanteComponent implements OnInit {
   guardarFormulario() {
     if (this.formularioComprobante.valid) {
       console.log(this.formularioComprobante.value); 
+      this.creandoComprobante = true;
       let loginToken = localStorage.getItem('loginToken');
       this.route.params.subscribe(parametros => {
         this.arqueoService.agregarComprobante(loginToken, parametros['id'], this.formularioComprobante.value).subscribe(data => {
@@ -198,6 +201,7 @@ export class CrearComprobanteComponent implements OnInit {
   }
 
   borrarFormulario() {
+    this.creandoComprobante = false;
     if (this.mostrar == 'ANDE') {
       this.formularioComprobante.reset({
           nis: [''],

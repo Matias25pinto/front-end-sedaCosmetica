@@ -1343,6 +1343,18 @@
   color: var(--accent-color);
   background-color: var(--text-primary-color);
 }
+.crear__comprobantes-loading-btn {
+  text-decoration: none;
+  width: 90%;
+  padding: 10px;
+  margin: 10px auto;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: var(--accent-color);
+  background-color: var(--text-primary-color);
+  border-radius: 6px;
+  border: 2px solid var(--accent-color);
+}
 
 .crear__comprobantes-formulario-elemento,
 .crear__comprobantes-formulario-input,
