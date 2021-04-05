@@ -1,0 +1,273 @@
+<div class="menuDeInicio">
+  <div class="menuDeInicio__barraSuperior">
+    <form
+      [formGroup]="form"
+      class="menuDeInicio__formulario"
+      (ngSubmit)="enviarFormulario()"
+    >
+      <div class="menuDeInicio__formulario-elemento">
+        <mat-form-field appearance="fill">
+          <mat-label>Rango de fecha</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              class="crear__comprobantes-formulario-input-fecha"
+              matStartDate
+              formControlName="start"
+              placeholder="Desde"
+            />
+            <input
+              class="crear__comprobantes-formulario-input-fecha"
+              matEndDate
+              formControlName="end"
+              placeholder="Hasta"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error *ngIf="false">Fecha inicial no valida</mat-error>
+          <mat-error *ngIf="false">Fecha final no valida</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div
+        *ngIf="form.get('end').value != ''"
+        class="menuDeInicio__formulario-elemento"
+      >
+        <select
+          (change)="recargarDatos()"
+          formControlName="sucursal"
+          class="custom-select"
+        >
+          <option value="">Todas las Sucursales</option>
+
+          <option
+            *ngFor="let branchOffice of branchOffices; let i = index"
+            [value]="branchOffice.titulo"
+          >
+            {{ branchOffice.titulo }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="menuDeInicio__body">
+    <div class="menuDeInicio__reporteGeneral">
+      <hr class="elemento__hr" />
+      <h3 class="menuDeInicio__titulo">
+        {{ "Informe comercial" | uppercase }}
+      </h3>
+      <p class="menuDeInicio__subTitulo">
+        Periodo desde el {{ start | date: "fullDate" }}, hasta el
+        {{ end | date: "fullDate" }}
+      </p>
+      <h4 class="menuDeInicio__tituloSecundario">
+        {{ "Reporte General" | uppercase }}
+      </h4>
+      <table class="menuDeInicio__table">
+        <tr class="menuDeInicio__table-tr">
+          <th class="menuDeInicio__table-th">Sucursal</th>
+          <th class="menuDeInicio__table-th">Venta Neta</th>
+          <th class="menuDeInicio__table-th">Costo</th>
+          <th class="menuDeInicio__table-th">Gasto</th>
+          <th class="menuDeInicio__table-th">Utilidad</th>
+          <th class="menuDeInicio__table-th">Ganancia</th>
+          <th class="menuDeInicio__table-th">Retiro</th>
+          <th class="menuDeInicio__table-th">Tarjeta</th>
+          <th class="menuDeInicio__table-th">Cheque</th>
+          <th class="menuDeInicio__table-th">Deposito</th>
+        </tr>
+        <tr *ngFor="let reporte of reportes" class="menuDeInicio__table-tr">
+          <td class="menuDeInicio__table-td">{{ reporte.sucursal }}</td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.ventaNeta | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.costo | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.totalGasto | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.totalUtilidad | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.ganancia | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.totalRetiro | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.totalTarjeta | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.totalCheque | number: "1.0-0":"es" }} Gs
+          </td>
+          <td class="menuDeInicio__table-td">
+            {{ reporte.totalDeposito | number: "1.0-0":"es" }} Gs
+          </td>
+        </tr>
+        <tr class="menuDeInicio__table-tr">
+          <th class="menuDeInicio__table-th">Total</th>
+          <th class="menuDeInicio__table-th">
+            {{ totalVentasNetas | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalCosto | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalGasto | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalUtilidad | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalGanancia | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalRetiro | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalTarjeta | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalCheque | number: "1.0-0":"es" }} Gs
+          </th>
+          <th class="menuDeInicio__table-th">
+            {{ totalDeposito | number: "1.0-0":"es" }} Gs
+          </th>
+        </tr>
+      </table>
+      <div
+        *ngIf="form.get('sucursal').value != ''"
+        class="menuDeInicio__tableElemento"
+      >
+        <h4 class="menuDeInicio__tituloSecundario">
+          {{ "Reporte de Gastos" | uppercase }}
+        </h4>
+        <table class="menuDeInicio__table">
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">#</th>
+            <th class="menuDeInicio__table-th">Gasto</th>
+            <th class="menuDeInicio__table-th">Monto</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha</th>
+          </tr>
+          <tr
+            *ngFor="let gasto of reporteDeGasto; let i = index"
+            class="menuDeInicio__table-tr"
+          >
+            <td class="menuDeInicio__table-td">
+              {{ i + 1 }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ gasto.comprobante }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ gasto.monto | number: "1.0-0":"es" }} Gs
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ gasto.fPago | date: "fullDate" }}
+            </td>
+          </tr>
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">Total</th>
+            <th class="menuDeInicio__table-th"></th>
+            <th class="menuDeInicio__table-th">
+              {{ totalMontoDeGasto | number: "1.0-0":"es" }} Gs
+            </th>
+            <th class="menuDeInicio__table-th"></th>
+          </tr>
+        </table>
+      </div>
+      <div
+        *ngIf="form.get('sucursal').value != ''"
+        class="menuDeInicio__tableElemento"
+      >
+        <h4 class="menuDeInicio__tituloSecundario">
+          {{ "Reporte de Depositos por Banco" | uppercase }}
+        </h4>
+        <table class="menuDeInicio__table">
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">#</th>
+            <th class="menuDeInicio__table-th">Comprobante</th>
+            <th class="menuDeInicio__table-th-fecha">Banco</th>
+            <th class="menuDeInicio__table-th">Monto</th>
+          </tr>
+          <tr
+            *ngFor="let banco of bancos; let i = index"
+            class="menuDeInicio__table-tr"
+          >
+            <td class="menuDeInicio__table-td">
+              {{ i + 1 }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ "Deposito" | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ banco | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ depositoPorBanco[i] | number: "1.0-0":"es" }} Gs
+            </td>
+          </tr>
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">Total</th>
+            <th class="menuDeInicio__table-th"></th>
+            <th class="menuDeInicio__table-td-fecha"></th>
+            <th class="menuDeInicio__table-th">
+              {{ totalDepositoPorBanco | number: "1.0-0":"es" }} Gs
+            </th>
+          </tr>
+        </table>
+      </div>
+      <div
+        *ngIf="form.get('sucursal').value != ''"
+        class="menuDeInicio__tableElemento"
+      >
+        <h4 class="menuDeInicio__tituloSecundario">
+          {{ "Reporte de Depositos por Cuenta" | uppercase }}
+        </h4>
+        <table class="menuDeInicio__table">
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">#</th>
+            <th class="menuDeInicio__table-th">Comprobante</th>
+            <th class="menuDeInicio__table-th-fecha">Banco</th>
+            <th class="menuDeInicio__table-th-cuentaBancaria">Cuenta</th>
+            <th class="menuDeInicio__table-th">Monto</th>
+          </tr>
+          <tr
+            *ngFor="let cuenta of cuentasBancarias; let i = index"
+            class="menuDeInicio__table-tr"
+          >
+            <td class="menuDeInicio__table-td">
+              {{ i + 1 }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ "Deposito" | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ cuentasBanco[i] | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td-cuentaBancaria">
+              {{ cuenta | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ depositoPorCuenta[i] | number: "1.0-0":"es" }} Gs
+            </td>
+          </tr>
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">Total</th>
+            <th class="menuDeInicio__table-th"></th>
+            <th class="menuDeInicio__table-th-fecha"></th>
+            <th class="menuDeInicio__table-th-cuentaBancaria"></th>
+            <th class="menuDeInicio__table-th">
+              {{ totalDepositoPorCuenta | number: "1.0-0":"es" }} Gs
+            </th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

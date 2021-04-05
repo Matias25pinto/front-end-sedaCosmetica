@@ -48,9 +48,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';//Para utiliza
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
-import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';//Para cambiar el lenguaje de DataPicker
+import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
 
+//La localidad de la app
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localEs from '@angular/common/locales/es';
+registerLocaleData(localEs);
 
+//Modulos propios
+import {DashboardModule} from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -85,8 +92,9 @@ import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuen
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    DashboardModule
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},],
+  providers: [{provide:LOCALE_ID, useValue:'es'},{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

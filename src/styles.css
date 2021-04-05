@@ -1,7 +1,5 @@
 /*Tema pre cargado de angular material*/
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-/*Mi paleta de colores */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; /*Mi paleta de colores */
 :root {
   --dark-primary-color: #735e5a;
   --default-primary-color: #a64e65;
@@ -18,9 +16,7 @@
   --caution: #e9e429;
   --caution-text: #264618;
   --sobraCaja: #0c9c5a;
-}
-
-/* Mis estilos css */
+} /* Mis estilos css */
 * {
   margin: 0;
   padding: 0;
@@ -42,6 +38,111 @@
 .enlace-sin_estilo {
   color: var(--accent-color);
   text-decoration: none;
+}
+/*
+=====================================
+************DashBoard****************
+=====================================
+*/
+/*
+=====================================
+**********Menu de Incio**************
+=====================================
+*/
+.menuDeInicio__table-trenuDeInicio {
+  margin: 20px auto;
+  padding: 20px;
+}
+.menuDeInicio__barraSuperior {
+  margin: auto;
+  padding: 10px;
+}
+.menuDeInicio__formulario {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+  list-style: none;
+}
+.menuDeInicio__formulario-elemento {
+  text-align: center;
+  padding: 10px;
+  margin: 10px auto;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  max-width: 30%;
+}
+.menuDeInicio__body {
+  max-width: 100%;
+}
+.menuDeInicio__reporteGeneral {
+  width: 100%;
+}
+.menuDeInicio__table {
+  margin: 10px auto;
+  padding: 10px;
+}
+.menuDeInicio__tableElemento {
+  margin: 5px auto;
+  padding: 5px;
+}
+
+.menuDeInicio__table-th,
+.menuDeInicio__table-td {
+  display: inline-block;
+  margin: 5px 10px;
+  text-align: center;
+  width: 110px;
+  font-size: 0.8em;
+}
+.menuDeInicio__table-th-fecha,
+.menuDeInicio__table-td-fecha {
+  display: inline-block;
+  margin: 5px 10px;
+  text-align: center;
+  width: 250px;
+  font-size: 0.8em;
+}
+.menuDeInicio__table-th-cuentaBancaria,
+.menuDeInicio__table-td-cuentaBancaria {
+  display: inline-block;
+  margin: 5px 10px;
+  text-align: center;
+  width: 400px;
+  font-size: 0.8em;
+}
+
+.menuDeInicio__table-tr {
+  display: inline-block;
+  border-bottom: var(--default-primary-color) 1px solid;
+  width: 100%;
+}
+.menuDeInicio__titulo {
+  color: var(--primary-text-color);
+  font-size: 1.2em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  margin: 20px;
+  text-align: center;
+}
+.menuDeInicio__subTitulo {
+  color: var(--primary-text-color);
+  font-size: 1;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  margin: 10px;
+  text-align: center;
+}
+.menuDeInicio__tituloSecundario {
+  color: var(--primary-text-color);
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
 }
 
 /*
