@@ -144,7 +144,24 @@
   margin-bottom: 10px;
   margin-left: 20px;
 }
-
+/*
+=====================================
+**************PIE CHART**************
+=====================================
+*/
+.pieChart {
+  max-width: 100%;
+  width: 70%;
+  margin: 10px auto;
+}
+.pieChart__titulo {
+  color: var(--primary-text-color);
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  margin: 15px;
+  text-align: center;
+}
 /*
 =====================================
 ************Cabecera*****************

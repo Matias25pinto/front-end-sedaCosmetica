@@ -63,6 +63,19 @@
         Periodo desde el {{ start | date: "fullDate" }}, hasta el
         {{ end | date: "fullDate" }}
       </p>
+      <div
+        *ngIf="
+          nombreDeSucursales.length == ventasNetaDeSucursales.length &&
+          nombreDeSucursales.length > 0 &&
+          form.get('sucursal').value == ''
+        "
+      >
+        <app-pie-chart
+          [nombreDeSucursales]="nombreDeSucursales"
+          [ventasNetaDeSucursales]="ventasNetaDeSucursales"
+	  [totalVentasNetas]="totalVentasNetas"
+        ></app-pie-chart>
+      </div>
       <h4 class="menuDeInicio__tituloSecundario">
         {{ "Reporte General" | uppercase }}
       </h4>

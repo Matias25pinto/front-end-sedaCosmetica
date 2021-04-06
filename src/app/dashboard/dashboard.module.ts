@@ -12,15 +12,19 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 //Graficos ng2 Chart
+// ng2-Charts
+import { ChartsModule } from 'ng2-charts';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 @NgModule({
-  declarations: [MenuInicioComponent],
+  declarations: [MenuInicioComponent, PieChartComponent],
   imports: [
     CommonModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    ChartsModule
   ],
   exports: [MenuInicioComponent],
 })

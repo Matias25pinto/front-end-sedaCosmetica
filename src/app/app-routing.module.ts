@@ -50,7 +50,11 @@ const routes: Routes = [
     component: ReportesCuentasComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'dashboard/menu-de-inicio', component: MenuInicioComponent },
+  {
+    path: 'dashboard/menu-de-inicio',
+    component: MenuInicioComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];

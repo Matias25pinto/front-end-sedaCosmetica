@@ -22,7 +22,7 @@ import { LocalesComponent } from './pages/locales/locales.component';
 import { LoginComponent } from './pages/login/login.component';
 
 //Importar formulario reactivo
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Import pdfmake-wrapper and the fonts to use
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
@@ -42,10 +42,10 @@ PdfMakeWrapper.setFonts(pdfFonts);
 //Importar angular material
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';//Para utilizar formularios de Angular Material
-import {MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
 import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
@@ -57,7 +57,8 @@ import localEs from '@angular/common/locales/es';
 registerLocaleData(localEs);
 
 //Modulos propios
-import {DashboardModule} from './dashboard/dashboard.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {DashboardModule} from './dashboard/dashboard.module';
     ReporteGeneralComponent,
     ReportesCuentasComponent,
   ],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -92,9 +94,12 @@ import {DashboardModule} from './dashboard/dashboard.module';
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    DashboardModule
+    DashboardModule,
   ],
-  providers: [{provide:LOCALE_ID, useValue:'es'},{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

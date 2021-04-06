@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArqueoService } from 'src/app/services/arqueo.service';
 import { SucursalesService } from 'src/app/services/sucursales.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-menu-inicio',
   templateUrl: './menu-inicio.component.html',
@@ -48,14 +47,15 @@ export class MenuInicioComponent implements OnInit {
   public depositoPorCuenta: number[] = [];
   public totalDepositoPorCuenta: number = 0;
 
-  //GRAFICOS DE CHARTS
+  public nombreDeSucursales: string[] = [];
+  public ventasNetaDeSucursales: number[] = [];
+
   constructor(
     private sucursales: SucursalesService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private arqueoService: ArqueoService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.crearFormulaio();
@@ -75,8 +75,8 @@ export class MenuInicioComponent implements OnInit {
   crearFormulaio() {
     this.form = this.fb.group({
       sucursal: [''],
-      start: [''],
-      end: [''],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
     });
   }
 
@@ -119,11 +119,24 @@ export class MenuInicioComponent implements OnInit {
   seleccionarFechaDeInicio() {
     let date = new Date();
     //new Date(año, mes, día); indicamos el año y mes actual, usamos 1 como día porque todos los meses empiezan en 1
+    //let primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
     let primerDia = new Date(date.getFullYear(), 2, 1);
+
     //new Date(año, mes, día); indicamos el año actual, al mes le sumamos + 1 de esta forma indicamos un mes superior,
     //la particularidad esta en día indicamos día 0, de esta forma el día 0 del siguiente mes es el ultimo día del mes actual.
+    /*let ultimoDia = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    );*/
     let ultimoDia = new Date(date.getFullYear(), 2 + 1, 0);
     this.asignarFechaStartAndEnd(primerDia, ultimoDia);
+    //asignamos las fechas start al formulario
+    this.form.reset({
+      sucursal: '',
+      start: primerDia,
+      end: ultimoDia,
+    });
     this.enviarFormulario();
   }
 
@@ -137,12 +150,24 @@ export class MenuInicioComponent implements OnInit {
     }
   }
   asignarFechaStartAndEnd(fechaStart: Date, fechaEnd: Date) {
-    this.start = `${fechaStart.getFullYear()}-${
-      fechaStart.getMonth() + 1
-    }-${fechaStart.getDate()}`;
-    this.end = `${fechaEnd.getFullYear()}-${
-      fechaEnd.getMonth() + 1
-    }-${fechaEnd.getDate()}`;
+    try {
+      this.start = `${fechaStart.getFullYear()}-${
+        fechaStart.getMonth() + 1
+      }-${fechaStart.getDate()}`;
+      this.end = `${fechaEnd.getFullYear()}-${
+        fechaEnd.getMonth() + 1
+      }-${fechaEnd.getDate()}`;
+    } catch {
+      //Si la fecha no son validas salta error
+
+      Swal.fire({
+        allowOutsideClick: false, //false, no puede dar click en otro lugar
+        title: 'Error!',
+        text: 'Las dos fechas son obligatorias',
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+    }
   }
 
   enviarFormulario() {
@@ -257,7 +282,6 @@ export class MenuInicioComponent implements OnInit {
       }
       ++indiceDeCuenta;
     }
-    console.log(this.depositoPorCuenta, this.cuentasBancarias);
   }
 
   recargarDatos() {
@@ -294,10 +318,18 @@ export class MenuInicioComponent implements OnInit {
     this.totalDepositoPorCuenta = 0;
 
     this.cantidadDeInformes = 0;
+
+    this.nombreDeSucursales = [];
+    this.ventasNetaDeSucursales = [];
   }
   generarReporte() {
+    let nombreDeSucursales: string[] = [];
+    let ventasNetaDeSucursales: number[] = [];
+
     this.reportes.map((ventas) => {
       this.totalVentasNetas += ventas.ventaNeta;
+      nombreDeSucursales.push(ventas.sucursal);
+      ventasNetaDeSucursales.push(ventas.ventaNeta);
       this.totalCosto += ventas.costo;
       this.totalGasto += ventas.totalGasto;
       this.totalUtilidad += ventas.totalUtilidad;
@@ -307,6 +339,9 @@ export class MenuInicioComponent implements OnInit {
       this.totalCheque += ventas.totalCheque;
       this.totalDeposito += ventas.totalDeposito;
     });
+    //cargar los datos para el grafico
+    this.nombreDeSucursales = nombreDeSucursales;
+    this.ventasNetaDeSucursales = ventasNetaDeSucursales;
   }
   borrarFormulario() {}
 }
