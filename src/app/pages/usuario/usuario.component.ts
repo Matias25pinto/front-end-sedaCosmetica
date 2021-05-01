@@ -92,5 +92,8 @@ export class UsuarioComponent implements OnInit {
     this.router.navigate(['reporte','general']);
   }
 
+  dashboard(){
+    this.router.navigate(['dashboard','menu-de-inicio']);
+  }
 
 }

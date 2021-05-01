@@ -22,7 +22,7 @@ import { LocalesComponent } from './pages/locales/locales.component';
 import { LoginComponent } from './pages/login/login.component';
 
 //Importar formulario reactivo
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Import pdfmake-wrapper and the fonts to use
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
@@ -42,14 +42,22 @@ PdfMakeWrapper.setFonts(pdfFonts);
 //Importar angular material
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';//Para utilizar formularios de Angular Material
-import {MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
-import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';//Para cambiar el lenguaje de DataPicker
+import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
 
+//La localidad de la app
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localEs from '@angular/common/locales/es';
+registerLocaleData(localEs);
+
+//Modulos propios
+import { DashboardModule } from './dashboard/dashboard.module';
 
 
 @NgModule({
@@ -77,7 +85,8 @@ import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuen
     ReporteGeneralComponent,
     ReportesCuentasComponent,
   ],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -85,8 +94,12 @@ import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuen
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    DashboardModule,
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

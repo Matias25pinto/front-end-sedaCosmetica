@@ -15,6 +15,8 @@ import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general
 import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
+//Componentes
+import { MenuInicioComponent } from './dashboard/pages/menu-inicio/menu-inicio.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,12 +28,33 @@ const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent, canActivate: [AuthGuard] },
   { path: 'arqueo', component: ArqueoComponent, canActivate: [AuthGuard] },
   { path: 'arqueo/:id', component: ArqueoComponent, canActivate: [AuthGuard] },
-  { path: 'arqueos', component:ArqueosComponent, canActivate:[AuthGuard]},
-  { path: 'comprobantes/:id', component: ComprobantesComponent, canActivate: [AuthGuard] },
-  { path: 'crear/comprobante/:id', component: CrearComprobanteComponent, canActivate: [AuthGuard] },
-  { path: 'reportes', component:ReportesComponent, canActivate:[AuthGuard]},
-  { path: 'reporte/general', component: ReporteGeneralComponent, canActivate: [AuthGuard] },
-  { path:'reportes/cuentas', component:ReportesCuentasComponent, canActivate:[AuthGuard]},
+  { path: 'arqueos', component: ArqueosComponent, canActivate: [AuthGuard] },
+  {
+    path: 'comprobantes/:id',
+    component: ComprobantesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'crear/comprobante/:id',
+    component: CrearComprobanteComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
+  {
+    path: 'reporte/general',
+    component: ReporteGeneralComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'reportes/cuentas',
+    component: ReportesCuentasComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'dashboard/menu-de-inicio',
+    component: MenuInicioComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];

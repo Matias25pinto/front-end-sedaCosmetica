@@ -20,7 +20,7 @@
             <span class="arqueos__error-texto">El faltante es de {{arqueo.venta - (montoDeposito[i] + montoGastos[i] + montoTarjeta[i] + montoRetiro[i]) | number: '1.0-0'}} Gs.</span>
         </div>
         <p class="arqueos__titulo">{{arqueo.sucursal.titulo}}</p>
-        <p class="arqueos__titulo">Fecha: {{arqueo.fecha  | date:"dd/MM/yyyy" }}</p>
+        <p class="arqueos__titulo">Fecha: {{arqueo.fecha  | date:"fullDate":'GMT-3':'es' }}</p>
         <p *ngIf="montoDeposito[i] > 0 || admin" class="arqueos__titulo">Ventas: {{arqueo.venta | number: '1.0-0' }} GS.</p>
         <p *ngIf="montoDeposito[i] > 0 && admin" class="arqueos__titulo">Utilidad: {{arqueo.venta - arqueo.totalCosto | number: '1.0-0' }} GS.</p>
         <p *ngIf="arqueo.venta > montoDeposito[i] + montoGastos[i] + montoTarjeta[i] + montoRetiro[i]  && admin" class="arqueos__titulo">Ganancia: {{0 | number: '1.0-0' }} GS.</p>
