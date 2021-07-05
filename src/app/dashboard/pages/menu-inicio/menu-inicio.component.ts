@@ -50,6 +50,12 @@ export class MenuInicioComponent implements OnInit {
   public nombreDeSucursales: string[] = [];
   public ventasNetaDeSucursales: number[] = [];
 
+  public comprobantesRetiro: any[] = [];
+  public totalComprobantesRetiro: number = 0;
+
+  public comprobantesTarjeta: any[] = [];
+  public totalComprobantesTarjeta: number = 0;
+
   constructor(
     private sucursales: SucursalesService,
     private fb: FormBuilder,
@@ -105,7 +111,7 @@ export class MenuInicioComponent implements OnInit {
         (err) => {
           console.warn(err);
           // Remover el token
-          localStorage.removeItem('loginToken');
+          //localStorage.removeItem('loginToken');
           //vamos a recargar la pagina 3 segundos despues
           setTimeout(() => {
             //Recargar la pagina para que actualice el estado del usuario
@@ -222,6 +228,10 @@ export class MenuInicioComponent implements OnInit {
         this.cargarReporteDeDepositoPorBanco(data.comprobantesDeposito);
 
         this.cargarReporteDeDepositoPorCuenta(data.comprobantesDeposito);
+
+        this.cargarReporteDeRetiro(data.comprobanteRetiro);
+
+        this.cargarReporteDeTarjeta(data.comprobanteTarjeta);
       }
     } else {
       if (data.ventaNeta > 0) {
@@ -283,6 +293,19 @@ export class MenuInicioComponent implements OnInit {
       ++indiceDeCuenta;
     }
   }
+  cargarReporteDeRetiro(comprobantesRetiro: any) {
+    this.comprobantesRetiro = comprobantesRetiro;
+    this.comprobantesRetiro.map((comprobante) => {
+      this.totalComprobantesRetiro += parseInt(comprobante.monto);
+    });
+  }
+  cargarReporteDeTarjeta(comprobantesTarjeta: any) {
+    this.comprobantesTarjeta = comprobantesTarjeta;
+    this.comprobantesTarjeta.map((comprobante) => {
+      this.totalComprobantesTarjeta = parseInt(comprobante.monto);
+    });
+    console.log(this.comprobantesTarjeta, this.totalComprobantesTarjeta);
+  }
 
   recargarDatos() {
     this.limpiarReporte();
@@ -321,6 +344,12 @@ export class MenuInicioComponent implements OnInit {
 
     this.nombreDeSucursales = [];
     this.ventasNetaDeSucursales = [];
+
+    this.comprobantesRetiro = [];
+    this.totalComprobantesRetiro = 0;
+
+    this.comprobantesTarjeta = [];
+    this.totalComprobantesTarjeta = 0;
   }
   generarReporte() {
     let nombreDeSucursales: string[] = [];

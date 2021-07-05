@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ArqueoService {
   //public url = 'http://localhost:3000'; // servicio local
-  public url = 'https://api-sedacosmetica.herokuapp.com'; //trabajar en el servidor
+  //public url = 'https://api-sedacosmetica.herokuapp.com'; //trabajar en el servidor
+  public url = 'http://localhost:3000/api'; //nueva API
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +17,7 @@ export class ArqueoService {
       token: loginToken,
     }).set('Content-Type', 'application/json');
 
-    return this.http.post(this.url + '/arqueo', body, { headers });
+    return this.http.post(this.url + '/arqueos', body, { headers });
   }
 
   getArqueos(loginToken) {
@@ -34,7 +35,7 @@ export class ArqueoService {
       token: loginToken,
     }).set('Content-Type', 'application/json');
 
-    return this.http.get(this.url + `/arqueo/${id}`, { headers });
+    return this.http.get(this.url + `/arqueos/${id}`, { headers });
   }
 
   agregarComprobante(loginToken, id, body) {
@@ -43,7 +44,7 @@ export class ArqueoService {
       token: loginToken,
     }).set('Content-Type', 'application/json');
 
-    return this.http.put(this.url + `/arqueo/comprobantes/${id}`, body, {
+    return this.http.put(this.url + `/arqueos/comprobantes/${id}`, body, {
       headers,
     });
   }
@@ -54,7 +55,7 @@ export class ArqueoService {
       token: loginToken,
     }).set('Content-Type', 'application/json');
 
-    return this.http.delete(this.url + '/arqueo/' + id, { headers });
+    return this.http.delete(this.url + '/arqueos/' + id, { headers });
   }
 
   eliminarComprobante(loginToken, id, body) {
@@ -64,7 +65,7 @@ export class ArqueoService {
     }).set('Content-Type', 'application/json');
 
     return this.http.put(
-      this.url + `/arqueo/comprobantes/eliminar/${id}`,
+      this.url + `/arqueos/comprobantes/eliminar/${id}`,
       body,
       { headers }
     );
@@ -78,7 +79,7 @@ export class ArqueoService {
       start,
       end,
     }).set('Content-Type', 'application/json');
-    return this.http.get(this.url + `/arqueo/reporte/ventas/${sucursal}`, {
+    return this.http.get(this.url + `/arqueos/reporte/ventas/${sucursal}`, {
       headers,
     });
   }

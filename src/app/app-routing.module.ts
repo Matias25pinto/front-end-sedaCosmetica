@@ -4,59 +4,55 @@ import { CatalogoPdfComponent } from './components/catalogo-pdf/catalogo-pdf.com
 import { AuthGuard } from './guards/auth.guard';
 import { ArqueoComponent } from './pages/arqueo/arqueo.component';
 import { ArqueosComponent } from './pages/arqueos/arqueos.component';
-import { BuscarProductoComponent } from './pages/buscar-producto/buscar-producto.component';
 import { ComprobantesComponent } from './pages/comprobantes/comprobantes.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { CrearComprobanteComponent } from './pages/crear-comprobante/crear-comprobante.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LocalesComponent } from './pages/locales/locales.component';
-import { LoginComponent } from './pages/login/login.component';
 import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
 import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 //Componentes
 import { MenuInicioComponent } from './dashboard/pages/menu-inicio/menu-inicio.component';
+import { PublicModule } from './public/public.module';
+import { AdminModule } from './admin/admin.module';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'locales', component: LocalesComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'buscar/:termino/:desde', component: BuscarProductoComponent },
   { path: 'catalogo', component: CatalogoPdfComponent },
-  { path: 'usuario', component: UsuarioComponent, canActivate: [AuthGuard] },
-  { path: 'arqueo', component: ArqueoComponent, canActivate: [AuthGuard] },
-  { path: 'arqueo/:id', component: ArqueoComponent, canActivate: [AuthGuard] },
-  { path: 'arqueos', component: ArqueosComponent, canActivate: [AuthGuard] },
+  { path: 'usuario', component: UsuarioComponent },
+  { path: 'arqueo', component: ArqueoComponent },
+  { path: 'arqueo/:id', component: ArqueoComponent },
+  { path: 'arqueos', component: ArqueosComponent },
   {
     path: 'comprobantes/:id',
     component: ComprobantesComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'crear/comprobante/:id',
     component: CrearComprobanteComponent,
-    canActivate: [AuthGuard],
   },
-  { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
+  { path: 'reportes', component: ReportesComponent },
   {
     path: 'reporte/general',
     component: ReporteGeneralComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'reportes/cuentas',
     component: ReportesCuentasComponent,
-    canActivate: [AuthGuard],
   },
   {
-    path: 'dashboard/menu-de-inicio',
-    component: MenuInicioComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    loadChildren: () =>
+      import('./public/public.module').then((module) => PublicModule),
   },
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: '**', pathMatch: 'full', redirectTo: 'home' },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((module) => AdminModule),
+  },
 ];
 
 @NgModule({

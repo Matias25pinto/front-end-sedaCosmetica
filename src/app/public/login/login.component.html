@@ -1,0 +1,43 @@
+<div class="login">
+  <div class="login__circulo">
+    <i class="login__circulo-icono fas fa-user"></i>
+  </div>
+  <form
+    class="login__formulario"
+    [formGroup]="formularioLogin"
+    (ngSubmit)="login()"
+  >
+    <div class="login__correo-container">
+      <input
+        formControlName="email"
+        class="login__correo"
+        type="email"
+        placeholder="Correo electrónico"
+      />
+      <i class="login__input-ico fas fa-envelope-square"></i>
+    </div>
+    <span *ngIf="emailNovalido" class="login__error"
+      >Por favor ingrese un correo válido</span
+    >
+    <div class="login__password-container">
+      <input
+        formControlName="password"
+        class="login__password"
+        type="password"
+        placeholder="Contraseña"
+      />
+      <i class="login__input-ico fas fa-lock"></i>
+    </div>
+    <button *ngIf="!isLogin" class="login__btn" type="submit">Ingresar</button>
+    <button *ngIf="isLogin" class="login__btn" type="submit">
+      <i class="fas fa-sync fa-spin"></i>
+    </button>
+    <a *ngIf="false" class="login__recuperar" href="#"
+      >¿Has olvidado contraseña?</a
+    >
+    <hr class="login__hr" />
+    <button *ngIf="false" class="login__btn-registrarte" type="button">
+      Crear cuenta nueva
+    </button>
+  </form>
+</div>

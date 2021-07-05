@@ -1,0 +1,143 @@
+<div class="productos">
+  <div class="row">
+    <h2 class="productos__titulo">
+      <i class="productos__icono fas fa-circle"></i>{{ titulo | uppercase }}
+    </h2>
+    <div *ngIf="productos.length === 0" class="productos__loading">
+      <div class="productos__loading-icono">
+        <i class="fas fa-spinner fa-pulse fa-3x"></i>
+      </div>
+      <div class="productos__loading-texto">
+        <p>cargando...</p>
+      </div>
+    </div>
+    <div *ngIf="productos.length > 0" class="productos__contenedor">
+      <div *ngFor="let producto of productos" class="productos__producto">
+        <img
+          class="productos__producto-img"
+          src="{{ './assets/img/noimage.png' }}"
+          alt="no-imagen"
+        />
+        <p class="productos__producto-titulo">
+          {{ producto.producto | uppercase }}
+        </p>
+        <p class="productos__producto-titulo">
+          código de barra: {{ producto.codigoBarra }}
+        </p>
+        <!-- Button trigger modal -->
+        <button
+          *ngIf="
+            verMas &&
+            titulo != 'Productos más vendidos' &&
+            titulo != 'Nuevos Productos'
+          "
+          (click)="cargarModal(producto)"
+          type="button"
+          class="productos__producto-link"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          {{ "ver más" | uppercase }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="verMas" class="producto__modal">
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content d-flex justify-content-center">
+        <div class="modal-header d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <p class="productos__producto-titulo">
+              {{ detalle.producto | uppercase }}
+            </p>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <img
+                class="productos__producto-img"
+                src="{{ './assets/img/noimage.png' }}"
+                alt="no-imagen"
+              />
+            </div>
+            <div class="col-6">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-3">
+                  <i class="fas fa-barcode fa-3x"></i>
+                </div>
+                <div
+                  class="col-9 d-flex justify-content-start align-items-center"
+                >
+                  <p class="productos__producto-titulo m-2">
+                    {{ detalle.codigoBarra }}
+                  </p>
+                </div>
+              </div>
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-3">
+                  <span *ngIf="detalle.existencia > 0" class="badge bg-success"
+                    >Stock</span
+                  >
+                  <span *ngIf="detalle.existencia == 0" class="badge bg-danger"
+                    >Stock</span
+                  >
+                </div>
+                <div
+                  class="col-9 d-flex justify-content-start align-items-center"
+                >
+                  <p class="productos__producto-titulo m-auto ms-2">
+                    {{ detalle.existencia | number }}
+                    <span class="badge bg-light text-dark">{{
+                      "deposito" | uppercase
+                    }}</span>
+                    {{ detalle.codigoDeposito }}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <div
+                  *ngFor="let precio of detalle.precios"
+                  class="row d-flex justify-content-center align-items-center"
+                >
+                  <div class="col-3">
+                    <span class="badge bg-light text-dark">{{
+                      precio.tipoPrecio | uppercase
+                    }}</span>
+                  </div>
+                  <div
+                    class="col-9 d-flex justify-content-start align-items-center"
+                  >
+                    <p class="productos__producto-titulo m-auto ms-2">
+                      {{ (precio.precio | number) + " Gs." }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <p class="productos__producto-titulo">www.sedacosmetica.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

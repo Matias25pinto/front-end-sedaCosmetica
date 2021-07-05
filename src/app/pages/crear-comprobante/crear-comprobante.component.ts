@@ -161,6 +161,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.formularioComprobante.valid) {
       this.creandoComprobante = true;
       let loginToken = localStorage.getItem('loginToken');
+      console.log(this.formularioComprobante.value);
       this.route.params.subscribe(parametros => {
         this.arqueoService.agregarComprobante(loginToken, parametros['id'], this.formularioComprobante.value).subscribe(data => {
           //imprimir mensaje

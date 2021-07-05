@@ -24,7 +24,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     MatNativeDateModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
   ],
   exports: [MenuInicioComponent],
 })

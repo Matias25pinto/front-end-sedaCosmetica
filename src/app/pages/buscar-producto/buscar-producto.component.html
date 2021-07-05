@@ -1,6 +1,0 @@
-<app-productos [mercaderias]="mercaderias" [titulo]="'Productos:'" ></app-productos>
-<div *ngIf="sinMercaderias" class="productos__loading">
-    <p class="productos__loading-titulo">No hay resultados para {{termino}}</p>
-    <i class="productos__loading-icono fas fa-exclamation-circle fa-3x"></i>
-</div>
-<app-paginacion [termino]="termino" [pagina]="pagina" [paginas]="paginas"></app-paginacion>

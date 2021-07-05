@@ -1,0 +1,21 @@
+<app-productos
+  *ngIf="!sinProductos"
+  [productos]="productos"
+  [titulo]="'Productos:'"
+></app-productos>
+<div *ngIf="sinProductos" class="productos__loading">
+  <p class="productos__loading-texto">No hay resultados para {{ termino }}</p>
+  <i class="productos__loading-icono fas fa-exclamation-circle fa-3x"></i>
+</div>
+<div class="row text-center d-flex justify-content-center">
+  <p
+    [ngClass]="{ 'productos__producto-titulo-disabled': (desde == '0') }"
+    (click)="anterior()"
+    class="col-6 cursor productos__producto-titulo"
+  >
+    <i class="fas fa-angle-double-left"></i> anterior
+  </p>
+  <p (click)="siguiente()" class="col-6 cursor productos__producto-titulo">
+    siguiente <i class="fas fa-angle-double-right"></i>
+  </p>
+</div>

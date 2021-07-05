@@ -1,0 +1,157 @@
+<div *ngIf="noExisteArqueos" class="productos__loading">
+  <p class="comprobantes__loading-titulo">NO EXISTEN ARQUEOS</p>
+  <i class="comprobantes__loading-icono fas fa-exclamation-triangle fa-3x"></i>
+</div>
+<div *ngIf="arqueos.length == 0" class="productos__loading">
+  <div class="productos__loading-icono">
+    <i class="fas fa-spinner fa-pulse fa-3x"></i>
+  </div>
+  <div class="productos__loading-texto">
+    <p>cargando...</p>
+  </div>
+</div>
+
+<div *ngIf="arqueos.length > 0" class="arqueos">
+  <div *ngFor="let arqueo of arqueos; let i = index" class="arqueos__container">
+    <div
+      class="arqueos__sobraCaja"
+      *ngIf="
+        arqueo.venta <
+        montoDeposito[i] + montoGastos[i] + montoTarjeta[i] + montoRetiro[i]
+      "
+    >
+      <i class="fas fa-exclamation-circle fa-3x"></i>
+      <span class="arqueos__sobraCaja-titulo">Sobrante en Caja</span>
+      <span class="arqueos__SobraCaja-texto"
+        >Sobra en Caja:
+        {{
+          montoDeposito[i] +
+            montoGastos[i] +
+            montoTarjeta[i] +
+            montoRetiro[i] -
+            arqueo.venta | number: "1.0-0"
+        }}
+        Gs.</span
+      >
+    </div>
+    <div class="arqueos__error" *ngIf="montoDeposito[i] == 0">
+      <i class="fas fa-exclamation-circle fa-3x"></i>
+      <span class="arqueos__error-titulo">Deposito</span>
+      <span class="arqueos__error-texto">El Deposito es igual a cero.</span>
+    </div>
+    <div
+      class="arqueos__error-danger"
+      *ngIf="
+        arqueo.venta >
+        montoDeposito[i] + montoGastos[i] + montoTarjeta[i] + montoRetiro[i]
+      "
+    >
+      <i class="error-danger fas fa-exclamation-circle fa-3x"></i>
+      <span class="arqueos__error-danger-titulo">Falta Dinero.</span>
+      <span class="arqueos__error-texto"
+        >El faltante es de
+        {{
+          arqueo.venta -
+            (montoDeposito[i] +
+              montoGastos[i] +
+              montoTarjeta[i] +
+              montoRetiro[i]) | number: "1.0-0"
+        }}
+        Gs.</span
+      >
+    </div>
+    <p class="arqueos__titulo">{{ arqueo.sucursal.titulo }}</p>
+    <p class="arqueos__titulo">
+      Fecha: {{ arqueo.fecha | date: "fullDate":"GMT-3":"es" }}
+    </p>
+    <p *ngIf="montoDeposito[i] > 0 || admin" class="arqueos__titulo">
+      Ventas: {{ arqueo.venta | number: "1.0-0" }} GS.
+    </p>
+    <p *ngIf="montoDeposito[i] > 0 && admin" class="arqueos__titulo">
+      Utilidad: {{ arqueo.venta - arqueo.totalCosto | number: "1.0-0" }} GS.
+    </p>
+    <p
+      *ngIf="
+        arqueo.venta >
+          montoDeposito[i] +
+            montoGastos[i] +
+            montoTarjeta[i] +
+            montoRetiro[i] && admin
+      "
+      class="arqueos__titulo"
+    >
+      Ganancia: {{ 0 | number: "1.0-0" }} GS.
+    </p>
+    <p
+      *ngIf="
+        arqueo.venta <=
+          montoDeposito[i] +
+            montoGastos[i] +
+            montoTarjeta[i] +
+            montoRetiro[i] && admin
+      "
+      class="arqueos__titulo"
+    >
+      Ganancia:
+      {{
+        montoDeposito[i] + montoTarjeta[i] + montoRetiro[i] - arqueo.totalCosto
+          | number: "1.0-0"
+      }}
+      GS.
+    </p>
+    <p
+      *ngIf="
+        arqueo.venta >=
+        montoDeposito[i] + montoGastos[i] + montoTarjeta[i] + montoRetiro[i]
+      "
+      class="arqueos__titulo"
+    >
+      Sobrante en Caja: {{ 0 | number: "1.0-0" }} GS.
+    </p>
+    <p
+      *ngIf="
+        arqueo.venta <
+        montoDeposito[i] + montoGastos[i] + montoTarjeta[i] + montoRetiro[i]
+      "
+      class="arqueos__titulo"
+    >
+      Sobrante en Caja:
+      {{
+        montoDeposito[i] +
+          montoGastos[i] +
+          montoTarjeta[i] +
+          montoRetiro[i] -
+          arqueo.venta | number: "1.0-0"
+      }}
+      GS.
+    </p>
+    <p class="arqueos__titulo">
+      Gastos: {{ montoGastos[i] | number: "1.0-0" }} GS.
+    </p>
+    <p class="arqueos__titulo">
+      Tarjetas: {{ montoTarjeta[i] | number: "1.0-0" }} GS.
+    </p>
+    <p class="arqueos__titulo">
+      Retiros: {{ montoRetiro[i] | number: "1.0-0" }} GS.
+    </p>
+    <p class="arqueos__titulo">
+      Deposito: {{ montoDeposito[i] | number: "1.0-0" }} GS.
+    </p>
+    <button
+      class="arqueos__btn"
+      type="button"
+      (click)="verComprobantes(arqueo._id)"
+    >
+      Comprobantes
+    </button>
+    <button
+      *ngIf="admin == true"
+      class="arqueos__btn-danger"
+      type="button"
+      (click)="anularArqueo(arqueo._id)"
+    >
+      <span class="arqueos__btn-titulo">{{ "ANULAR ARQUEO" }}</span
+      ><i class="fas fa-exclamation-circle"></i>
+    </button>
+  </div>
+</div>

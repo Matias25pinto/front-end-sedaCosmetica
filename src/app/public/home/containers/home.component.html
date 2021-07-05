@@ -1,0 +1,11 @@
+<div class="contenedor">
+  <app-banner></app-banner>
+  <app-productos
+    [productos]="productosMasVendidos"
+    [titulo]="'Productos más vendidos'"
+  ></app-productos>
+  <app-productos
+    [productos]="nuevosProductos"
+    [titulo]="'Nuevos Productos'"
+  ></app-productos>
+</div>

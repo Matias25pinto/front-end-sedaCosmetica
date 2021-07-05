@@ -65,7 +65,7 @@ export class ReporteGeneralComponent implements OnInit {
         (err) => {
           console.warn(err);
           // Remover el token
-          localStorage.removeItem('loginToken');
+          //localStorage.removeItem('loginToken');
           //vamos a recargar la pagina 3 segundos despues
           setTimeout(() => {
             //Recargar la pagina para que actualice el estado del usuario

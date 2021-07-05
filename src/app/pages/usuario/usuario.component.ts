@@ -3,17 +3,15 @@ import { SucursalesService } from 'src/app/services/sucursales.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ArqueoService } from 'src/app/services/arqueo.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class UsuarioComponent implements OnInit {
-
   public usuario: any;
   public clientRole = false;
   public userRole = false;
@@ -21,56 +19,57 @@ export class UsuarioComponent implements OnInit {
 
   public sucursales = [];
 
-  constructor(private usuarioService: UsuarioService,
-              private sucursalesService: SucursalesService,
-              private fb: FormBuilder,
-              private arqueoService: ArqueoService,
-              private router: Router) { 
-
-  }
+  constructor(
+    private usuarioService: UsuarioService,
+    private sucursalesService: SucursalesService,
+    private fb: FormBuilder,
+    private arqueoService: ArqueoService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.subirInicio();
-    
-    this.sucursalesService.getSucursales().subscribe(data => {
+
+    this.sucursalesService.getSucursales().subscribe((data) => {
       this.sucursales = data['sucursalesBD'];
-      console.log(this.sucursales)
+      console.log(this.sucursales);
     });
 
     this.login();
   }
-   // Funcion para subir al inicio
-   subirInicio(): void{
+  // Funcion para subir al inicio
+  subirInicio(): void {
     window.scroll(0, 0);
   }
   //Verificar si el usuario esta logueado
   login() {
-    let loginToken = localStorage.getItem('loginToken');
+    let loginToken = localStorage.getItem('token');
     if (loginToken) {
-      this.usuarioService.verificarLogin(loginToken).subscribe(data => {
-        
-        this.usuario = data['usuario'];
-        if (this.usuario.role == 'CLIENT_ROLE') {
-          this.clientRole = true;
-        } else if (this.usuario.role == 'ADMIN_ROLE') {
-          this.adminRole = true;
-        } else if (this.usuario.role == 'USER_ROLE') {
-          this.userRole = true;
-        }
-        console.log(this.usuario);
-      }, err => {
+      this.usuarioService.verificarLogin(loginToken).subscribe(
+        (data) => {
+          this.usuario = data['usuario'];
+          if (this.usuario.role == 'CLIENT_ROLE') {
+            this.clientRole = true;
+          } else if (this.usuario.role == 'ADMIN_ROLE') {
+            this.adminRole = true;
+          } else if (this.usuario.role == 'USER_ROLE') {
+            this.userRole = true;
+          }
+          console.log(this.usuario);
+        },
+        (err) => {
           console.warn(err);
           // Remover el token
-          localStorage.removeItem('loginToken');
+          console.log('remover token');
+          //localStorage.removeItem('token');
           //vamos a recargar la pagina 3 segundos despues
           setTimeout(() => {
-          //Recargar la pagina para que actualice el estado del usuario
-           window.location.reload(); 
-       }, 1000);
-      });
-
+            //Recargar la pagina para que actualice el estado del usuario
+            window.location.reload();
+          }, 1000);
+        }
+      );
     }
-    
   }
 
   iniciarArqueo() {
@@ -85,15 +84,14 @@ export class UsuarioComponent implements OnInit {
     this.router.navigate(['reportes']);
   }
   reporteCuenta() {
-    this.router.navigate(['reportes','cuentas']);
+    this.router.navigate(['reportes', 'cuentas']);
   }
 
   reporteGeneral() {
-    this.router.navigate(['reporte','general']);
+    this.router.navigate(['reporte', 'general']);
   }
 
-  dashboard(){
-    this.router.navigate(['dashboard','menu-de-inicio']);
+  dashboard() {
+    this.router.navigate(['dashboard', 'menu-de-inicio']);
   }
-
 }

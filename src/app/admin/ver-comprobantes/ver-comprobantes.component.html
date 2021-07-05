@@ -1,0 +1,253 @@
+<div class="comprobantes">
+  <div
+    *ngIf="comprobantes.length == 0 && !noExisteComprobantes"
+    class="productos__loading"
+  >
+    <div class="productos__loading-icono">
+      <i class="fas fa-spinner fa-pulse fa-3x"></i>
+    </div>
+    <div class="productos__loading-texto">
+      <p>cargando...</p>
+    </div>
+  </div>
+  <div *ngIf="noExisteComprobantes" class="productos__loading">
+    <p class="comprobantes__loading-titulo">NO EXISTEN COMPROBANTES</p>
+    <i
+      class="comprobantes__loading-icono fas fa-exclamation-triangle fa-3x"
+    ></i>
+  </div>
+
+  <button
+    class="arqueos__btn"
+    type="button"
+    (click)="enviarComprobantes(arqueo._id)"
+  >
+    Agregar Comprobante
+  </button>
+</div>
+
+<div *ngIf="comprobantes.length > 0" class="comprobantes">
+  <div
+    *ngFor="let comprobante of comprobantes; let i = index"
+    class="comprobantes__container"
+  >
+    <div *ngIf="comprobante.comprobante == 'ANDE'" class="comprobantes__ande">
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>NIS: {{ comprobante.nis }}</p>
+      <p>
+        Fecha Vencimiento: {{ comprobante.fVencimiento | date: "dd/MM/yyyy" }}
+      </p>
+      <p>
+        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Nro. Factura: {{ comprobante.nroComprobante }}</p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'SERVICIOS'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
+      <p>
+        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+      <p>Obs: {{ comprobante.observacion }}</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'IMPUESTO'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Impuesto: {{ comprobante.impuesto }}</p>
+      <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
+      <p>
+        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+      <p>Obs: {{ comprobante.observacion }}</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'SALARIO'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Nombre y Apellido: {{ comprobante.nombreApellido }}</p>
+      <p>Cédula: {{ comprobante.cedula }}</p>
+      <p>Cargo: {{ comprobante.cargo }}</p>
+      <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
+      <p>
+        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+      <p>Obs: {{ comprobante.observacion }}</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'INSUMOS'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Comercial: {{ comprobante.comercial }}</p>
+      <p>Insumos: {{ comprobante.insumos }}</p>
+      <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
+      <p>
+        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+      <p>Obs: {{ comprobante.observacion }}</p>
+    </div>
+    <div *ngIf="comprobante.comprobante == 'RETIRO'" class="comprobantes__ande">
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>
+        Autoriza: {{ comprobante.autorizaNA + " - " + comprobante.autorizaCI }}
+      </p>
+      <p>Retira: {{ comprobante.retiraNA + " - " + comprobante.retiraCI }}</p>
+      <p>Motivo: {{ comprobante.motivo }}</p>
+      <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
+      <p>
+        Fecha de retiro: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+      <p>Obs: {{ comprobante.observacion }}</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'TARJETA'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Boleta: {{ comprobante.boleta }}</p>
+      <p>
+        Fecha de pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'DEPOSITO'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Banco: {{ comprobante.banco }}</p>
+      <p>Cuenta: {{ comprobante.cuentaBancaria }}</p>
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
+      <p>
+        Fecha de pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+    </div>
+    <div *ngIf="comprobante.comprobante == 'CHEQUE'" class="comprobantes__ande">
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>Banco: {{ comprobante.banco }}</p>
+      <p>Emisor: {{ comprobante.emisor }}</p>
+      <p>Cédula del Emisor: {{ comprobante.cedula }}</p>
+      <p>Cuenta Nro.: {{ comprobante.cuentaNro }}</p>
+      <p>Cheque Nro.: {{ comprobante.chequeNro }}</p>
+      <p>Páguese a la orden de: {{ comprobante.paguese }}</p>
+      <p>Observación: {{ comprobante.observacion }}</p>
+      <p>
+        Fecha de Emisión:
+        {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+      </p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+    </div>
+    <div
+      *ngIf="comprobante.comprobante == 'DESCUENTO'"
+      class="comprobantes__ande"
+    >
+      <span
+        *ngIf="adminRole"
+        (click)="eliminarComprobante(arqueo._id, i)"
+        class="comprobantes__container-eliminar"
+        >Eliminar <i class="fas fa-trash-alt"></i
+      ></span>
+      <p class="comprobantes__container-titulo">
+        {{ comprobante.comprobante }}
+      </p>
+      <p>
+        Autoriza: {{ comprobante.autorizaNA + " - " + comprobante.autorizaCI }}
+      </p>
+      <p>
+        Empleado: {{ comprobante.empleadoNA + " - " + comprobante.empleadoCI }}
+      </p>
+      <p>Fecha: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}</p>
+      <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
+    </div>
+  </div>
+</div>

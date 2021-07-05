@@ -7,7 +7,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SucursalesService {
 
   //public url = 'http://localhost:3000';// servicio local
-  public url = 'https://api-sedacosmetica.herokuapp.com'; //trabajar en el servidor
+  //public url = 'https://api-sedacosmetica.herokuapp.com'; //trabajar en el servidor
+  public url = 'http://localhost:3000/api';//Nueva api
 
   constructor(private http: HttpClient) { }
 
