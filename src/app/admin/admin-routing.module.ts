@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+//Guards
+import { AuthGuard } from '../core/shared/guards/auth.guard';
 //Components
 import { AdminComponent } from './admin.component';
 import { ArqueosComponent } from './arqueos/arqueos.component';
@@ -14,12 +17,32 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: '', component: MenuComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'iniciar-arqueo', component: IniciarArqueoComponent },
-      { path: 'arqueos', component: ArqueosComponent },
-      { path: 'ver-comprobantes/:id', component: VerComprobantesComponent },
-      { path: 'crear-comprobante/:id', component: CrearComprobanteComponent },
+      { path: '', component: MenuComponent, canActivate: [AuthGuard] },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'iniciar-arqueo',
+        component: IniciarArqueoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'arqueos',
+        component: ArqueosComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'ver-comprobantes/:id',
+        component: VerComprobantesComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'crear-comprobante/:id',
+        component: CrearComprobanteComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

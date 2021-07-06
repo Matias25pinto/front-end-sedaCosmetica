@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('Ingresa en el login');
     //Para hacer que se dispare las validaciones si el formulario queda en blanco
     Object.values(this.formularioLogin.controls).forEach((control) => {
       if (control instanceof FormGroup) {
@@ -68,13 +67,11 @@ export class LoginComponent implements OnInit {
         control.markAsTouched();
       }
     });
-    console.log('Formulario valido: ', this.formularioLogin.valid);
     if (this.formularioLogin.valid) {
       //cambiar el estado del boton
       this.isLogin = true;
       let email = this.formularioLogin.value.email;
       let password = this.formularioLogin.value.password;
-      console.log(email, password);
       //Hacer la consulta al servicio que devuelve un observable
       this.usuariosService.loginUsuario(email, password).subscribe(
         (data) => {
@@ -102,7 +99,7 @@ export class LoginComponent implements OnInit {
         (error) => {
           //Cambiar el estado del botón
           this.isLogin = false;
-          console.log(error);
+          console.warn(error);
           Swal.fire({
             allowOutsideClick: false, //false, no puede dar click en otro lugar
             title: 'Error!',

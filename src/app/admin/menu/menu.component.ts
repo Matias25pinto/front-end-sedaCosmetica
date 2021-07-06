@@ -80,4 +80,9 @@ export class MenuComponent implements OnInit {
   dashboard() {
     this.router.navigate(['admin', 'dashboard']);
   }
+
+  cerrarSesion() {
+    localStorage.removeItem('token');
+    this.router.navigate(['', 'login']);
+  }
 }
