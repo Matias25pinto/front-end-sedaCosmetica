@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ArqueoService } from 'src/app/services/arqueo.service';
+import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -186,7 +186,7 @@ export class CrearComprobanteComponent implements OnInit {
               this.creandoComprobante = false;
             },
             (err) => {
-	      //ocultar btn carga
+              //ocultar btn carga
               this.creandoComprobante = false;
               Swal.fire({
                 allowOutsideClick: false, //false, no puede dar click en otro lugar
