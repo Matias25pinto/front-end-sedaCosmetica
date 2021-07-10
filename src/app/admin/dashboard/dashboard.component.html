@@ -60,8 +60,8 @@
         {{ "Informe comercial" | uppercase }}
       </h3>
       <p class="menuDeInicio__subTitulo">
-        Periodo desde el {{ start | date: "fullDate" }}, hasta el
-        {{ end | date: "fullDate" }}
+        Periodo desde el {{ start | date: "fullDate":"GMT-3":"es" }}, hasta el
+        {{ end | date: "fullDate":"GMT-3":"es" }}
       </p>
       <div
         *ngIf="
@@ -166,6 +166,7 @@
             <th class="menuDeInicio__table-th">Gasto</th>
             <th class="menuDeInicio__table-th">Monto</th>
             <th class="menuDeInicio__table-th-fecha">Fecha</th>
+            <th class="menuDeInicio__table-th-fecha">Observación</th>
           </tr>
           <tr
             *ngFor="let gasto of reporteDeGasto; let i = index"
@@ -181,7 +182,10 @@
               {{ gasto.monto | number: "1.0-0":"es" }} Gs
             </td>
             <td class="menuDeInicio__table-td-fecha">
-              {{ gasto.fPago | date: "fullDate" }}
+              {{ gasto.fPago | date: "fullDate":"GMT-3":"es" }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+	      {{ gasto.observacion | uppercase }}
             </td>
           </tr>
           <tr class="menuDeInicio__table-tr">
@@ -360,7 +364,7 @@
               {{ comprobante.boleta | uppercase }}
             </td>
             <td class="menuDeInicio__table-td-fecha">
-              {{ comprobante.fPago | date: "fullDate" }}
+              {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
             </td>
             <td class="menuDeInicio__table-td">
               {{ comprobante.monto | number: "1.0-0":"es" }} Gs

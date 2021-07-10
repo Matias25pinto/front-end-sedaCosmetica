@@ -255,6 +255,7 @@ export class DashboardComponent implements OnInit {
     //cargar el reporte de gastos
     this.reporteDeGasto = comprobantesDeGasto;
     this.totalMontoDeGasto = totalDeGasto;
+    console.log(this.reporteDeGasto)
   }
   cargarReporteDeDepositoPorBanco(comprobantesDeposito: any) {
     //cargar los bancos
