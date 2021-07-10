@@ -111,8 +111,7 @@ export class DashboardComponent implements OnInit {
         (err) => {
           console.warn(err);
           // Remover el token
-          console.log('remover token');
-          //localStorage.removeItem('token');
+          localStorage.removeItem('token');
           //vamos a recargar la pagina 3 segundos despues
           setTimeout(() => {
             //Recargar la pagina para que actualice el estado del usuario
@@ -255,7 +254,6 @@ export class DashboardComponent implements OnInit {
     //cargar el reporte de gastos
     this.reporteDeGasto = comprobantesDeGasto;
     this.totalMontoDeGasto = totalDeGasto;
-    console.log(this.reporteDeGasto)
   }
   cargarReporteDeDepositoPorBanco(comprobantesDeposito: any) {
     //cargar los bancos
