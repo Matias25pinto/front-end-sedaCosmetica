@@ -28,6 +28,5 @@ export class ProductosComponent implements OnInit {
 
   cargarModal(producto: Producto) {
     this.detalle = producto;
-    console.log(this.detalle);
   }
 }

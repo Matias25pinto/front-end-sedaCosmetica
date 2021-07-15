@@ -5,6 +5,7 @@ export interface Producto {
   iddeposito?: number;
   codigoDeposito?:number;
   existencia?: number;
+  referencia?:string;
   precios?: Array<Precio>;
 }
 

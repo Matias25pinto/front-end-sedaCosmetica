@@ -70,15 +70,15 @@
               {{ detalle.producto | uppercase }}
             </p>
           </div>
-          <div class="row">
-            <div class="col-6">
+          <div class="row flex-column flex-lg-row">
+            <div class="col-12 col-lg-6">
               <img
                 class="productos__producto-img"
                 src="{{ './assets/img/noimage.png' }}"
                 alt="no-imagen"
               />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-lg-6">
               <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-3">
                   <i class="fas fa-barcode fa-3x"></i>
@@ -131,7 +131,24 @@
                   </div>
                 </div>
               </div>
-            </div>
+               <div
+                  class="row d-flex justify-content-center align-items-center"
+                >
+                  <div class="col-3">
+                    <span class="badge bg-light text-dark">{{
+                      "Referencia" | uppercase
+                    }}</span>
+                  </div>
+                  <div
+                    class="col-9 d-flex justify-content-start align-items-center"
+                  >
+                    <p class="productos__producto-titulo m-auto ms-2">
+		    {{ detalle.referencia }}
+                    </p>
+                  </div>
+                </div>
+
+             </div>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">

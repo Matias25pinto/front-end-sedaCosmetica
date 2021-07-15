@@ -1,3 +1,4 @@
+<div class="container">
 <app-productos
   *ngIf="!sinProductos"
   [productos]="productos"
@@ -15,7 +16,9 @@
   >
     <i class="fas fa-angle-double-left"></i> anterior
   </p>
-  <p (click)="siguiente()" class="col-6 cursor productos__producto-titulo">
+  <p (click)="siguiente()" class="col-4 cursor productos__producto-titulo">
     siguiente <i class="fas fa-angle-double-right"></i>
   </p>
+</div>
+
 </div>
