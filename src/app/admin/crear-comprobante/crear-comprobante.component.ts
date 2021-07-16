@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
+import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,10 +18,13 @@ export class CrearComprobanteComponent implements OnInit {
 
   public creandoComprobante: Boolean = false;
 
+  public sucursales = [];
+
   constructor(
     private fb: FormBuilder,
     private arqueoService: ArqueoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sucursalesService:SucursalesService,
   ) {
     this.mostrar = '';
     this.banco = '';
@@ -28,6 +32,9 @@ export class CrearComprobanteComponent implements OnInit {
 
   ngOnInit(): void {
     this.subirInicio();
+    this.sucursalesService.getSucursales().subscribe((data) => {
+      this.sucursales = data['sucursalesBD'];
+    });
   }
   // Funcion para subir al inicio
   subirInicio(): void {
@@ -37,68 +44,77 @@ export class CrearComprobanteComponent implements OnInit {
   crearFormulario() {
     if (this.mostrar == 'ANDE') {
       this.formularioComprobante = this.fb.group({
-        nis: ['', Validators.required],
-        fVencimiento: ['', Validators.required],
-        nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
         comprobante: ['ANDE', Validators.required],
+        nis: ['', Validators.required],
+        vencimiento: ['', Validators.required],
+        nroComprobante: ['', Validators.required],
       });
     }
 
     if (this.mostrar == 'SERVICIOS') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
+        comprobante: ['SERVICIOS', Validators.required],
         servicio: ['', Validators.required],
         tipoComprobante: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
         observacion: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['SERVICIOS', Validators.required],
       });
     }
 
     if (this.mostrar == 'IMPUESTO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
+        comprobante: ['IMPUESTO', Validators.required],
         impuesto: ['', Validators.required],
         tipoComprobante: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
         observacion: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['IMPUESTO', Validators.required],
       });
     }
 
     if (this.mostrar == 'SALARIO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
+        comprobante: ['SALARIO', Validators.required],
         nombreApellido: ['', Validators.required],
         cedula: ['', Validators.required],
         cargo: ['', Validators.required],
         tipoComprobante: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
         observacion: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['SALARIO', Validators.required],
       });
     }
 
     if (this.mostrar == 'INSUMOS') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
+        comprobante: ['INSUMOS', Validators.required],
         comercial: ['', Validators.required],
         insumos: ['', Validators.required],
         tipoComprobante: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
         observacion: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['INSUMOS', Validators.required],
       });
     }
 
     if (this.mostrar == 'RETIRO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
+        comprobante: ['RETIRO', Validators.required],
         autorizaNA: ['', Validators.required],
         autorizaCI: ['', Validators.required],
         retiraNA: ['', Validators.required],
@@ -106,33 +122,36 @@ export class CrearComprobanteComponent implements OnInit {
         motivo: ['', Validators.required],
         tipoComprobante: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
         observacion: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['RETIRO', Validators.required],
       });
     }
 
     if (this.mostrar == 'DEPOSITO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
+        comprobante: ['DEPOSITO', Validators.required],
         banco: ['', Validators.required],
         cuentaBancaria: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fPago: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['DEPOSITO', Validators.required],
       });
     }
     if (this.mostrar == 'TARJETA') {
       this.formularioComprobante = this.fb.group({
-        boleta: ['', Validators.required],
-        fPago: ['', Validators.required],
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['TARJETA', Validators.required],
+        boleta: ['', Validators.required],
       });
     }
     if (this.mostrar == 'CHEQUE') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
+        comprobante: ['CHEQUE', Validators.required],
         banco: ['', Validators.required],
         emisor: ['', Validators.required],
         cedula: ['', Validators.required],
@@ -140,21 +159,19 @@ export class CrearComprobanteComponent implements OnInit {
         chequeNro: ['', Validators.required],
         paguese: ['', Validators.required],
         observacion: ['', Validators.required],
-        fPago: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['CHEQUE', Validators.required],
       });
     }
     if (this.mostrar == 'DESCUENTO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:['', Validators.required],
+        fArqueo:['', Validators.required],
+        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
+        comprobante: ['DESCUENTO', Validators.required],
         autorizaNA: ['', Validators.required],
         autorizaCI: ['', Validators.required],
         empleadoNA: ['', Validators.required],
         empleadoCI: ['', Validators.required],
-        fPago: ['', Validators.required],
         observacion: ['', Validators.required],
-        monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
-        comprobante: ['DESCUENTO', Validators.required],
       });
     }
   }
@@ -216,62 +233,72 @@ export class CrearComprobanteComponent implements OnInit {
   borrarFormulario() {
     if (this.mostrar == 'ANDE') {
       this.formularioComprobante.reset({
-        nis: '',
-        fVencimiento: '',
-        nroComprobante: '',
-        fPago: '',
+        sucursal:'',
+        fArqueo:'',
         monto: '',
+        comprobante:'ANDE',
+        nis: '',
+        vencimiento: '',
+        nroComprobante: '',
       });
     }
     if (this.mostrar == 'SERVICIOS') {
       this.formularioComprobante.reset({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'SERVICIOS',
         servicio: '',
         tipoComprobante: '',
         nroComprobante: '',
-        fPago: '',
         observacion: '',
-        monto: '',
-        comprobante: 'SERVICIOS',
       });
     }
     if (this.mostrar == 'IMPUESTO') {
       this.formularioComprobante.reset({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'IMPUESTO',
         impuesto: '',
         tipoComprobante: '',
         nroComprobante: '',
-        fPago: '',
         observacion: '',
-        monto: '',
-        comprobante: 'IMPUESTO',
       });
     }
     if (this.mostrar == 'SALARIO') {
       this.formularioComprobante.reset({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'SALARIO',
         nombreApellido: '',
         cedula: '',
         cargo: '',
         tipoComprobante: '',
         nroComprobante: '',
-        fPago: '',
         observacion: '',
-        monto: '',
-        comprobante: 'SALARIO',
       });
     }
     if (this.mostrar == 'INSUMOS') {
       this.formularioComprobante.reset({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'INSUMOS',
         comercial: '',
         insumos: '',
         tipoComprobante: '',
         nroComprobante: '',
-        fPago: '',
         observacion: '',
-        monto: '',
-        comprobante: 'INSUMOS',
       });
     }
     if (this.mostrar == 'RETIRO') {
       this.formularioComprobante.reset({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'RETIRO',
         autorizaNA: '',
         autorizaCI: '',
         retiraNA: '',
@@ -279,32 +306,35 @@ export class CrearComprobanteComponent implements OnInit {
         motivo: '',
         tipoComprobante: '',
         nroComprobante: '',
-        fPago: '',
         observacion: '',
-        monto: '',
-        comprobante: 'RETIRO',
       });
     }
     if (this.mostrar == 'DEPOSITO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'DEPOSITO',
         banco: '',
         cuentaBancaria: '',
         nroComprobante: '',
-        fPago: '',
-        monto: '',
-        comprobante: 'DEPOSITO',
       });
     }
     if (this.mostrar == 'TARJETA') {
       this.formularioComprobante = this.fb.group({
-        boleta: '',
-        fPago: '',
+        sucursal:'',
+        fArqueo:'',
         monto: '',
         comprobante: 'TARJETA',
+        boleta: '',
       });
     }
     if (this.mostrar == 'CHEQUE') {
       this.formularioComprobante = this.fb.group({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'CHEQUE',
         banco: '',
         emisor: '',
         cedula: '',
@@ -312,21 +342,19 @@ export class CrearComprobanteComponent implements OnInit {
         chequeNro: '',
         paguese: '',
         observacion: '',
-        fPago: '',
-        monto: '',
-        comprobante: 'CHEQUE',
       });
     }
     if (this.mostrar == 'DESCUENTO') {
       this.formularioComprobante = this.fb.group({
+        sucursal:'',
+        fArqueo:'',
+        monto: '',
+        comprobante: 'DESCUENTO',
         autorizaNA: '',
         autorizaCI: '',
         empleadoNA: '',
         empleadoCI: '',
-        fPago: '',
         observacion: '',
-        monto: '',
-        comprobante: 'DESCUENTO',
       });
     }
   }
