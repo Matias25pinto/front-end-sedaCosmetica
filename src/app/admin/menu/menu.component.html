@@ -1,6 +1,6 @@
 <div class="usuario">
   <button
-    *ngIf="adminRole"
+    *ngIf="adminRole && false"
     (click)="iniciarArqueo()"
     class="usuario__arqueo-btn"
     type="button"
@@ -9,7 +9,7 @@
   </button>
 
   <button
-    *ngIf="adminRole || userRole"
+    *ngIf="(adminRole || userRole) && false"
     (click)="verArqueos()"
     class="usuario__arqueo-btn"
     type="button"
