@@ -343,7 +343,6 @@
             <th class="menuDeInicio__table-th">#</th>
             <th class="menuDeInicio__table-th">Comprobante</th>
             <th class="menuDeInicio__table-th-cuentaBancaria">Nro. Boleta</th>
-            <th class="menuDeInicio__table-th-fecha">Fecha</th>
             <th class="menuDeInicio__table-th">Monto</th>
           </tr>
           <tr
@@ -359,9 +358,7 @@
             <td class="menuDeInicio__table-td-cuentaBancaria">
               {{ comprobante.boleta | uppercase }}
             </td>
-            <td class="menuDeInicio__table-td-fecha">
-              {{ comprobante.fPago | date: "fullDate" }}
-            </td>
+            
             <td class="menuDeInicio__table-td">
               {{ comprobante.monto | number: "1.0-0":"es" }} Gs
             </td>

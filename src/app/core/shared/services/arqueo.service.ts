@@ -37,13 +37,13 @@ export class ArqueoService {
     return this.http.get(this.url + `/arqueos/${id}`, { headers });
   }
 
-  agregarComprobante(loginToken, id, body) {
+  agregarComprobante(loginToken, body) {
     // con headers indicamos como vamos a enviar la información
     let headers = new HttpHeaders({
       token: loginToken,
     }).set('Content-Type', 'application/json');
 
-    return this.http.put(this.url + `/arqueos/comprobantes/${id}`, body, {
+    return this.http.post(this.url + `/comprobantes`, body, {
       headers,
     });
   }
@@ -77,8 +77,9 @@ export class ArqueoService {
       start,
       end,
     }).set('Content-Type', 'application/json');
+    let body = {};
     return this.http.get(this.url + `/arqueos/reporte/ventas/${sucursal}`, {
-      headers,
+      headers
     });
   }
 }

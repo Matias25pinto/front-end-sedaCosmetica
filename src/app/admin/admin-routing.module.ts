@@ -39,7 +39,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'crear-comprobante/:id',
+        path: 'crear-comprobante',
         component: CrearComprobanteComponent,
         canActivate: [AuthGuard],
       },

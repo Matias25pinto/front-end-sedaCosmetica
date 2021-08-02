@@ -1,6 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
 import Swal from 'sweetalert2';
@@ -23,7 +22,6 @@ export class CrearComprobanteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private arqueoService: ArqueoService,
-    private route: ActivatedRoute,
     private sucursalesService:SucursalesService,
   ) {
     this.mostrar = '';
@@ -179,12 +177,9 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.formularioComprobante.valid) {
       this.creandoComprobante = true;
       let loginToken = localStorage.getItem('token');
-      console.log(this.formularioComprobante.value);
-      this.route.params.subscribe((parametros) => {
-        this.arqueoService
+      this.arqueoService
           .agregarComprobante(
             loginToken,
-            parametros['id'],
             this.formularioComprobante.value
           )
           .subscribe(
@@ -214,7 +209,6 @@ export class CrearComprobanteComponent implements OnInit {
               });
             }
           );
-      });
     } else {
       Swal.fire({
         allowOutsideClick: false, //false, no puede dar click en otro lugar

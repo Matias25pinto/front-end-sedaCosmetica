@@ -84,14 +84,15 @@
           <th class="menuDeInicio__table-th">Sucursal</th>
           <th class="menuDeInicio__table-th">Venta Neta</th>
           <th class="menuDeInicio__table-th">Costo</th>
-          <th class="menuDeInicio__table-th">Gasto</th>
           <th class="menuDeInicio__table-th">Utilidad</th>
+          <th class="menuDeInicio__table-th">Gasto</th>
           <th class="menuDeInicio__table-th">Ganancia</th>
           <th class="menuDeInicio__table-th">Retiro</th>
           <th class="menuDeInicio__table-th">Tarjeta</th>
           <th class="menuDeInicio__table-th">Cheque</th>
           <th class="menuDeInicio__table-th">Deposito</th>
         </tr>
+         
         <tr *ngFor="let reporte of reportes" class="menuDeInicio__table-tr">
           <td class="menuDeInicio__table-td">{{ reporte.sucursal }}</td>
           <td class="menuDeInicio__table-td">
@@ -101,10 +102,10 @@
             {{ reporte.costo | number: "1.0-0":"es" }} Gs
           </td>
           <td class="menuDeInicio__table-td">
-            {{ reporte.totalGasto | number: "1.0-0":"es" }} Gs
+            {{ reporte.totalUtilidad | number: "1.0-0":"es" }} Gs
           </td>
           <td class="menuDeInicio__table-td">
-            {{ reporte.totalUtilidad | number: "1.0-0":"es" }} Gs
+            {{ reporte.totalGasto | number: "1.0-0":"es" }} Gs
           </td>
           <td class="menuDeInicio__table-td">
             {{ reporte.ganancia | number: "1.0-0":"es" }} Gs
@@ -182,7 +183,7 @@
               {{ gasto.monto | number: "1.0-0":"es" }} Gs
             </td>
             <td class="menuDeInicio__table-td-fecha">
-              {{ gasto.fPago | date: "fullDate":"GMT-3":"es" }}
+              {{ gasto.fArqueo | date: "fullDate":"GMT-3":"es" }}
             </td>
             <td class="menuDeInicio__table-td-fecha">
 	      {{ gasto.observacion | uppercase }}
@@ -298,7 +299,8 @@
             <th class="menuDeInicio__table-th">#</th>
             <th class="menuDeInicio__table-th">Autorizó</th>
             <th class="menuDeInicio__table-th-fecha">Retiró</th>
-            <th class="menuDeInicio__table-th-cuentaBancaria">Observación</th>
+            <th class="menuDeInicio__table-th">Observación</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha</th>
             <th class="menuDeInicio__table-th">Monto</th>
           </tr>
           <tr
@@ -316,8 +318,11 @@
               {{ comprobante.retiraNA | uppercase }}
               ({{ comprobante.retiraCI | uppercase }})
             </td>
-            <td class="menuDeInicio__table-td-cuentaBancaria">
+            <td class="menuDeInicio__table-td">
               {{ comprobante.observacion | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
             </td>
             <td class="menuDeInicio__table-td">
               {{ comprobante.monto | number: "1.0-0":"es" }} Gs
@@ -364,7 +369,7 @@
               {{ comprobante.boleta | uppercase }}
             </td>
             <td class="menuDeInicio__table-td-fecha">
-              {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+              {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
             </td>
             <td class="menuDeInicio__table-td">
               {{ comprobante.monto | number: "1.0-0":"es" }} Gs
