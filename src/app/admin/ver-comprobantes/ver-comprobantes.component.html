@@ -1,3 +1,80 @@
+<div class="menuDeInicio">
+
+  <div class="menuDeInicio__barraSuperior">
+    <form
+      [formGroup]="form"
+      class="menuDeInicio__formulario"
+      (ngSubmit)="enviarFormulario()"
+    >
+      <div class="menuDeInicio__formulario-elemento">
+        <mat-form-field appearance="fill">
+          <mat-label>Rango de fecha</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              class="crear__comprobantes-formulario-input-fecha"
+              matStartDate
+              formControlName="start"
+              placeholder="Desde"
+            />
+            <input
+              class="crear__comprobantes-formulario-input-fecha"
+              matEndDate
+              formControlName="end"
+              placeholder="Hasta"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error *ngIf="false">Fecha inicial no valida</mat-error>
+          <mat-error *ngIf="false">Fecha final no valida</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div
+        *ngIf="form.get('end').value != ''"
+        class="menuDeInicio__formulario-elemento"
+      >
+        <select
+          (change)="recargarDatos()"
+          formControlName="sucursal"
+          class="custom-select"
+        >
+          <option value="">Todas las Sucursales</option>
+
+          <option
+            *ngFor="let branchOffice of branchOffices; let i = index"
+            [value]="branchOffice._id"
+          >
+            {{ branchOffice.titulo }}
+          </option>
+        </select>
+      </div>
+
+      <div
+        *ngIf="form.get('end').value != ''"
+        class="menuDeInicio__formulario-elemento"
+      >
+        <select
+          (change)="recargarDatos()"
+          formControlName="comprobante"
+          class="custom-select"
+        >
+          <option value="">Todas los comprobantes</option>
+
+          <option
+            *ngFor="let comprobante of listaComprobantes; let i = index"
+            [value]="comprobante"
+          >
+            {{ comprobante }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+</div>
 <div class="comprobantes">
   <div
     *ngIf="comprobantes.length == 0 && !noExisteComprobantes"
@@ -16,16 +93,7 @@
       class="comprobantes__loading-icono fas fa-exclamation-triangle fa-3x"
     ></i>
   </div>
-
-  <button
-    class="arqueos__btn"
-    type="button"
-    (click)="enviarComprobantes(arqueo._id)"
-  >
-    Agregar Comprobante
-  </button>
 </div>
-
 <div *ngIf="comprobantes.length > 0" class="comprobantes">
   <div
     *ngFor="let comprobante of comprobantes; let i = index"
@@ -34,7 +102,7 @@
     <div *ngIf="comprobante.comprobante == 'ANDE'" class="comprobantes__ande">
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -46,7 +114,7 @@
         Fecha Vencimiento: {{ comprobante.fVencimiento | date: "dd/MM/yyyy" }}
       </p>
       <p>
-        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de Pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Nro. Factura: {{ comprobante.nroComprobante }}</p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
@@ -57,7 +125,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -67,7 +135,7 @@
       <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de Pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
       <p>Obs: {{ comprobante.observacion }}</p>
@@ -78,7 +146,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -89,7 +157,7 @@
       <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de Pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
       <p>Obs: {{ comprobante.observacion }}</p>
@@ -100,7 +168,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -113,7 +181,7 @@
       <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de Pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
       <p>Obs: {{ comprobante.observacion }}</p>
@@ -124,7 +192,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -136,7 +204,7 @@
       <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de Pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de Pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
       <p>Obs: {{ comprobante.observacion }}</p>
@@ -144,7 +212,7 @@
     <div *ngIf="comprobante.comprobante == 'RETIRO'" class="comprobantes__ande">
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -159,7 +227,7 @@
       <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de retiro: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de retiro: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
       <p>Obs: {{ comprobante.observacion }}</p>
@@ -170,7 +238,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -179,7 +247,7 @@
       </p>
       <p>Boleta: {{ comprobante.boleta }}</p>
       <p>
-        Fecha de pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
@@ -189,7 +257,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -200,14 +268,14 @@
       <p>Cuenta: {{ comprobante.cuentaBancaria }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de pago: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        Fecha de pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
     <div *ngIf="comprobante.comprobante == 'CHEQUE'" class="comprobantes__ande">
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -223,7 +291,7 @@
       <p>Observación: {{ comprobante.observacion }}</p>
       <p>
         Fecha de Emisión:
-        {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}
+        {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
@@ -233,7 +301,7 @@
     >
       <span
         *ngIf="adminRole"
-        (click)="eliminarComprobante(arqueo._id, i)"
+        (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
       ></span>
@@ -246,8 +314,23 @@
       <p>
         Empleado: {{ comprobante.empleadoNA + " - " + comprobante.empleadoCI }}
       </p>
-      <p>Fecha: {{ comprobante.fPago | date: "fullDate":"GMT-3":"es" }}</p>
+      <p>Fecha: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}</p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
+  </div>
+ 
+</div>
+<div *ngIf="comprobantes.length > 0 && !noExisteComprobantes" class="container">
+  <div class="row text-center d-flex justify-content-center">
+    <p
+      [ngClass]="{ 'productos__producto-titulo-disabled': (desde == '0') }"
+      (click)="anterior()"
+      class="col-6 cursor productos__producto-titulo"
+    >
+      <i class="fas fa-angle-double-left"></i> anterior
+    </p>
+    <p (click)="siguiente()" class="col-4 cursor productos__producto-titulo">
+      siguiente <i class="fas fa-angle-double-right"></i>
+    </p>
   </div>
 </div>

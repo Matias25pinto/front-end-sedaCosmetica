@@ -19,6 +19,8 @@ export class CrearComprobanteComponent implements OnInit {
 
   public sucursales = [];
 
+  public listaComprobantes = ["DEPOSITO","RETIRO","TARJETA","CHEQUE","SALARIO","INSUMOS","SERVICIOS","ANDE","IMPUESTO","DESCUENTO"];
+
   constructor(
     private fb: FormBuilder,
     private arqueoService: ArqueoService,

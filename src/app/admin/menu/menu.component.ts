@@ -81,6 +81,14 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['admin', 'dashboard']);
   }
 
+  cargarComprobante() {
+    this.router.navigate(['admin', 'crear-comprobante']);
+  }
+
+  verComprobantes() {
+    this.router.navigate(['admin', 'ver-comprobantes']);
+  }
+
   cerrarSesion() {
     localStorage.removeItem('token');
     this.router.navigate(['', 'login']);

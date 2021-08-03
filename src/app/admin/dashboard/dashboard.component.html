@@ -92,7 +92,7 @@
           <th class="menuDeInicio__table-th">Cheque</th>
           <th class="menuDeInicio__table-th">Deposito</th>
         </tr>
-         
+
         <tr *ngFor="let reporte of reportes" class="menuDeInicio__table-tr">
           <td class="menuDeInicio__table-td">{{ reporte.sucursal }}</td>
           <td class="menuDeInicio__table-td">
@@ -132,10 +132,10 @@
             {{ totalCosto | number: "1.0-0":"es" }} Gs
           </th>
           <th class="menuDeInicio__table-th">
-            {{ totalGasto | number: "1.0-0":"es" }} Gs
+            {{ totalUtilidad | number: "1.0-0":"es" }} Gs
           </th>
           <th class="menuDeInicio__table-th">
-            {{ totalUtilidad | number: "1.0-0":"es" }} Gs
+            {{ totalGasto | number: "1.0-0":"es" }} Gs
           </th>
           <th class="menuDeInicio__table-th">
             {{ totalGanancia | number: "1.0-0":"es" }} Gs
@@ -186,7 +186,7 @@
               {{ gasto.fArqueo | date: "fullDate":"GMT-3":"es" }}
             </td>
             <td class="menuDeInicio__table-td-fecha">
-	      {{ gasto.observacion | uppercase }}
+              {{ gasto.observacion | uppercase }}
             </td>
           </tr>
           <tr class="menuDeInicio__table-tr">

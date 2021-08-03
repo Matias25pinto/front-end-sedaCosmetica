@@ -17,6 +17,24 @@
     Ver Arqueos
   </button>
 
+<button
+    *ngIf="adminRole"
+    (click)="cargarComprobante()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Cargar Comprobante
+  </button>
+
+  <button
+    *ngIf="adminRole"
+    (click)="verComprobantes()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Ver Comprobantes
+  </button>
+
   <button
     *ngIf="adminRole"
     (click)="dashboard()"

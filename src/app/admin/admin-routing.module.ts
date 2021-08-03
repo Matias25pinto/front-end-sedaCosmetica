@@ -34,7 +34,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'ver-comprobantes/:id',
+        path: 'ver-comprobantes',
         component: VerComprobantesComponent,
         canActivate: [AuthGuard],
       },

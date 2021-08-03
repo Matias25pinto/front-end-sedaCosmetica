@@ -6,16 +6,8 @@
       (change)="seleccionarFormulario($event.target.value)"
     >
       <option value="" selected>Seleccione Comprobante</option>
-      <option value="DEPOSITO">DEPOSITO</option>
-      <option value="RETIRO">RETIRO</option>
-      <option value="TARJETA">TARJETA</option>
-      <option value="CHEQUE">CHEQUE</option>
-      <option value="SALARIO">SALARIO</option>
-      <option value="INSUMOS">INSUMOS</option>
-      <option value="SERVICIOS">SERVICIOS</option>
-      <option value="ANDE">ANDE</option>
-      <option value="IMPUESTO">IMPUESTO</option>
-      <option value="DESCUENTO">DESCUENTO</option>
+      <option *ngFor="let comprobante of listaComprobantes"
+       [value]="comprobante">{{comprobante}}</option>
     </select>
     <span class="custom-arrow"
       ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
