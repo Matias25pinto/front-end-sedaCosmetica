@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
-import { UsuariosService } from 'src/app/core/shared/services/usuarios.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
@@ -23,24 +22,12 @@ export class ArqueosComponent implements OnInit {
   constructor(
     private arqueoService: ArqueoService,
     private router: Router,
-    private usuarioService: UsuariosService
   ) {}
 
   ngOnInit(): void {
     this.subirInicio();
 
-    //verificar el login del usuario
-    let loginToken = localStorage.getItem('token');
-    this.usuarioService.verificarLogin(loginToken).subscribe((data) => {
-      if (data['usuario'].role == 'USER_ROLE') {
-        this.mostrarArqueoCaja = true;
-      }
-
-      if (data['usuario'].role == 'ADMIN_ROLE') {
-        this.admin = true;
-      }
-    });
-
+    
     this.cargarArqueos();
   }
 

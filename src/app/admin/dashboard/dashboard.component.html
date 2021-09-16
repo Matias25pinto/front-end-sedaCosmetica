@@ -51,6 +51,13 @@
           </option>
         </select>
       </div>
+      <button
+        (click)="recargarDatos()"
+        class="usuario__arqueo-btn"
+        type="button"
+      >
+        Ver Informe
+      </button>
     </form>
   </div>
   <div class="menuDeInicio__body">
@@ -91,6 +98,7 @@
           <th class="menuDeInicio__table-th">Tarjeta</th>
           <th class="menuDeInicio__table-th">Cheque</th>
           <th class="menuDeInicio__table-th">Deposito</th>
+          <th class="menuDeInicio__table-th">Estado de arqueo</th>
         </tr>
 
         <tr *ngFor="let reporte of reportes" class="menuDeInicio__table-tr">
@@ -122,6 +130,52 @@
           <td class="menuDeInicio__table-td">
             {{ reporte.totalDeposito | number: "1.0-0":"es" }} Gs
           </td>
+
+          <td
+            *ngIf="
+              reporte.totalDeposito +
+                reporte.totalCheque +
+                reporte.totalTarjeta +
+                reporte.totalRetiro +
+                reporte.totalGasto <
+              reporte.ventaNeta
+            "
+            class="menuDeInicio__table-td"
+          >
+            Faltante: {{ reporte.ventaNeta - (reporte.totalDeposito +
+            reporte.totalCheque + reporte.totalTarjeta + reporte.totalRetiro +
+            reporte.totalGasto) | number: "1.0-0":"es" }} Gs
+          </td>
+
+          <td
+            *ngIf="
+              reporte.totalDeposito +
+                reporte.totalCheque +
+                reporte.totalTarjeta +
+                reporte.totalRetiro +
+                reporte.totalGasto ==
+              reporte.ventaNeta
+            "
+            class="menuDeInicio__table-td"
+          >
+            Arqueo Exitoso
+          </td>
+
+          <td
+            *ngIf="
+              reporte.totalDeposito +
+                reporte.totalCheque +
+                reporte.totalTarjeta +
+                reporte.totalRetiro +
+                reporte.totalGasto >
+              reporte.ventaNeta
+            "
+            class="menuDeInicio__table-td"
+          >
+            Excedente: {{ reporte.totalDeposito + reporte.totalCheque +
+            reporte.totalTarjeta + reporte.totalRetiro + reporte.totalGasto -
+            reporte.ventaNeta | number: "1.0-0":"es" }} Gs
+          </td>
         </tr>
         <tr class="menuDeInicio__table-tr">
           <th class="menuDeInicio__table-th">Total</th>
@@ -152,6 +206,7 @@
           <th class="menuDeInicio__table-th">
             {{ totalDeposito | number: "1.0-0":"es" }} Gs
           </th>
+          <th class="menuDeInicio__table-th">Estado de arqueo</th>
         </tr>
       </table>
       <div
@@ -173,12 +228,8 @@
             *ngFor="let gasto of reporteDeGasto; let i = index"
             class="menuDeInicio__table-tr"
           >
-            <td class="menuDeInicio__table-td">
-              {{ i + 1 }}
-            </td>
-            <td class="menuDeInicio__table-td">
-              {{ gasto.comprobante }}
-            </td>
+            <td class="menuDeInicio__table-td">{{ i + 1 }}</td>
+            <td class="menuDeInicio__table-td">{{ gasto.comprobante }}</td>
             <td class="menuDeInicio__table-td">
               {{ gasto.monto | number: "1.0-0":"es" }} Gs
             </td>
@@ -217,12 +268,8 @@
             *ngFor="let banco of bancos; let i = index"
             class="menuDeInicio__table-tr"
           >
-            <td class="menuDeInicio__table-td">
-              {{ i + 1 }}
-            </td>
-            <td class="menuDeInicio__table-td">
-              {{ "Deposito" | uppercase }}
-            </td>
+            <td class="menuDeInicio__table-td">{{ i + 1 }}</td>
+            <td class="menuDeInicio__table-td">{{ "Deposito" | uppercase }}</td>
             <td class="menuDeInicio__table-td-fecha">
               {{ banco | uppercase }}
             </td>
@@ -259,12 +306,8 @@
             *ngFor="let cuenta of cuentasBancarias; let i = index"
             class="menuDeInicio__table-tr"
           >
-            <td class="menuDeInicio__table-td">
-              {{ i + 1 }}
-            </td>
-            <td class="menuDeInicio__table-td">
-              {{ "Deposito" | uppercase }}
-            </td>
+            <td class="menuDeInicio__table-td">{{ i + 1 }}</td>
+            <td class="menuDeInicio__table-td">{{ "Deposito" | uppercase }}</td>
             <td class="menuDeInicio__table-td-fecha">
               {{ cuentasBanco[i] | uppercase }}
             </td>
@@ -307,16 +350,14 @@
             *ngFor="let comprobante of comprobantesRetiro; let i = index"
             class="menuDeInicio__table-tr"
           >
+            <td class="menuDeInicio__table-td">{{ i + 1 }}</td>
             <td class="menuDeInicio__table-td">
-              {{ i + 1 }}
-            </td>
-            <td class="menuDeInicio__table-td">
-              {{ comprobante.autorizaNA | uppercase }}
-              ({{ comprobante.autorizaCI | uppercase }})
+              {{ comprobante.autorizaNA | uppercase }} ({{
+              comprobante.autorizaCI | uppercase }})
             </td>
             <td class="menuDeInicio__table-td-fecha">
-              {{ comprobante.retiraNA | uppercase }}
-              ({{ comprobante.retiraCI | uppercase }})
+              {{ comprobante.retiraNA | uppercase }} ({{ comprobante.retiraCI |
+              uppercase }})
             </td>
             <td class="menuDeInicio__table-td">
               {{ comprobante.observacion | uppercase }}
@@ -359,9 +400,7 @@
             *ngFor="let comprobante of comprobantesTarjeta; let i = index"
             class="menuDeInicio__table-tr"
           >
-            <td class="menuDeInicio__table-td">
-              {{ i + 1 }}
-            </td>
+            <td class="menuDeInicio__table-td">{{ i + 1 }}</td>
             <td class="menuDeInicio__table-td">
               {{ comprobante.comprobante | uppercase }}
             </td>

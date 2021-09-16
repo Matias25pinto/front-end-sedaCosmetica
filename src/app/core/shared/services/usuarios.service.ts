@@ -11,21 +11,21 @@ export class UsuariosService {
 
   loginUsuario(email: string, password: string) {
     let body = { email, password };
-    return this.http.post(`${this.url}/login/iniciar-sesion`, body);
+    return this.http.post(`${this.url}/usuarios/login`, body);
   }
 
-  verificarLogin(loginToken) {
-    // con headers indicamos como vamos a enviar la información
-    let headers = new HttpHeaders({ token: loginToken }).set(
+  getUsuario(id, token) {
+    let headers = new HttpHeaders({ token }).set(
       'Content-Type',
       'application/json'
     );
-    return this.http.get(this.url + '/login/verificar', { headers });
+    return this.http.get(`${this.url}/usuarios/usuario/${id}`, { headers });
   }
+
   //cerrar sesión
   cerrarLogin() {
     // Remover el tokena
     console.log('remover token');
-    //localStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
 }

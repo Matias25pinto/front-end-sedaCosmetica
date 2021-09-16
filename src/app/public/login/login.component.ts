@@ -75,26 +75,18 @@ export class LoginComponent implements OnInit {
       //Hacer la consulta al servicio que devuelve un observable
       this.usuariosService.loginUsuario(email, password).subscribe(
         (data) => {
-          // Guardar en el localstorage
-          localStorage.setItem('token', data['token']);
-          this.borrarFormulario(); //borrar el formulario
-          //imprimir mensaje
           Swal.fire({
-            allowOutsideClick: false, //false, no puede dar click en otro lugar
-            title: 'Seda Cosmética',
-            text: 'Gracias por iniciar sesión en Seda Cosmética',
+            position: 'top-end',
             icon: 'success',
-            confirmButtonText: 'Ok',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              //Redireccionar a usuario
-              this.router.navigate(['']);
-              setTimeout(() => {
-                //cambiar el estado del botón
-                this.isLogin = false;
-              }, 1000);
-            }
+            title: 'Inicio de sesión válido',
+            showConfirmButton: false,
+            timer: 1500,
           });
+
+          const token = data['token'];
+          localStorage.setItem('token', token);
+          this.isLogin = false;
+          this.router.navigate(['admin']);
         },
         (error) => {
           //Cambiar el estado del botón

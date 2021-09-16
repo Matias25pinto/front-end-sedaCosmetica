@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
-import { UsuariosService } from 'src/app/core/shared/services/usuarios.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +19,6 @@ export class IniciarArqueoComponent implements OnInit {
   public formularioArqueo: FormGroup;
 
   constructor(
-    private usuarioService: UsuariosService,
     private sucursalesService: SucursalesService,
     private fb: FormBuilder,
     private arqueoService: ArqueoService
@@ -32,7 +30,6 @@ export class IniciarArqueoComponent implements OnInit {
       this.sucursales = data['sucursalesBD'];
     });
 
-    this.login();
   }
 
   // Funcion para subir al inicio
@@ -40,38 +37,7 @@ export class IniciarArqueoComponent implements OnInit {
     window.scroll(0, 0);
   }
 
-  //Verificar si el usuario esta logueado
-  login() {
-    let loginToken = localStorage.getItem('token');
-    if (loginToken) {
-      this.usuarioService.verificarLogin(loginToken).subscribe(
-        (data) => {
-          this.usuario = data['usuario'];
-          if (this.usuario.role == 'CLIENT_ROLE') {
-            this.clientRole = true;
-          } else if (this.usuario.role == 'ADMIN_ROLE') {
-            this.adminRole = true;
-          } else if (this.usuario.role == 'USER_ROLE') {
-            this.vendedorRole = true;
-          }
-
-          this.crearFormulaio();
-        },
-        (err) => {
-          console.warn(err);
-          // Remover el token
-          localStorage.removeItem('token');
-          //vamos a recargar la pagina 3 segundos despues
-          setTimeout(() => {
-            //Recargar la pagina para que actualice el estado del usuario
-            window.location.reload();
-          }, 1000);
-        }
-      );
-    }
-  }
-
-  crearFormulaio() {
+    crearFormulaio() {
     if (this.usuario.role == 'ADMIN_ROLE') {
       this.formularioArqueo = this.fb.group({
         sucursal: ['', Validators.required],

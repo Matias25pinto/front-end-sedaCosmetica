@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
-import { UsuariosService } from 'src/app/core/shared/services/usuarios.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -59,20 +58,20 @@ export class DashboardComponent implements OnInit {
   constructor(
     private sucursales: SucursalesService,
     private fb: FormBuilder,
-    private usuarioService: UsuariosService,
     private arqueoService: ArqueoService
   ) {}
 
   ngOnInit(): void {
-    this.crearFormulaio();
-    this.cargatSucursales();
     this.subirInicio();
+    this.crearFormulaio();
+    this.seleccionarFechaDeInicio();
+    this.cargatSucursales();
   }
   cargatSucursales() {
     this.sucursales.getSucursales().subscribe(
       (resp) => {
         this.branchOffices = resp['sucursalesBD'];
-        this.login();
+        this.recargarDatos();
       },
       (err) => console.warn(err)
     );
@@ -89,37 +88,6 @@ export class DashboardComponent implements OnInit {
   // Funcion para subir al inicio
   subirInicio(): void {
     window.scroll(0, 0);
-  }
-  //Verificar si el usuario esta logueado
-  login() {
-    let loginToken = localStorage.getItem('token');
-    if (loginToken) {
-      this.usuarioService.verificarLogin(loginToken).subscribe(
-        (data) => {
-          this.usuario = data['usuario'];
-          if (this.usuario.role == 'CLIENT_ROLE') {
-            this.clientRole = true;
-          } else if (this.usuario.role == 'ADMIN_ROLE') {
-            this.adminRole = true;
-          } else if (this.usuario.role == 'USER_ROLE') {
-            this.vendedorRole = true;
-          }
-          //como el login del usuario es asincrono esperamos a tener el usuario para cargar el formulario
-
-          this.seleccionarFechaDeInicio();
-        },
-        (err) => {
-          console.warn(err);
-          // Remover el token
-          localStorage.removeItem('token');
-          //vamos a recargar la pagina 3 segundos despues
-          setTimeout(() => {
-            //Recargar la pagina para que actualice el estado del usuario
-            window.location.reload();
-          }, 1000);
-        }
-      );
-    }
   }
   //establecer la fecha de inicio
   seleccionarFechaDeInicio() {
@@ -179,7 +147,11 @@ export class DashboardComponent implements OnInit {
 
   enviarFormulario() {
     let loginToken = localStorage.getItem('token');
-    if (this.form.controls.sucursal.value != '') {
+    //this.form.controls.sucursal.value != ''
+    if (
+      this.form.controls.start.value != '' &&
+      this.form.controls.end.value != ''
+    ) {
       this.asignarFechaStartAndEnd(
         this.form.controls.start.value,
         this.form.controls.end.value
@@ -188,7 +160,7 @@ export class DashboardComponent implements OnInit {
     if (this.form.valid) {
       for (const sucursal of this.branchOffices) {
         this.arqueoService
-          .getReporte(sucursal._id, loginToken, this.start, this.end)
+          .getReporte(sucursal._id, loginToken, `${this.start}`, `${this.end}`)
           .subscribe(
             (data) => {
               this.cargarData(data);

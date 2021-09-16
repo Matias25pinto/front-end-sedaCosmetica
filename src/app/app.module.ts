@@ -2,20 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// Importar componentes
-import { HomeComponent } from './pages/home/home.component';
-import { ProductosComponent } from './components/productos/productos.component';
-import { LineasComponent } from './components/lineas/lineas.component';
-import { InformacionComponent } from './components/informacion/informacion.component';
-import { ArqueoComponent } from './pages/arqueo/arqueo.component';
-import { ArqueosComponent } from './pages/arqueos/arqueos.component';
-import { ComprobantesComponent } from './pages/comprobantes/comprobantes.component';
-import { CrearComprobanteComponent } from './pages/crear-comprobante/crear-comprobante.component';
 
 //Importar modulo http
 import { HttpClientModule } from '@angular/common/http';
-import { ContactoComponent } from './pages/contacto/contacto.component';
-import { LocalesComponent } from './pages/locales/locales.component';
 
 //Importar formulario reactivo
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,9 +14,6 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 // De esta forma se importa en Angular la forma de la documentación no funciona en Angular 10
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { PaginacionComponent } from './components/paginacion/paginacion.component';
-import { CatalogoPdfComponent } from './components/catalogo-pdf/catalogo-pdf.component';
-import { UsuarioComponent } from './pages/usuario/usuario.component';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -42,10 +28,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { ReportesComponent } from './pages/reportes/reportes.component';
-import { ReporteGeneralComponent } from './pages/reporte-general/reporte-general.component';
-import { ReportesCuentasComponent } from './pages/reportes-cuentas/reportes-cuentas.component';
-
 //La localidad de la app
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -53,29 +35,14 @@ import localEs from '@angular/common/locales/es';
 registerLocaleData(localEs);
 
 //Modulos propios
-import { DashboardModule } from './dashboard/dashboard.module';
 import { CoreModule } from './core/core.module';
+import { StoreModule } from '@ngrx/store';
+
+//ngrx
+import { usuarioReducer } from './usuario.reducer';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ProductosComponent,
-    LineasComponent,
-    InformacionComponent,
-    ContactoComponent,
-    LocalesComponent,
-    PaginacionComponent,
-    CatalogoPdfComponent,
-    UsuarioComponent,
-    ArqueoComponent,
-    ArqueosComponent,
-    ComprobantesComponent,
-    CrearComprobanteComponent,
-    ReportesComponent,
-    ReporteGeneralComponent,
-    ReportesCuentasComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -85,8 +52,8 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    DashboardModule,
     CoreModule,
+    StoreModule.forRoot({usuario: usuarioReducer}),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

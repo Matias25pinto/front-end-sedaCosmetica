@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Guards
 import { AuthGuard } from '../core/shared/guards/auth.guard';
+import { AdminGuard } from '../core/shared/guards/admin.guard';
+
 //Components
 import { AdminComponent } from './admin.component';
-import { ArqueosComponent } from './arqueos/arqueos.component';
 import { CrearComprobanteComponent } from './crear-comprobante/crear-comprobante.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { IniciarArqueoComponent } from './iniciar-arqueo/iniciar-arqueo.component';
 import { MenuComponent } from './menu/menu.component';
 import { VerComprobantesComponent } from './ver-comprobantes/ver-comprobantes.component';
 
@@ -21,17 +21,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'iniciar-arqueo',
-        component: IniciarArqueoComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'arqueos',
-        component: ArqueosComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminGuard],
       },
       {
         path: 'ver-comprobantes',

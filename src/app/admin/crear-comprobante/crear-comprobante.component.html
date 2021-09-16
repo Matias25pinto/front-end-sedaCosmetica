@@ -6,8 +6,12 @@
       (change)="seleccionarFormulario($event.target.value)"
     >
       <option value="" selected>Seleccione Comprobante</option>
-      <option *ngFor="let comprobante of listaComprobantes"
-       [value]="comprobante">{{comprobante}}</option>
+      <option
+        *ngFor="let comprobante of listaComprobantes"
+        [value]="comprobante"
+      >
+        {{ comprobante }}
+      </option>
     </select>
     <span class="custom-arrow"
       ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
@@ -19,37 +23,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="nis">NIS: </label>
       <input
@@ -90,7 +94,7 @@
         name="monto"
       />
     </div>
-    
+
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -113,37 +117,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="servicio">Servicio: </label>
       <input
@@ -180,7 +184,7 @@
         name="nroComprobante"
       />
     </div>
-    
+
     <div class="crear__comprobantes-formulario-elemento-textarea">
       <label for="observacion">Observación: </label>
       <textarea
@@ -222,37 +226,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="impuesto">Impuesto: </label>
       <input
@@ -289,7 +293,7 @@
         name="nroComprobante"
       />
     </div>
-    
+
     <div class="crear__comprobantes-formulario-elemento-textarea">
       <label for="observacion">Observación: </label>
       <textarea
@@ -331,37 +335,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="nombreApellido">Nombre y Apellido: </label>
       <input
@@ -416,7 +420,7 @@
         name="nroComprobante"
       />
     </div>
-    
+
     <div class="crear__comprobantes-formulario-elemento-textarea">
       <label for="observacion">Observación: </label>
       <textarea
@@ -458,37 +462,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="comercial">Comercial: </label>
       <input
@@ -535,7 +539,7 @@
         name="nroComprobante"
       />
     </div>
-    
+
     <div class="crear__comprobantes-formulario-elemento-textarea">
       <label for="observacion">Observación: </label>
       <textarea
@@ -577,37 +581,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="autorizaNA">Autoriza: </label>
       <div class="crear__comprobantes-formulario-elemento">
@@ -728,37 +732,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="banco">Banco: </label>
       <div class="crear__comprobantes-formulario-select-container">
@@ -849,6 +853,20 @@
     </div>
 
     <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Deposito: </mat-label>
+      <input
+        formControlName="fDeposito"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker3"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3 [disabled]="false"></mat-datepicker>
+    </div>
+
+    <div class="crear__comprobantes-formulario-elemento">
       <label for="nroComprobante">Nro. Comprobante: </label>
       <input
         class="crear__comprobantes-formulario-input"
@@ -889,37 +907,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="boleta">Boleta: </label>
       <input
@@ -961,37 +979,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="banco">Banco: </label>
       <input
@@ -1094,37 +1112,37 @@
     [formGroup]="formularioComprobante"
     (ngSubmit)="guardarFormulario()"
   >
-  <div class="crear__comprobantes-formulario-elemento">
-    <label for="tipoComprobante">Sucursal: </label>
-    <div class="crear__comprobantes-formulario-select-container">
-      <select class="custom-select" formControlName="sucursal">
-        <option value="" selected>Seleccione Sucursal</option>
-        <option
-          *ngFor="let sucursal of sucursales"
-          value="{{ sucursal._id }}"
-        >
-          {{ sucursal.titulo }}
-        </option>
-      </select>
-      <span class="custom-arrow"
-        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
-      ></span>
+    <div class="crear__comprobantes-formulario-elemento">
+      <label for="tipoComprobante">Sucursal: </label>
+      <div class="crear__comprobantes-formulario-select-container">
+        <select class="custom-select" formControlName="sucursal">
+          <option value="" selected>Seleccione Sucursal</option>
+          <option
+            *ngFor="let sucursal of sucursales"
+            value="{{ sucursal._id }}"
+          >
+            {{ sucursal.titulo }}
+          </option>
+        </select>
+        <span class="custom-arrow"
+          ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+        ></span>
+      </div>
     </div>
-  </div>
-  <div class="crear__comprobantes-formulario-elemento">
-    <mat-label>Fecha de Arqueo: </mat-label>
-    <input
-      formControlName="fArqueo"
-      class="crear__comprobantes-formulario-input-fecha"
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="Mes/Día/Año"
-      [disabled]="true"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
-  </div>
-  <hr>
+    <div class="crear__comprobantes-formulario-elemento">
+      <mat-label>Fecha de Arqueo: </mat-label>
+      <input
+        formControlName="fArqueo"
+        class="crear__comprobantes-formulario-input-fecha"
+        matInput
+        [matDatepicker]="picker2"
+        placeholder="Mes/Día/Año"
+        [disabled]="true"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+    </div>
+    <hr />
     <div class="crear__comprobantes-formulario-elemento">
       <label for="autorizaNA">Autoriza: </label>
       <div class="crear__comprobantes-formulario-elemento">

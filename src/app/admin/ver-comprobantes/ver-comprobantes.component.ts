@@ -7,19 +7,24 @@ import { SucursalesService } from 'src/app/core/shared/services/sucursales.servi
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as action from 'src/app/usuario.actions';
+
 @Component({
   selector: 'app-ver-comprobantes',
   templateUrl: './ver-comprobantes.component.html',
 })
 export class VerComprobantesComponent implements OnInit {
 
+  public btnSiguiente = true;
+
+  public usuario$: Observable<any>;
+  public usuario: any;
+
   public branchOffices: any[] = [];
   public isSelectBranchOffice: boolean[] = [];
   public form: FormGroup;
-
-  public usuario: any;
-  public clientRole = false;
-  public vendedorRole = false;
 
   public start: string;
   public end: string;
@@ -33,79 +38,64 @@ export class VerComprobantesComponent implements OnInit {
   private id;
   public noExisteComprobantes = false;
 
-  public listaComprobantes = ["DEPOSITO","RETIRO","TARJETA","CHEQUE","SALARIO","INSUMOS","SERVICIOS","ANDE","IMPUESTO","DESCUENTO"];
-  public desde:string = "0";
-  public cantidadComprobantes:number;
+  public listaComprobantes = [
+    'DEPOSITO',
+    'RETIRO',
+    'TARJETA',
+    'CHEQUE',
+    'SALARIO',
+    'INSUMOS',
+    'SERVICIOS',
+    'ANDE',
+    'IMPUESTO',
+    'DESCUENTO',
+  ];
+  public desde: string = '0';
+  public cantidadComprobantes: number;
   constructor(
-    private router: Router,
-    private usuarioService: UsuariosService,
+    private store: Store<{ usuario: any }>,
+    private sucursalesService: SucursalesService,
     private comprobantesServices: ComprobantesService,
-    private sucursales: SucursalesService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    //verificar el login del usuario
-    let loginToken = localStorage.getItem('token');
-    this.crearFormulaio();
-    this.cargatSucursales();
     this.subirInicio();
-    this.usuarioService.verificarLogin(loginToken).subscribe((data) => {
-      if (data['usuario'].role == 'USER_ROLE') {
-        this.userRole = true;
-      }
-      if (data['usuario'].role == 'ADMIN_ROLE') {
-        this.adminRole = true;
-      }
+    this.crearFormulaio();
+    this.autenticarUsuario();
+    this.seleccionarFechaDeInicio();
+  }
+  autenticarUsuario() {
+    this.usuario$ = this.store.select('usuario');
+
+    this.store.dispatch(action.getUsuario());
+
+    this.usuario$.subscribe((data) => {
+      this.usuario = data;
+      this.sucursalesService.getSucursales().subscribe(async (data) => {
+        if (this.usuario.role !== 'ADMIN_ROLE') {
+          await data['sucursalesBD'].filter((sucursal) => {
+            if (sucursal._id == this.usuario.sucursal) {
+              this.branchOffices.push(sucursal);
+              return sucursal;
+            }
+            return;
+          });
+        } else {
+          this.branchOffices = data['sucursalesBD'];
+        }
+        this.recargarDatos();
+      });
     });
   }
-  cargatSucursales() {
-    this.sucursales.getSucursales().subscribe(
-      (resp) => {
-        this.branchOffices = resp['sucursalesBD'];
-        this.login();
-      },
-      (err) => console.warn(err)
-    );
-  }
+
   crearFormulaio() {
     this.form = this.fb.group({
       sucursal: [''],
-      comprobante:[''],
+      comprobante: [''],
       start: ['', Validators.required],
       end: ['', Validators.required],
     });
-  }
-   //Verificar si el usuario esta logueado
-   login() {
-    let loginToken = localStorage.getItem('token');
-    if (loginToken) {
-      this.usuarioService.verificarLogin(loginToken).subscribe(
-        (data) => {
-          this.usuario = data['usuario'];
-          if (this.usuario.role == 'CLIENT_ROLE') {
-            this.clientRole = true;
-          } else if (this.usuario.role == 'ADMIN_ROLE') {
-            this.adminRole = true;
-          } else if (this.usuario.role == 'USER_ROLE') {
-            this.vendedorRole = true;
-          }
-          //como el login del usuario es asincrono esperamos a tener el usuario para cargar el formulario
-
-          this.seleccionarFechaDeInicio();
-        },
-        (err) => {
-          console.warn(err);
-          // Remover el token
-          localStorage.removeItem('token');
-          //vamos a recargar la pagina 3 segundos despues
-          setTimeout(() => {
-            //Recargar la pagina para que actualice el estado del usuario
-            window.location.reload();
-          }, 1000);
-        }
-      );
-    }
   }
 
   seleccionarFechaDeInicio() {
@@ -125,20 +115,26 @@ export class VerComprobantesComponent implements OnInit {
 
     this.asignarFechaStartAndEnd(primerDia, ultimoDia);
     //asignamos las fechas start al formulario
-    this.form.reset({
-      sucursal: '',
-      comprobante:'',
-      start: primerDia,
-      end: ultimoDia,
-    });
+    if (this.usuario.role == 'ADMIN_ROLE') {
+      this.form.reset({
+        sucursal: '',
+        comprobante: '',
+        start: primerDia,
+        end: ultimoDia,
+      });
+    } else {
+      this.form.reset({
+        sucursal: this.usuario['sucursal'],
+        comprobante: '',
+        start: primerDia,
+        end: ultimoDia,
+      });
+    }
     this.enviarFormulario();
   }
 
-  
-
   asignarFechaStartAndEnd(fechaStart: Date, fechaEnd: Date) {
     try {
-     
       this.start = `${fechaStart.getFullYear()}-${
         fechaStart.getMonth() + 1
       }-${fechaStart.getDate()}`;
@@ -158,12 +154,13 @@ export class VerComprobantesComponent implements OnInit {
     }
   }
   siguiente() {
-    if(this.cantidadComprobantes > parseInt(this.desde)+10){
+    if (this.cantidadComprobantes > parseInt(this.desde) + 10) {
       this.desde = (parseInt(this.desde) + 10).toString();
       console.log(this.desde);
       this.recargarDatos();
-    }else{
-      console.log("No hay siguiente");
+    } else {
+      console.log('No hay siguiente');
+      this.btnSiguiente = false;
     }
   }
 
@@ -171,24 +168,24 @@ export class VerComprobantesComponent implements OnInit {
     this.desde = (parseInt(this.desde) - 10).toString();
     if (parseInt(this.desde) >= 0) {
       this.recargarDatos();
-    }else{
-      this.desde = "0";
+    } else {
+      this.desde = '0';
     }
   }
-  formatearFecha(data){
+  formatearFecha(data) {
     let fecha = new Date(data);
     let yyyy = fecha.getFullYear().toString();
-    let mm = "";
-    let dd = "";
-    if(fecha.getDate() < 10){
-      dd = "0"+ fecha.getDate().toString();
-    }else{
+    let mm = '';
+    let dd = '';
+    if (fecha.getDate() < 10) {
+      dd = '0' + fecha.getDate().toString();
+    } else {
       dd = fecha.getDate().toString();
     }
-    if(fecha.getMonth() < 10){
-      mm = "0" + (fecha.getMonth()+1).toString();
-    }else{
-      mm = (fecha.getMonth()+1).toString();
+    if (fecha.getMonth() < 10) {
+      mm = '0' + (fecha.getMonth() + 1).toString();
+    } else {
+      mm = (fecha.getMonth() + 1).toString();
     }
 
     return `${yyyy}-${mm}-${dd}T03:00:00.000Z`;
@@ -219,29 +216,35 @@ export class VerComprobantesComponent implements OnInit {
   }
 
   cargarComprobante() {
-
     let token = localStorage.getItem('token');
     let sucursal = this.form.controls.sucursal.value;
-  
+
     let comprobante = this.form.controls.comprobante.value;
-    
-    let fechaDesde = this.formatearFecha(this.form.get("start").value);
- 
-    let fechaHasta = this.formatearFecha(this.form.get("end").value);
-    
+
+    let fechaDesde = this.formatearFecha(this.form.get('start').value);
+
+    let fechaHasta = this.formatearFecha(this.form.get('end').value);
+
     let desde = this.desde;
     this.comprobantesServices
-      .getComprobantes(token, sucursal, comprobante, fechaDesde, fechaHasta, desde)
+      .getComprobantes(
+        token,
+        sucursal,
+        comprobante,
+        fechaDesde,
+        fechaHasta,
+        desde
+      )
       .subscribe(
         (data) => {
           this.comprobantes = [];
           this.comprobantes = data['comprobantes'];
           this.cantidadComprobantes = 0;
           this.cantidadComprobantes = data['cantidadComprobantes'];
-          if(this.comprobantes.length == 0){
-            this.noExisteComprobantes=true;
+          if (this.comprobantes.length == 0) {
+            this.noExisteComprobantes = true;
             this.anterior();
-          }else{
+          } else {
             this.noExisteComprobantes = false;
           }
         },
@@ -249,7 +252,7 @@ export class VerComprobantesComponent implements OnInit {
           console.log('ERROR!!!');
           this.comprobantes = [];
           this.cantidadComprobantes = 0;
-          this.noExisteComprobantes=true;
+          this.noExisteComprobantes = true;
         }
       );
   }
@@ -267,12 +270,17 @@ export class VerComprobantesComponent implements OnInit {
       confirmButtonText: 'Sí',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.comprobantesServices.eliminarComprobante(idComprobante, token).subscribe(data=>{
-          console.log("Se elimino el comprobante");
-          this.recargarDatos();
-        },err=>{
-          console.log("ERROR!!! no se pudo eliminar el comprobante");
-        });
+        this.comprobantesServices
+          .eliminarComprobante(idComprobante, token)
+          .subscribe(
+            (data) => {
+              console.log('Se elimino el comprobante');
+              this.recargarDatos();
+            },
+            (err) => {
+              console.log('ERROR!!! no se pudo eliminar el comprobante');
+            }
+          );
       }
     });
   }

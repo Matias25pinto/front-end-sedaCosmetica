@@ -1,5 +1,4 @@
 <div class="menuDeInicio">
-
   <div class="menuDeInicio__barraSuperior">
     <form
       [formGroup]="form"
@@ -42,7 +41,9 @@
           formControlName="sucursal"
           class="custom-select"
         >
-          <option value="">Todas las Sucursales</option>
+          <option *ngIf="usuario['role'] === 'ADMIN_ROLE'" value="">
+            Todas las Sucursales
+          </option>
 
           <option
             *ngFor="let branchOffice of branchOffices; let i = index"
@@ -72,6 +73,13 @@
           </option>
         </select>
       </div>
+      <button
+        *ngIf="true"
+        class="usuario__arqueo-btn"
+        type="submit"
+      >
+        Ver Comprobantes
+      </button>
     </form>
   </div>
 </div>
@@ -101,7 +109,6 @@
   >
     <div *ngIf="comprobante.comprobante == 'ANDE'" class="comprobantes__ande">
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -124,7 +131,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -145,7 +151,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -167,7 +172,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -191,7 +195,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -211,7 +214,6 @@
     </div>
     <div *ngIf="comprobante.comprobante == 'RETIRO'" class="comprobantes__ande">
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -227,7 +229,8 @@
       <p>Tipo comprobante: {{ comprobante.tipoComprobante }}</p>
       <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>
-        Fecha de retiro: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
+        Fecha de retiro: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es"
+        }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
       <p>Obs: {{ comprobante.observacion }}</p>
@@ -237,7 +240,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -256,7 +258,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -264,17 +265,23 @@
       <p class="comprobantes__container-titulo">
         {{ comprobante.comprobante }}
       </p>
+      <p>
+        Fecha de Arqueo: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es"
+        }}
+      </p>
+
       <p>Banco: {{ comprobante.banco }}</p>
       <p>Cuenta: {{ comprobante.cuentaBancaria }}</p>
-      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
-      <p>
-        Fecha de pago: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
+      <p *ngIf="comprobante.fDeposito">
+        Fecha de Deposito: {{ comprobante.fDeposito | date:
+        "fullDate":"GMT-3":"es" }}
       </p>
+
+      <p>Nro. Comprobante: {{ comprobante.nroComprobante }}</p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
     <div *ngIf="comprobante.comprobante == 'CHEQUE'" class="comprobantes__ande">
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -290,8 +297,8 @@
       <p>Páguese a la orden de: {{ comprobante.paguese }}</p>
       <p>Observación: {{ comprobante.observacion }}</p>
       <p>
-        Fecha de Emisión:
-        {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es" }}
+        Fecha de Emisión: {{ comprobante.fArqueo | date: "fullDate":"GMT-3":"es"
+        }}
       </p>
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
@@ -300,7 +307,6 @@
       class="comprobantes__ande"
     >
       <span
-        *ngIf="adminRole"
         (click)="eliminarComprobante(comprobante._id)"
         class="comprobantes__container-eliminar"
         >Eliminar <i class="fas fa-trash-alt"></i
@@ -318,18 +324,21 @@
       <p>Monto: {{ comprobante.monto | number: "1.0-0" }} GS.</p>
     </div>
   </div>
- 
 </div>
 <div *ngIf="comprobantes.length > 0 && !noExisteComprobantes" class="container">
   <div class="row text-center d-flex justify-content-center">
     <p
-      [ngClass]="{ 'productos__producto-titulo-disabled': (desde == '0') }"
+      [ngClass]="{ 'productos__producto-titulo-disabled': desde == '0' }"
       (click)="anterior()"
       class="col-6 cursor productos__producto-titulo"
     >
       <i class="fas fa-angle-double-left"></i> anterior
     </p>
-    <p (click)="siguiente()" class="col-4 cursor productos__producto-titulo">
+    <p
+      [ngClass]="{ 'productos__producto-titulo-disabled': !btnSiguiente }"
+      (click)="siguiente()"
+      class="col-4 cursor productos__producto-titulo"
+    >
       siguiente <i class="fas fa-angle-double-right"></i>
     </p>
   </div>

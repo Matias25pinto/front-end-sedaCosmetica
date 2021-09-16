@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as action from 'src/app/usuario.actions';
 
 interface DoCheck {
   ngDoCheck(): void;
@@ -19,9 +21,11 @@ interface OnDestroy {
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent
-  implements OnInit, DoCheck, AfterViewChecked, OnDestroy {
-  public usuarioLogin: Boolean;
+  implements OnInit, DoCheck, AfterViewChecked, OnDestroy
+{
+  public usuario$: Observable<any>;
   public usuario: any;
+  public usuarioLogin: Boolean = false;
 
   public nombreUsuario: string;
 
@@ -50,7 +54,7 @@ export class NavbarComponent
 
   public menuScroll: number = 0;
 
-  constructor(private routes: Router, private usuarioService: UsuarioService) {
+  constructor(private routes: Router, private store: Store<{ usuario: any }>) {
     // ver los valores del scroll del usuario
 
     window.onscroll = () => {
@@ -84,8 +88,23 @@ export class NavbarComponent
       menunav.style.top = '0px'; //cambiar el top del menu
       menuflotante.style.top = `${String(menunav.offsetHeight + 10)}px`;
     }
-    //calcular la altura del titulo
+    this.autenticarUsuario();
   }
+  autenticarUsuario() {
+    this.usuario$ = this.store.select('usuario');
+
+    this.store.dispatch(action.getUsuario());
+
+    this.usuario$.subscribe((data) => {
+      this.usuario = data;
+      this.usuarioLogin = false;
+      if (this.usuario.role != undefined) {
+        this.usuarioLogin = true;
+      }
+    });
+  }
+
+
   ngDoCheck() {
     //Cargar usuario
     if (this.usuario) {
@@ -97,7 +116,6 @@ export class NavbarComponent
 
   ngAfterViewChecked() {}
   ngOnDestroy() {
-    console.log('se destruyo el componente');
   }
 
   // Funcion para subir al inicio
@@ -161,33 +179,11 @@ export class NavbarComponent
     }
   }
   //Enivamos a la ruta de buscar
-  buscarMercaderia(termino:string) {
-    this.routes.navigate(['','buscar',termino,'0']);
+  buscarMercaderia(termino: string) {
+    this.routes.navigate(['', 'buscar', termino, '0']);
   }
 
-  usuarioLogueado() {
-    //Verficiar si existe token valido
-    let loginToken = localStorage.getItem('loginToken');
-    if (loginToken) {
-      this.usuarioService.verificarLogin(loginToken).subscribe(
-        (data) => {
-          this.usuario = data['usuario'];
-          this.usuarioLogin = true;
-        },
-        (err) => {
-          console.warn(err);
-          this.usuarioService.cerrarLogin();
-          this.usuarioLogin = false;
-        }
-      );
-    } else {
-      this.usuarioLogin = false;
-    }
-  }
+  usuarioLogueado() {}
 
-  cerrarLogin() {
-    this.usuarioService.cerrarLogin();
-    this.usuarioLogueado();
-    this.routes.navigate['/login'];
-  }
+  cerrarLogin() {}
 }

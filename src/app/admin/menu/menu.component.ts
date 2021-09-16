@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
-import { UsuariosService } from 'src/app/core/shared/services/usuarios.service';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as action from 'src/app/usuario.actions';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
 })
 export class MenuComponent implements OnInit {
+  public usuario$: Observable<any>;
   public usuario: any;
-  public clientRole = false;
-  public userRole = false;
-  public adminRole = false;
 
   public sucursales = [];
 
   constructor(
-    private usuarioService: UsuariosService,
+    private store: Store<{ usuario: any }>,
     private sucursalesService: SucursalesService,
     private router: Router
   ) {}
@@ -28,53 +28,20 @@ export class MenuComponent implements OnInit {
       this.sucursales = data['sucursalesBD'];
     });
 
-    this.login();
+    this.autenticarUsuario();
+  }
+  autenticarUsuario() {
+    this.usuario$ = this.store.select('usuario');
+
+    this.store.dispatch(action.getUsuario());
+
+    this.usuario$.subscribe((data) => {
+      this.usuario = data;
+    });
   }
   // Funcion para subir al inicio
   subirInicio(): void {
     window.scroll(0, 0);
-  }
-  //Verificar si el usuario esta logueado
-  login() {
-    let loginToken = localStorage.getItem('token');
-    if (loginToken) {
-      this.usuarioService.verificarLogin(loginToken).subscribe(
-        (data) => {
-          this.usuario = data['usuario'];
-          if (this.usuario.role == 'CLIENT_ROLE') {
-            this.clientRole = true;
-          } else if (this.usuario.role == 'ADMIN_ROLE') {
-            this.adminRole = true;
-          } else if (this.usuario.role == 'USER_ROLE') {
-            this.userRole = true;
-          }
-        },
-        (err) => {
-          console.warn(err);
-          // Remover el token
-          localStorage.removeItem('token');
-        }
-      );
-    }
-  }
-
-  iniciarArqueo() {
-    this.router.navigate(['admin', 'iniciar-arqueo']);
-  }
-
-  verArqueos() {
-    this.router.navigate(['admin', 'arqueos']);
-  }
-
-  reporteBanco() {
-    this.router.navigate(['admin', 'reportes']);
-  }
-  reporteCuenta() {
-    this.router.navigate(['admin', 'reportes', 'cuentas']);
-  }
-
-  reporteGeneral() {
-    this.router.navigate(['admin', 'reporte', 'general']);
   }
 
   dashboard() {
@@ -91,6 +58,7 @@ export class MenuComponent implements OnInit {
 
   cerrarSesion() {
     localStorage.removeItem('token');
+    this.store.dispatch(action.deleteUsuario());
     this.router.navigate(['', 'login']);
   }
 }
