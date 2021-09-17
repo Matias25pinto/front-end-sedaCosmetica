@@ -5,7 +5,7 @@
       class="menuDeInicio__formulario"
       (ngSubmit)="enviarFormulario()"
     >
-      <div class="menuDeInicio__formulario-elemento">
+      <div *ngIf="!loading" class="menuDeInicio__formulario-elemento">
         <mat-form-field appearance="fill">
           <mat-label>Rango de fecha</mat-label>
           <mat-date-range-input [rangePicker]="picker">
@@ -33,11 +33,12 @@
       </div>
 
       <div
-        *ngIf="form.get('end').value != ''"
+        *ngIf="form.get('end').value != '' && !loading"
         class="menuDeInicio__formulario-elemento"
       >
         <select
-          (change)="recargarDatos()"
+          *ngIf="!loading"
+          (change)="limpiarReporte()"
           formControlName="sucursal"
           class="custom-select"
         >
@@ -52,11 +53,20 @@
         </select>
       </div>
       <button
+        *ngIf="!loading"
         (click)="recargarDatos()"
         class="usuario__arqueo-btn"
         type="button"
       >
         Ver Informe
+      </button>
+      <button
+        disabled
+        *ngIf="loading"
+        class="usuario__arqueo-btn"
+        type="button"
+      >
+        <i class="fas fa-sync fa-spin"></i>
       </button>
     </form>
   </div>

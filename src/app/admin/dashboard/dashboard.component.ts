@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   public branchOffices: any[] = [];
   public isSelectBranchOffice: boolean[] = [];
   public form: FormGroup;
+  public loading:boolean = false;
 
   public usuario: any;
   public clientRole = false;
@@ -159,6 +160,7 @@ export class DashboardComponent implements OnInit {
     }
     if (this.form.valid) {
       for (const sucursal of this.branchOffices) {
+	this.loading = true;
         this.arqueoService
           .getReporte(sucursal._id, loginToken, `${this.start}`, `${this.end}`)
           .subscribe(
@@ -220,7 +222,16 @@ export class DashboardComponent implements OnInit {
   }
   cargarReporteGeneral(data: any) {
     //cargar el reporte general
-    this.reportes.push(data);
+    let existe = false;
+    this.reportes.map((reporte) => {
+      if (reporte.sucursal === data.sucursal) {
+        existe = true;
+      }
+    });
+    if (!existe) {
+      this.reportes.push(data);
+    }
+    this.loading = false;
   }
   cargarReporteDeGastos(comprobantesDeGasto: any, totalDeGasto: number) {
     //cargar el reporte de gastos
