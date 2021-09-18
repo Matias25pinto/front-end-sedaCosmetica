@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   public branchOffices: any[] = [];
   public isSelectBranchOffice: boolean[] = [];
   public form: FormGroup;
-  public loading:boolean = false;
+  public loading: boolean = false;
 
   public usuario: any;
   public clientRole = false;
@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   public bancos = new Set(); //usamos un set de esta forma no se guardan los datos repetidos
   public depositoPorBanco: number[] = [];
   public totalDepositoPorBanco: number = 0;
+  public reporteDeDepositos: any[] = [];
 
   public cuentasBancarias = new Set();
   public cuentasBanco: string[] = [];
@@ -160,7 +161,7 @@ export class DashboardComponent implements OnInit {
     }
     if (this.form.valid) {
       for (const sucursal of this.branchOffices) {
-	this.loading = true;
+        this.loading = true;
         this.arqueoService
           .getReporte(sucursal._id, loginToken, `${this.start}`, `${this.end}`)
           .subscribe(
@@ -201,6 +202,8 @@ export class DashboardComponent implements OnInit {
         this.cargarReporteDeGastos(data.comprobantesGasto, data.totalGasto);
 
         this.cargarReporteDeDepositoPorBanco(data.comprobantesDeposito);
+
+	this.cargarReporteDeDepositos(data.comprobantesDeposito);
 
         this.cargarReporteDeDepositoPorCuenta(data.comprobantesDeposito);
 
@@ -257,6 +260,14 @@ export class DashboardComponent implements OnInit {
       ++indiceDeBanco;
     }
   }
+
+  cargarReporteDeDepositos(comprobantesDeposito) {
+    for (let deposito of comprobantesDeposito) {
+      this.reporteDeDepositos.push(deposito);
+    }
+    console.log(this.reporteDeDepositos);
+  }
+
   cargarReporteDeDepositoPorCuenta(comprobantesDeposito: any) {
     //cargar las cuentas bancarias
     for (let deposito of comprobantesDeposito) {
@@ -322,6 +333,7 @@ export class DashboardComponent implements OnInit {
     this.cuentasBanco = [];
     this.depositoPorCuenta = [];
     this.totalDepositoPorCuenta = 0;
+    this.reporteDeDepositos = [];
 
     this.cantidadDeInformes = 0;
 

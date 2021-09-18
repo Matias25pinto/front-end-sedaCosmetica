@@ -7,7 +7,7 @@
     >
       <div *ngIf="!loading" class="menuDeInicio__formulario-elemento">
         <mat-form-field appearance="fill">
-          <mat-label>Rango de fecha</mat-label>
+          <mat-label>Rango de Arqueo</mat-label>
           <mat-date-range-input [rangePicker]="picker">
             <input
               class="crear__comprobantes-formulario-input-fecha"
@@ -58,7 +58,7 @@
         class="usuario__arqueo-btn"
         type="button"
       >
-        Ver Informe
+        Actualizar Informe
       </button>
       <button
         disabled
@@ -231,7 +231,7 @@
             <th class="menuDeInicio__table-th">#</th>
             <th class="menuDeInicio__table-th">Gasto</th>
             <th class="menuDeInicio__table-th">Monto</th>
-            <th class="menuDeInicio__table-th-fecha">Fecha</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha de Arqueo</th>
             <th class="menuDeInicio__table-th-fecha">Observación</th>
           </tr>
           <tr
@@ -345,6 +345,61 @@
         class="menuDeInicio__tableElemento"
       >
         <h4 class="menuDeInicio__tituloSecundario">
+          {{ "Reporte de Depositos por día de arqueo" | uppercase }}
+        </h4>
+        <table class="menuDeInicio__table">
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">#</th>
+            <th class="menuDeInicio__table-th">Comprobante</th>
+            <th class="menuDeInicio__table-th">Banco</th>
+            <th class="menuDeInicio__table-th-fecha">Cuenta</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha de Arqueo</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha de Deposito</th>
+            <th class="menuDeInicio__table-th">Monto</th>
+          </tr>
+          <tr
+            *ngFor="let deposito of reporteDeDepositos; let i = index"
+            class="menuDeInicio__table-tr"
+          >
+            <td class="menuDeInicio__table-td">{{ i + 1 }}</td>
+            <td class="menuDeInicio__table-td">
+              {{ deposito.comprobante | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ deposito.banco | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ deposito.cuentaBancaria | uppercase }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ deposito.fArqueo | date: "fullDate":"GMT-3":"es" }}
+            </td>
+            <td class="menuDeInicio__table-td-fecha">
+              {{ deposito.fDeposito | date: "fullDate":"GMT-3":"es" }}
+            </td>
+            <td class="menuDeInicio__table-td">
+              {{ deposito.monto | number: "1.0-0":"es" }} Gs
+            </td>
+          </tr>
+          <tr class="menuDeInicio__table-tr">
+            <th class="menuDeInicio__table-th">Total</th>
+            <th class="menuDeInicio__table-th"></th>
+            <th class="menuDeInicio__table-th"></th>
+            <th class="menuDeInicio__table-th-fecha"></th>
+            <th class="menuDeInicio__table-th-fecha"></th>
+            <th class="menuDeInicio__table-th-fecha"></th>
+            <th class="menuDeInicio__table-th">
+              {{ totalDeposito | number: "1.0-0":"es" }} Gs
+            </th>
+          </tr>
+        </table>
+      </div>
+
+      <div
+        *ngIf="form.get('sucursal').value != ''"
+        class="menuDeInicio__tableElemento"
+      >
+        <h4 class="menuDeInicio__tituloSecundario">
           {{ "Reporte de Retiros" | uppercase }}
         </h4>
         <table class="menuDeInicio__table">
@@ -353,7 +408,7 @@
             <th class="menuDeInicio__table-th">Autorizó</th>
             <th class="menuDeInicio__table-th-fecha">Retiró</th>
             <th class="menuDeInicio__table-th">Observación</th>
-            <th class="menuDeInicio__table-th-fecha">Fecha</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha de Arqueo</th>
             <th class="menuDeInicio__table-th">Monto</th>
           </tr>
           <tr
@@ -403,7 +458,7 @@
             <th class="menuDeInicio__table-th">#</th>
             <th class="menuDeInicio__table-th">Comprobante</th>
             <th class="menuDeInicio__table-th-cuentaBancaria">Nro. Boleta</th>
-            <th class="menuDeInicio__table-th-fecha">Fecha</th>
+            <th class="menuDeInicio__table-th-fecha">Fecha de Arqueo</th>
             <th class="menuDeInicio__table-th">Monto</th>
           </tr>
           <tr
