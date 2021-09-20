@@ -35,9 +35,7 @@ import localEs from '@angular/common/locales/es';
 registerLocaleData(localEs);
 
 //Modulos propios
-import { CoreModule } from './core/core.module';
 import { StoreModule } from '@ngrx/store';
-
 //ngrx
 import { usuarioReducer } from './usuario.reducer';
 
@@ -52,8 +50,7 @@ import { usuarioReducer } from './usuario.reducer';
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    CoreModule,
-    StoreModule.forRoot({usuario: usuarioReducer}),
+    StoreModule.forRoot({ usuario: usuarioReducer }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

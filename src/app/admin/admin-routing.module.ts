@@ -17,7 +17,8 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: '', component: MenuComponent, canActivate: [AuthGuard] },
+      {path:'', pathMatch: 'full', redirectTo: '/menu'},
+      { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
       {
         path: 'dashboard',
         component: DashboardComponent,

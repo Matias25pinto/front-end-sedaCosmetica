@@ -15,15 +15,15 @@
     />
     <ul class="cabecera__menu">
       <li
-        [routerLink]="['home']"
-        [routerLinkActive]="['active']"
+        [routerLink]="['','home']"
+        routerLinkActive="active"
         class="cabecera__menu-elemento"
       >
         {{ "home" | uppercase }}
       </li>
       <li
-        [routerLink]="['locales']"
-        [routerLinkActive]="['active']"
+        [routerLink]="['','locales']"
+        routerLinkActive="active"
         class="cabecera__menu-elemento"
       >
         {{ "Locales" | uppercase }}
@@ -31,10 +31,18 @@
       <li
         *ngIf="!usuarioLogin"
         [routerLink]="['','login']"
-        [routerLinkActive]="['active']"
+        routerLinkActive="active"
         class="cabecera__menu-elemento"
       >
         {{ "login" | uppercase }}
+      </li>
+      <li
+        *ngIf="usuarioLogin"
+        [routerLink]="['admin','menu']"
+        routerLinkActive="active"
+        class="cabecera__menu-elemento"
+      >
+        {{ "menu" | uppercase }}
       </li>
     </ul>
   </nav>
@@ -66,10 +74,6 @@
         class="menu__buscar-buscar fas fa-search"
       ></i>
     </div>
-    <div class="menu__carrito">
-      <i class="fas fa-cart-plus"></i>
-    </div>
-    <span class="circulo">0</span>
   </div>
 </div>
 <div class="">
@@ -168,7 +172,7 @@
     </li>
     <li
       (click)="ocultarMenuMovil()"
-      [routerLink]="['home']"
+      [routerLink]="['','home']"
       [routerLinkActive]="['active']"
       class="menu__movil-elementos"
     >
@@ -176,7 +180,7 @@
     </li>
     <li
       (click)="ocultarMenuMovil()"
-      [routerLink]="['locales']"
+      [routerLink]="['','locales']"
       [routerLinkActive]="['active']"
       class="menu__movil-elementos"
     >
@@ -185,11 +189,20 @@
     <li
       (click)="ocultarMenuMovil()"
       *ngIf="!usuarioLogin"
-      [routerLink]="['login']"
+      [routerLink]="['','login']"
       [routerLinkActive]="['active']"
       class="menu__movil-elementos"
     >
       {{ "login" | uppercase }}
+    </li>
+    <li
+      (click)="ocultarMenuMovil()"
+      *ngIf="usuarioLogin"
+      [routerLink]="['admin', 'menu']"
+      routerLinkActive="/active"
+      class="menu__movil-elementos"
+    >
+      {{ "menu" | uppercase }}
     </li>
   </ul>
 </div>

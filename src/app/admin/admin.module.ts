@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 //Moduls
 import { AdminRoutingModule } from './admin-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CoreModule } from '../core/core.module';
 
 //Components
 import { AdminComponent } from './admin.component';
@@ -24,6 +23,9 @@ import { IniciarArqueoComponent } from './iniciar-arqueo/iniciar-arqueo.componen
 import { ArqueosComponent } from './arqueos/arqueos.component';
 import { VerComprobantesComponent } from './ver-comprobantes/ver-comprobantes.component';
 import { CrearComprobanteComponent } from './crear-comprobante/crear-comprobante.component';
+
+//Import Pulbic Module
+import { PublicModule } from '../public/public.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { CrearComprobanteComponent } from './crear-comprobante/crear-comprobante
     MatFormFieldModule,
     ReactiveFormsModule,
     ChartsModule,
+    PublicModule,
   ],
 })
 export class AdminModule {}

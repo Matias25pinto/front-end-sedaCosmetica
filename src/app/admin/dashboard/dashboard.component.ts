@@ -265,7 +265,6 @@ export class DashboardComponent implements OnInit {
     for (let deposito of comprobantesDeposito) {
       this.reporteDeDepositos.push(deposito);
     }
-    console.log(this.reporteDeDepositos);
   }
 
   cargarReporteDeDepositoPorCuenta(comprobantesDeposito: any) {

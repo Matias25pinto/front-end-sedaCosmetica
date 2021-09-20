@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
           const token = data['token'];
           localStorage.setItem('token', token);
           this.isLogin = false;
-          this.router.navigate(['admin']);
+          this.router.navigate(['admin','menu']);
         },
         (error) => {
           //Cambiar el estado del botón

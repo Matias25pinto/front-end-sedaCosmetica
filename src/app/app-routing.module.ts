@@ -15,6 +15,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((module) => AdminModule),
   },
+  { path: '**', pathMatch: 'full', redirectTo: '/home' },
 ];
 
 @NgModule({
