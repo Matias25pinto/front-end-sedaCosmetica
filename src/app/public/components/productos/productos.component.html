@@ -27,7 +27,7 @@
         <!-- Button trigger modal -->
         <button
           *ngIf="
-            verMas &&
+            isLogin &&
             titulo != 'Productos más vendidos' &&
             titulo != 'Nuevos Productos'
           "
@@ -43,7 +43,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="verMas" class="producto__modal">
+<div *ngIf="isLogin" class="producto__modal">
   <!-- Modal -->
   <div
     class="modal fade"
@@ -105,9 +105,9 @@
                 >
                   <p class="productos__producto-titulo m-auto ms-2">
                     {{ detalle.existencia | number }}
-                    <span class="badge bg-light text-dark">{{
-                      "deposito" | uppercase
-                    }}</span>
+                    <span class="badge bg-light text-dark"
+                      >{{ "deposito" | uppercase }}</span
+                    >
                     {{ detalle.codigoDeposito }}
                   </p>
                 </div>
@@ -118,12 +118,17 @@
                   class="row d-flex justify-content-center align-items-center"
                 >
                   <div class="col-3">
-                    <span class="badge bg-light text-dark">{{
-                      precio.tipoPrecio | uppercase
-                    }}</span>
+                    <span class="badge bg-light text-dark"
+                      >{{ precio.tipoPrecio | uppercase }}</span
+                    >
                   </div>
                   <div
-                    class="col-9 d-flex justify-content-start align-items-center"
+                    class="
+                      col-9
+                      d-flex
+                      justify-content-start
+                      align-items-center
+                    "
                   >
                     <p class="productos__producto-titulo m-auto ms-2">
                       {{ (precio.precio | number) + " Gs." }}
@@ -131,24 +136,21 @@
                   </div>
                 </div>
               </div>
-               <div
-                  class="row d-flex justify-content-center align-items-center"
-                >
-                  <div *ngIf="false" class="col-3">
-                    <span class="badge bg-light text-dark">{{
-                      "Ref" | uppercase
-                    }}</span>
-                  </div>
-                  <div
-                    class="col-9 d-flex justify-content-start align-items-center"
+              <div *ngIf="usuario.role === 'ADMIN_ROLE'" class="row d-flex justify-content-center align-items-center">
+                <div  class="col-3">
+                  <span class="badge bg-light text-dark"
+                    >{{ "Ref" | uppercase }}</span
                   >
-                    <p class="productos__producto-titulo m-auto ms-2">
-		    {{ detalle.referencia }}
-                    </p>
-                  </div>
                 </div>
-
-             </div>
+                <div
+                  class="col-9 d-flex justify-content-start align-items-center"
+                >
+                  <p class="productos__producto-titulo m-auto ms-2">
+                    {{ detalle.referencia }}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">

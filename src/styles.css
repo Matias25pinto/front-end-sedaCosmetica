@@ -39,6 +39,11 @@
   color: var(--accent-color);
   text-decoration: none;
 }
+input:active,
+input:focus {
+  border: 0;
+}
+
 /*
 =====================================
 ************DashBoard****************
@@ -285,12 +290,17 @@
   font-weight: 300;
 }
 .menu__buscar-texto {
+  color: var(--secondary-text-color);
   max-height: 90%;
   max-width: 90%;
   width: 90%;
-  border: none;
   margin: auto 5px;
   float: left;
+  border: none;
+  outline: none;
+}
+input:focus {
+  font-weight: 700;
 }
 .menu__buscar-buscar {
   cursor: pointer;
@@ -465,7 +475,7 @@
 =====================================
 */
 .productos {
-  width:100%;
+  width: 100%;
   max-width: 90%;
   margin: 30px auto;
 }
@@ -481,7 +491,7 @@
   margin: 0 10px;
 }
 .productos__contenedor {
-  width:100%;
+  width: 100%;
   max-width: 100%;
   display: flex;
   flex-direction: row;
@@ -888,16 +898,8 @@
   width: 90%;
   border: none;
   background-color: transparent;
+  outline: none;
 }
-.login__correo:active,
-.login__password:active {
-  border: none;
-}
-.login__correo:focus,
-.login__password:focus {
-  border: none;
-}
-
 .login__correo-container,
 .login__password-container {
   background-color: var(--fondo-input);

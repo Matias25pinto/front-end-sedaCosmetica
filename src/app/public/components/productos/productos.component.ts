@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Producto } from 'src/app/core/shared/models/producto.interface';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as action from 'src/app/usuario.actions';
 
 @Component({
   selector: 'app-productos',
@@ -10,23 +13,36 @@ export class ProductosComponent implements OnInit {
 
   @Input() titulo: string = '';
 
+  public usuario$: Observable<any>;
+  public usuario: any;
+  public isLogin: boolean = false;
+
   public detalle: Producto = {
     producto: 'Producto de prueba',
     codigoBarra: '123456',
     existencia: 0,
     precios: [],
   };
-  public verMas: boolean = false;
-  constructor() {}
+  constructor(private store: Store<{ usuario: any }>) {}
 
   ngOnInit(): void {
-    let token = localStorage.getItem('token');
-    if (token) {
-      this.verMas = true;
-    }
+    this.autenticarUsuario();
   }
 
   cargarModal(producto: Producto) {
     this.detalle = producto;
+  }
+
+  autenticarUsuario() {
+    this.usuario$ = this.store.select('usuario');
+
+    this.store.dispatch(action.getUsuario());
+
+    this.usuario$.subscribe((data) => {
+        this.usuario = data;
+      if (this.usuario.role !== undefined) {
+        this.isLogin = true;
+      }
+    });
   }
 }
