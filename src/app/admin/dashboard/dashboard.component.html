@@ -5,72 +5,97 @@
       class="menuDeInicio__formulario"
       (ngSubmit)="enviarFormulario()"
     >
-      <div *ngIf="!loading" class="menuDeInicio__formulario-elemento">
-        <mat-form-field appearance="fill">
-          <mat-label>Rango de Arqueo</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
-            <input
-              class="crear__comprobantes-formulario-input-fecha"
-              matStartDate
-              formControlName="start"
-              placeholder="Desde"
-            />
-            <input
-              class="crear__comprobantes-formulario-input-fecha"
-              matEndDate
-              formControlName="end"
-              placeholder="Hasta"
-            />
-          </mat-date-range-input>
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-          <mat-error *ngIf="false">Fecha inicial no valida</mat-error>
-          <mat-error *ngIf="false">Fecha final no valida</mat-error>
-        </mat-form-field>
-      </div>
+      <div class="row">
+        <div *ngIf="!loading" class="menuDeInicio__formulario-elemento">
+          <mat-form-field appearance="fill">
+            <mat-label>Rango de Arqueo</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input
+                class="crear__comprobantes-formulario-input-fecha"
+                matStartDate
+                formControlName="start"
+                placeholder="Desde"
+              />
+              <input
+                class="crear__comprobantes-formulario-input-fecha"
+                matEndDate
+                formControlName="end"
+                placeholder="Hasta"
+              />
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="false">Fecha inicial no valida</mat-error>
+            <mat-error *ngIf="false">Fecha final no valida</mat-error>
+          </mat-form-field>
+        </div>
 
-      <div
-        *ngIf="form.get('end').value != '' && !loading"
-        class="menuDeInicio__formulario-elemento"
-      >
-        <select
-          *ngIf="!loading"
-          (change)="limpiarReporte()"
-          formControlName="sucursal"
-          class="custom-select"
+        <div
+          *ngIf="form.get('end').value != '' && !loading"
+          class="menuDeInicio__formulario-elemento"
         >
-          <option value="">Todas las Sucursales</option>
-
-          <option
-            *ngFor="let branchOffice of branchOffices; let i = index"
-            [value]="branchOffice.titulo"
+          <select
+            *ngIf="!loading"
+            (change)="limpiarReporte()"
+            formControlName="sucursal"
+            class="custom-select"
           >
-            {{ branchOffice.titulo }}
-          </option>
-        </select>
+            <option value="">Todas las Sucursales</option>
+
+            <option
+              *ngFor="let branchOffice of branchOffices; let i = index"
+              [value]="branchOffice.titulo"
+            >
+              {{ branchOffice.titulo }}
+            </option>
+          </select>
+        </div>
       </div>
-      <button
-        *ngIf="!loading"
-        (click)="recargarDatos()"
-        class="usuario__arqueo-btn"
-        type="button"
-      >
-        Actualizar Informe
-      </button>
-      <button
-        disabled
-        *ngIf="loading"
-        class="usuario__arqueo-btn"
-        type="button"
-      >
-        <i class="fas fa-sync fa-spin"></i>
-      </button>
+
+      <div class="row">
+        <div class="col-6">
+          <button
+            *ngIf="!loading"
+            (click)="recargarDatos()"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            Actualizar Informe
+          </button>
+          <button
+            disabled
+            *ngIf="loading"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            <i class="fas fa-sync fa-spin"></i>
+          </button>
+        </div>
+        <div class="col-6">
+          <button
+            *ngIf="!isDownloadPDF"
+            (click)="downloadPDF()"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            Imprimir PDF
+          </button>
+          <button
+            disabled
+            *ngIf="isDownloadPDF"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            <i class="fas fa-sync fa-spin"></i>
+          </button>
+        </div>
+      </div>
     </form>
   </div>
-  <div class="menuDeInicio__body">
+  <div id="htmlData" class="menuDeInicio__body">
     <div class="menuDeInicio__reporteGeneral">
       <hr class="elemento__hr" />
       <h3 class="menuDeInicio__titulo">

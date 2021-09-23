@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas'; // Todavía no lo usamos
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +20,8 @@ export class DashboardComponent implements OnInit {
   public clientRole = false;
   public vendedorRole = false;
   public adminRole = false;
+
+  public isDownloadPDF = false;
 
   public reportes: any[] = [];
   public cantidadDeInformes: number = 0;
@@ -69,6 +73,48 @@ export class DashboardComponent implements OnInit {
     this.seleccionarFechaDeInicio();
     this.cargatSucursales();
   }
+  downloadPDF() {
+    this.isDownloadPDF = true;
+    // Extraemos el
+    const DATA = document.getElementById('htmlData');
+    //Calcular el width y el height de la pantalla para generar un pdf de ese tamaño
+    const width = DATA.clientWidth;
+    const height = DATA.clientHeight;
+    const doc = new jsPDF('p', 'pt', [width, height]);
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const img = canvas.toDataURL('image/PNG');
+        // Add image Canvas to PDF
+        const bufferX = 15;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(img);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          img,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult) => {
+        let fecha = new Date().toLocaleString('es-PY', {
+          timeZone: 'America/Asuncion',
+        });
+        docResult.save(`${fecha}_informe_comercial_sedacosmetica.pdf`);
+	this.isDownloadPDF = false;
+      });
+  }
+
   cargatSucursales() {
     this.sucursales.getSucursales().subscribe(
       (resp) => {
@@ -203,7 +249,7 @@ export class DashboardComponent implements OnInit {
 
         this.cargarReporteDeDepositoPorBanco(data.comprobantesDeposito);
 
-	this.cargarReporteDeDepositos(data.comprobantesDeposito);
+        this.cargarReporteDeDepositos(data.comprobantesDeposito);
 
         this.cargarReporteDeDepositoPorCuenta(data.comprobantesDeposito);
 
