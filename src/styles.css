@@ -22,6 +22,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+.pagebreak {
+  page-break-before: always;
+}
 .contenedor {
   max-width: 100%;
   max-height: 100%;
@@ -49,6 +52,88 @@ input:focus {
 ************DashBoard****************
 =====================================
 */
+@media print {
+  .pagebreak {
+    page-break-before: always;
+  }
+}
+.menuDeInicio__table-th-reporteGasto,
+.menuDeInicio__table-td-reporteGasto {
+  display: inline-block;
+  margin: 5px 10px;
+  text-align: center;
+  width: 700px;
+  font-size: 0.8em;
+}
+
+.dashboard__formulario {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  list-style: none;
+}
+.dashboard__formulario-elemento {
+  text-align: center;
+  padding: 3px;
+  margin: 3px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  max-width: 30%;
+}
+
+.dashboard__formulario-btn {
+  text-decoration: none;
+  width: 100px;
+  padding: 10px;
+  margin: auto 20px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: var(--text-primary-color);
+  background-color: var(--default-primary-color);
+  border-radius: 6px;
+  border: 2px solid var(--accent-color);
+  cursor: pointer;
+}
+
+.reporte__dashboard {
+  margin-bottom: 50px;
+}
+.reporte__dashboard-titulo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.reporte__dashboard-btn {
+  text-decoration: none;
+  width: 50px;
+  padding: 10px;
+  margin: auto 20px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: var(--text-primary-color);
+  background-color: var(--default-primary-color);
+  border-radius: 6px;
+  border: 2px solid var(--accent-color);
+  cursor: pointer;
+}
+.reporte__dashboard-btn:hover {
+  color: var(--accent-color);
+  background-color: var(--text-primary-color);
+}
+.reporte__dashboard-iconos {
+  margin: auto 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 /*
 =====================================
 **********Menu de Incio**************

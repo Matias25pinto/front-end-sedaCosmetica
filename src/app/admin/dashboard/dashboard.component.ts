@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
+
 import Swal from 'sweetalert2';
+
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas'; // Todavía no lo usamos
+
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import * as action from 'src/app/usuario.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +22,19 @@ export class DashboardComponent implements OnInit {
   public form: FormGroup;
   public loading: boolean = false;
 
-  public usuario: any;
   public clientRole = false;
   public vendedorRole = false;
   public adminRole = false;
 
-  public isDownloadPDF = false;
+  public isDownloadPDF: boolean[] = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
 
   public reportes: any[] = [];
   public cantidadDeInformes: number = 0;
@@ -61,26 +74,64 @@ export class DashboardComponent implements OnInit {
   public comprobantesTarjeta: any[] = [];
   public totalComprobantesTarjeta: number = 0;
 
+  public usuario$: Observable<any>;
+  public usuario: any;
+
   constructor(
     private sucursales: SucursalesService,
     private fb: FormBuilder,
-    private arqueoService: ArqueoService
+    private arqueoService: ArqueoService,
+    private store: Store<{ usuario: any }>
   ) {}
 
   ngOnInit(): void {
     this.subirInicio();
     this.crearFormulaio();
-    this.seleccionarFechaDeInicio();
-    this.cargatSucursales();
+    this.autenticarUsuario();
   }
-  downloadPDF() {
-    this.isDownloadPDF = true;
+
+  autenticarUsuario() {
+    this.usuario$ = this.store.select('usuario');
+
+    this.store.dispatch(action.getUsuario());
+
+    this.usuario$.subscribe((data) => {
+      this.usuario = data;
+      this.sucursales.getSucursales().subscribe(async (data) => {
+        if (this.usuario.role !== 'ADMIN_ROLE') {
+          await data['sucursalesBD'].filter((sucursal) => {
+            if (sucursal._id == this.usuario.sucursal) {
+              this.branchOffices.push(sucursal);
+              return sucursal;
+            }
+            return;
+          });
+        } else {
+          this.branchOffices = data['sucursalesBD'];
+        }
+        this.seleccionarFechaDeInicio();
+        this.recargarDatos();
+      });
+    });
+  }
+
+  downloadPDF(
+    idElemento: string,
+    titulo: string = 'sin_titulo',
+    isDownloadPDFid: number
+  ) {
+    let usuarioImpresor = `${this.usuario.nombre} ${this.usuario.apellido} - ${this.usuario.email}`;
+    this.isDownloadPDF[isDownloadPDFid] = true;
     // Extraemos el
-    const DATA = document.getElementById('htmlData');
+    const DATA = document.getElementById(idElemento);
     //Calcular el width y el height de la pantalla para generar un pdf de ese tamaño
-    const width = DATA.clientWidth;
-    const height = DATA.clientHeight;
-    const doc = new jsPDF('p', 'pt', [width, height]);
+    //const width = DATA.clientWidth;
+    //const height = DATA.clientHeight;
+    let fecha = new Date().toLocaleString('es-PY', {
+      timeZone: 'America/Asuncion',
+    });
+
+    const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
       scale: 3,
@@ -104,14 +155,21 @@ export class DashboardComponent implements OnInit {
           undefined,
           'FAST'
         );
+        doc.setFontSize(8);
+        doc.setFont('courier');
+        doc.text(
+          `${fecha}\n ${usuarioImpresor}\n www.sedacosmetica.com`,
+          doc.internal.pageSize.width / 2,
+          doc.internal.pageSize.getHeight() - 30,
+          {
+            align: 'center',
+          }
+        );
         return doc;
       })
       .then((docResult) => {
-        let fecha = new Date().toLocaleString('es-PY', {
-          timeZone: 'America/Asuncion',
-        });
-        docResult.save(`${fecha}_informe_comercial_sedacosmetica.pdf`);
-	this.isDownloadPDF = false;
+        docResult.save(`${fecha}_${titulo}_sedacosmetica.pdf`);
+        this.isDownloadPDF[isDownloadPDFid] = false;
       });
   }
 
@@ -155,12 +213,19 @@ export class DashboardComponent implements OnInit {
 
     this.asignarFechaStartAndEnd(primerDia, ultimoDia);
     //asignamos las fechas start al formulario
-    this.form.reset({
-      sucursal: '',
-      start: primerDia,
-      end: ultimoDia,
-    });
-    this.enviarFormulario();
+    if (this.usuario.role != 'ADMIN_ROLE') {
+      this.form.reset({
+        sucursal: this.branchOffices[0].titulo,
+        start: primerDia,
+        end: ultimoDia,
+      });
+    } else {
+      this.form.reset({
+        sucursal: '',
+        start: primerDia,
+        end: ultimoDia,
+      });
+    }
   }
 
   selectBranchOffice(index: number) {

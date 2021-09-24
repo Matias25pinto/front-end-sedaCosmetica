@@ -22,7 +22,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard, AdminGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'ver-comprobantes',
