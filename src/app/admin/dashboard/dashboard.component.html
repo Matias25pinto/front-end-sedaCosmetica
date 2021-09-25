@@ -88,6 +88,7 @@
         {{ end | date: "fullDate":"GMT-3":"es" }}
       </p>
       <div
+	id="pie-graphic"
         *ngIf="
           nombreDeSucursales.length == ventasNetaDeSucursales.length &&
           nombreDeSucursales.length > 0 &&
@@ -102,8 +103,8 @@
       </div>
       <div class="reporte__dashboard-iconos">
         <button
-          *ngIf="!isDownloadPDF[0]"
-          (click)="downloadPDF('reporte-general','Reporte General',0)"
+          *ngIf="!isDownloadPDF[0] && usuario['role'] === 'ADMIN_ROLE'"
+          (click)="downloadPDF('reporte-general', reportes.length,'Reporte General',0)"
           class="reporte__dashboard-btn"
           type="button"
         >
@@ -120,54 +121,63 @@
       </div>
 
       <div id="reporte-general" class="reporte__dashboard">
-        <div class="reporte__dashboard-titulo">
+        <div id="reporte-general-titulo" class="reporte__dashboard-titulo">
           <h4 class="menuDeInicio__tituloSecundario">
             {{ "Reporte General" | uppercase }}
           </h4>
         </div>
 
         <table class="menuDeInicio__table">
-          <tr class="menuDeInicio__table-tr">
-            <th class="menuDeInicio__table-th">Sucursal</th>
-            <th class="menuDeInicio__table-th">Venta Neta</th>
-            <th class="menuDeInicio__table-th">Costo</th>
-            <th class="menuDeInicio__table-th">Utilidad</th>
-            <th class="menuDeInicio__table-th">Gasto</th>
-            <th class="menuDeInicio__table-th">Ganancia</th>
-            <th class="menuDeInicio__table-th">Retiro</th>
-            <th class="menuDeInicio__table-th">Tarjeta</th>
-            <th class="menuDeInicio__table-th">Cheque</th>
-            <th class="menuDeInicio__table-th">Deposito</th>
-            <th class="menuDeInicio__table-th">Estado de arqueo</th>
+          <tr id="reporte-general-header" class="menuDeInicio__table-tr">
+            <th class="dashboard__formulario__table-th-230">Sucursal</th>
+            <th class="dashboard__formulario__table-th-100">Venta Neta</th>
+            <th class="dashboard__formulario__table-th-100">Costo</th>
+            <th class="dashboard__formulario__table-th-100">Utilidad</th>
+            <th class="dashboard__formulario__table-th-100">Gasto</th>
+            <th class="dashboard__formulario__table-th-100">Ganancia</th>
+            <th class="dashboard__formulario__table-th-100">Retiro</th>
+            <th class="dashboard__formulario__table-th-100">Tarjeta</th>
+            <th class="dashboard__formulario__table-th-100">Cheque</th>
+            <th class="dashboard__formulario__table-th-100">Deposito</th>
+            <th class="dashboard__formulario__table-th-100">
+              Estado de arqueo
+            </th>
           </tr>
 
-          <tr *ngFor="let reporte of reportes" class="menuDeInicio__table-tr">
-            <td class="menuDeInicio__table-td">{{ reporte.sucursal }}</td>
-            <td class="menuDeInicio__table-td">
+          <tr
+            id="{{'reporte-general-'+i}}"
+            s
+            *ngFor="let reporte of reportes; let i = index"
+            class="menuDeInicio__table-tr"
+          >
+            <td class="dashboard__formulario__table-td-230">
+              {{ reporte.sucursal }}
+            </td>
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.ventaNeta | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.costo | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.totalUtilidad | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.totalGasto | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.ganancia | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.totalRetiro | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.totalTarjeta | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.totalCheque | number: "1.0-0":"es" }} Gs
             </td>
-            <td class="menuDeInicio__table-td">
+            <td class="dashboard__formulario__table-th-100">
               {{ reporte.totalDeposito | number: "1.0-0":"es" }} Gs
             </td>
 
@@ -180,7 +190,7 @@
                 reporte.totalGasto <
               reporte.ventaNeta
             "
-              class="menuDeInicio__table-td"
+              class="dashboard__formulario__table-th-100"
             >
               Faltante: {{ reporte.ventaNeta - (reporte.totalDeposito +
               reporte.totalCheque + reporte.totalTarjeta + reporte.totalRetiro +
@@ -196,7 +206,7 @@
                 reporte.totalGasto ==
               reporte.ventaNeta
             "
-              class="menuDeInicio__table-td"
+              class="dashboard__formulario__table-th-100"
             >
               Arqueo Exitoso
             </td>
@@ -210,43 +220,45 @@
                 reporte.totalGasto >
               reporte.ventaNeta
             "
-              class="menuDeInicio__table-td"
+              class="dashboard__formulario__table-th-100"
             >
               Excedente: {{ reporte.totalDeposito + reporte.totalCheque +
               reporte.totalTarjeta + reporte.totalRetiro + reporte.totalGasto -
               reporte.ventaNeta | number: "1.0-0":"es" }} Gs
             </td>
           </tr>
-          <tr class="menuDeInicio__table-tr">
-            <th class="menuDeInicio__table-th">Total</th>
-            <th class="menuDeInicio__table-th">
+          <tr id="reporte-general-footer" class="menuDeInicio__table-tr">
+            <th class="dashboard__formulario__table-th-230">Total</th>
+            <th class="dashboard__formulario__table-th-100">
               {{ totalVentasNetas | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalCosto | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalUtilidad | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalGasto | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalGanancia | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalRetiro | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalTarjeta | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalCheque | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">
+            <th class="dashboard__formulario__table-th-100">
               {{ totalDeposito | number: "1.0-0":"es" }} Gs
             </th>
-            <th class="menuDeInicio__table-th">Estado de arqueo</th>
+            <th class="dashboard__formulario__table-th-100">
+              Estado de arqueo
+            </th>
           </tr>
         </table>
       </div>
@@ -256,8 +268,8 @@
       >
         <div class="reporte__dashboard-iconos">
           <button
-            *ngIf="!isDownloadPDF[1]"
-            (click)="downloadPDF('reporte-gastos', 'Reporte de Gastos',1)"
+            *ngIf="!isDownloadPDF[1] && usuario['role'] === 'ADMIN_ROLE'"
+            (click)="downloadPDF('reporte-gastos',reporteDeGasto.length, 'Reporte de Gastos',1)"
             class="reporte__dashboard-btn"
             type="button"
           >
@@ -274,13 +286,13 @@
         </div>
 
         <div id="reporte-gastos" class="reporte__dashboard">
-          <div class="reporte__dashboard-titulo">
+          <div id="reporte-gastos-titulo" class="reporte__dashboard-titulo">
             <h4 class="menuDeInicio__tituloSecundario">
               {{ "Reporte de Gastos" | uppercase }}
             </h4>
           </div>
           <table class="menuDeInicio__table">
-            <tr class="menuDeInicio__table-tr">
+            <tr id="reporte-gastos-header" class="menuDeInicio__table-tr">
               <th class="menuDeInicio__table-th">#</th>
               <th class="menuDeInicio__table-th">Gasto</th>
               <th class="menuDeInicio__table-th">Monto</th>
@@ -288,6 +300,7 @@
               <th class="menuDeInicio__table-th-reporteGasto">Observación</th>
             </tr>
             <tr
+              id="{{'reporte-gastos-'+i}}"
               *ngFor="let gasto of reporteDeGasto; let i = index"
               class="menuDeInicio__table-tr"
             >
@@ -303,7 +316,7 @@
                 {{ gasto.observacion | uppercase }}
               </td>
             </tr>
-            <tr class="menuDeInicio__table-tr">
+            <tr id="reporte-gastos-footer" class="menuDeInicio__table-tr">
               <th class="menuDeInicio__table-th">Total</th>
               <th class="menuDeInicio__table-th"></th>
               <th class="menuDeInicio__table-th">
@@ -320,8 +333,8 @@
       >
         <div class="reporte__dashboard-iconos">
           <button
-            *ngIf="!isDownloadPDF[2]"
-            (click)="downloadPDF('reporte-bancos-deposito', 'Reporte de Depositos por Banco',2)"
+            *ngIf="!isDownloadPDF[2] && usuario['role'] === 'ADMIN_ROLE'"
+            (click)="downloadPDF('reporte-bancos-deposito', bancos.size,'Reporte de Depositos por Banco',2)"
             class="reporte__dashboard-btn"
             type="button"
           >
@@ -338,19 +351,26 @@
         </div>
 
         <div id="reporte-bancos-deposito" class="reporte__dashboard">
-          <div class="reporte__dashboard-titulo">
+          <div
+            id="reporte-bancos-deposito-titulo"
+            class="reporte__dashboard-titulo"
+          >
             <h4 class="menuDeInicio__tituloSecundario">
               {{ "Reporte de Depositos por Banco" | uppercase }}
             </h4>
           </div>
           <table class="menuDeInicio__table">
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-bancos-deposito-header"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">#</th>
               <th class="menuDeInicio__table-th">Comprobante</th>
               <th class="menuDeInicio__table-th-fecha">Banco</th>
               <th class="menuDeInicio__table-th">Monto</th>
             </tr>
             <tr
+              id="{{'reporte-bancos-deposito-'+i}}"
               *ngFor="let banco of bancos; let i = index"
               class="menuDeInicio__table-tr"
             >
@@ -365,7 +385,10 @@
                 {{ depositoPorBanco[i] | number: "1.0-0":"es" }} Gs
               </td>
             </tr>
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-bancos-deposito-footer"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">Total</th>
               <th class="menuDeInicio__table-th"></th>
               <th class="menuDeInicio__table-td-fecha"></th>
@@ -382,8 +405,8 @@
       >
         <div class="reporte__dashboard-iconos">
           <button
-            *ngIf="!isDownloadPDF[3]"
-            (click)="downloadPDF('reporte-deposito-cuenta','Reporte de Depositos por Cuenta',3)"
+            *ngIf="!isDownloadPDF[3] && usuario['role'] === 'ADMIN_ROLE'"
+            (click)="downloadPDF('reporte-deposito-cuenta',cuentasBancarias.size,'Reporte de Depositos por Cuenta',3)"
             class="reporte__dashboard-btn"
             type="button"
           >
@@ -400,13 +423,19 @@
         </div>
 
         <div id="reporte-deposito-cuenta" class="reporte__dashboard">
-          <div class="reporte__dashboard-titulo">
+          <div
+            id="reporte-deposito-cuenta-titulo"
+            class="reporte__dashboard-titulo"
+          >
             <h4 class="menuDeInicio__tituloSecundario">
               {{ "Reporte de Depositos por Cuenta" | uppercase }}
             </h4>
           </div>
           <table class="menuDeInicio__table">
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-deposito-cuenta-header"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">#</th>
               <th class="menuDeInicio__table-th">Comprobante</th>
               <th class="menuDeInicio__table-th-fecha">Banco</th>
@@ -414,6 +443,7 @@
               <th class="menuDeInicio__table-th">Monto</th>
             </tr>
             <tr
+              id="{{'reporte-deposito-cuenta-'+i}}"
               *ngFor="let cuenta of cuentasBancarias; let i = index"
               class="menuDeInicio__table-tr"
             >
@@ -431,7 +461,10 @@
                 {{ depositoPorCuenta[i] | number: "1.0-0":"es" }} Gs
               </td>
             </tr>
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-deposito-cuenta-footer"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">Total</th>
               <th class="menuDeInicio__table-th"></th>
               <th class="menuDeInicio__table-th-fecha"></th>
@@ -450,8 +483,8 @@
       >
         <div class="reporte__dashboard-iconos">
           <button
-            *ngIf="!isDownloadPDF[4]"
-            (click)="downloadPDF('reporte-deposito-arqueo','Reporte de Depositos por día de arqueo', 4)"
+            *ngIf="!isDownloadPDF[4] && usuario['role'] === 'ADMIN_ROLE'"
+            (click)="downloadPDF('reporte-deposito-arqueo', reporteDeDepositos.length,'Reporte de Depositos por día de arqueo', 4)"
             class="reporte__dashboard-btn"
             type="button"
           >
@@ -468,13 +501,19 @@
         </div>
 
         <div id="reporte-deposito-arqueo" class="reporte__dashboard">
-          <div class="reporte__dashboard-titulo">
+          <div
+            id="reporte-deposito-arqueo-titulo"
+            class="reporte__dashboard-titulo"
+          >
             <h4 class="menuDeInicio__tituloSecundario">
               {{ "Reporte de Depositos por día de arqueo" | uppercase }}
             </h4>
           </div>
           <table class="menuDeInicio__table">
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-deposito-arqueo-header"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">#</th>
               <th class="menuDeInicio__table-th">Comprobante</th>
               <th class="menuDeInicio__table-th">Banco</th>
@@ -484,6 +523,7 @@
               <th class="menuDeInicio__table-th">Monto</th>
             </tr>
             <tr
+              id="{{'reporte-deposito-arqueo-'+i}}"
               *ngFor="let deposito of reporteDeDepositos; let i = index"
               class="menuDeInicio__table-tr"
             >
@@ -507,7 +547,10 @@
                 {{ deposito.monto | number: "1.0-0":"es" }} Gs
               </td>
             </tr>
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-deposito-arqueo-footer"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">Total</th>
               <th class="menuDeInicio__table-th"></th>
               <th class="menuDeInicio__table-th"></th>
@@ -528,8 +571,8 @@
       >
         <div class="reporte__dashboard-iconos">
           <button
-            *ngIf="!isDownloadPDF[5]"
-            (click)="downloadPDF('reporte-retiros','Reporte de Retiros',5)"
+            *ngIf="!isDownloadPDF[5] && usuario['role'] === 'ADMIN_ROLE'"
+            (click)="downloadPDF('reporte-retiros',comprobantesRetiro.length,'Reporte de Retiros',5)"
             class="reporte__dashboard-btn"
             type="button"
           >
@@ -546,13 +589,13 @@
         </div>
 
         <div id="reporte-retiros" class="reporte__dashboard">
-          <div class="reporte__dashboard-titulo">
+          <div id="reporte-retiros-titulo" class="reporte__dashboard-titulo">
             <h4 class="menuDeInicio__tituloSecundario">
               {{ "Reporte de Retiros" | uppercase }}
             </h4>
           </div>
           <table class="menuDeInicio__table">
-            <tr class="menuDeInicio__table-tr">
+            <tr id="reporte-retiros-header" class="menuDeInicio__table-tr">
               <th class="menuDeInicio__table-th">#</th>
               <th class="menuDeInicio__table-th">Autorizó</th>
               <th class="menuDeInicio__table-th-fecha">Retiró</th>
@@ -561,6 +604,7 @@
               <th class="menuDeInicio__table-th">Monto</th>
             </tr>
             <tr
+              id="{{'reporte-retiros-'+i}}"
               *ngFor="let comprobante of comprobantesRetiro; let i = index"
               class="menuDeInicio__table-tr"
             >
@@ -583,7 +627,7 @@
                 {{ comprobante.monto | number: "1.0-0":"es" }} Gs
               </td>
             </tr>
-            <tr class="menuDeInicio__table-tr">
+            <tr id="reporte-retiros-footer" class="menuDeInicio__table-tr">
               <th class="menuDeInicio__table-th">Total</th>
               <th class="menuDeInicio__table-th"></th>
               <th class="menuDeInicio__table-th-fecha"></th>
@@ -602,8 +646,8 @@
       >
         <div class="reporte__dashboard-iconos">
           <button
-            *ngIf="!isDownloadPDF[6]"
-            (click)="downloadPDF('reporte-pagos-tarjetas','Reporte de pagos con Tarjeta',6)"
+            *ngIf="!isDownloadPDF[6] && usuario['role'] === 'ADMIN_ROLE'"
+            (click)="downloadPDF('reporte-pagos-tarjetas',comprobantesTarjeta.length,'Reporte de pagos con Tarjeta',6)"
             class="reporte__dashboard-btn"
             type="button"
           >
@@ -620,13 +664,19 @@
         </div>
 
         <div id="reporte-pagos-tarjetas" class="reporte__dashboard">
-          <div class="reporte__dashboard-titulo">
+          <div
+            id="reporte-pagos-tarjetas-titulo"
+            class="reporte__dashboard-titulo"
+          >
             <h4 class="menuDeInicio__tituloSecundario">
               {{ "Reporte de pagos con Tarjeta" | uppercase }}
             </h4>
           </div>
           <table class="menuDeInicio__table">
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-pagos-tarjetas-header"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">#</th>
               <th class="menuDeInicio__table-th">Comprobante</th>
               <th class="menuDeInicio__table-th-cuentaBancaria">Nro. Boleta</th>
@@ -634,6 +684,7 @@
               <th class="menuDeInicio__table-th">Monto</th>
             </tr>
             <tr
+              id="{{'reporte-pagos-tarjetas-'+i}}"
               *ngFor="let comprobante of comprobantesTarjeta; let i = index"
               class="menuDeInicio__table-tr"
             >
@@ -651,7 +702,10 @@
                 {{ comprobante.monto | number: "1.0-0":"es" }} Gs
               </td>
             </tr>
-            <tr class="menuDeInicio__table-tr">
+            <tr
+              id="reporte-pagos-tarjetas-footer"
+              class="menuDeInicio__table-tr"
+            >
               <th class="menuDeInicio__table-th">Total</th>
               <th class="menuDeInicio__table-th"></th>
               <th class="menuDeInicio__table-th-fecha"></th>

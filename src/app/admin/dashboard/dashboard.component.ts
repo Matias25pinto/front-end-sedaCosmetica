@@ -115,36 +115,50 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  downloadPDF(
+  async downloadPDF(
     idElemento: string,
+    cantRows: number = 1,
     titulo: string = 'sin_titulo',
     isDownloadPDFid: number
   ) {
     let usuarioImpresor = `${this.usuario.nombre} ${this.usuario.apellido} - ${this.usuario.email}`;
     this.isDownloadPDF[isDownloadPDFid] = true;
-    // Extraemos el
-    const DATA = document.getElementById(idElemento);
-    //Calcular el width y el height de la pantalla para generar un pdf de ese tamaño
-    //const width = DATA.clientWidth;
-    //const height = DATA.clientHeight;
     let fecha = new Date().toLocaleString('es-PY', {
       timeZone: 'America/Asuncion',
     });
-
     const doc = new jsPDF('p', 'pt', 'a4');
+
+    // Extraemos el elemento
     const options = {
       background: 'white',
       scale: 3,
     };
-    html2canvas(DATA, options)
-      .then((canvas) => {
+    let pageHeight = doc.internal.pageSize.getHeight() - 30;
+    let DATA: any[] = [];
+    if (
+      this.usuario['role'] === 'ADMIN_ROLE' &&
+      idElemento === 'reporte-general'
+    ) {
+      DATA.push(document.getElementById('pie-graphic'));
+    }
+    DATA.push(document.getElementById(`${idElemento}-titulo`));
+    DATA.push(document.getElementById(`${idElemento}-header`));
+    for (let i = 0; i < cantRows; i++) {
+      DATA.push(document.getElementById(`${idElemento}-${i}`));
+    }
+    DATA.push(document.getElementById(`${idElemento}-footer`));
+    let bufferY = 15; //La posición horizontal de la hijamen
+
+    for await (let elemento of DATA) {
+      //Creamos la imgaen canvas
+      await html2canvas(elemento, options).then((canvas) => {
         const img = canvas.toDataURL('image/PNG');
         // Add image Canvas to PDF
         const bufferX = 15;
-        const bufferY = 15;
         const imgProps = (doc as any).getImageProperties(img);
         const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        //agregamos al doc la img
         doc.addImage(
           img,
           'PNG',
@@ -155,22 +169,30 @@ export class DashboardComponent implements OnInit {
           undefined,
           'FAST'
         );
-        doc.setFontSize(8);
-        doc.setFont('courier');
-        doc.text(
-          `${fecha}\n ${usuarioImpresor}\n www.sedacosmetica.com`,
-          doc.internal.pageSize.width / 2,
-          doc.internal.pageSize.getHeight() - 30,
-          {
-            align: 'center',
-          }
-        );
-        return doc;
-      })
-      .then((docResult) => {
-        docResult.save(`${fecha}_${titulo}_sedacosmetica.pdf`);
-        this.isDownloadPDF[isDownloadPDFid] = false;
+        //aumentamos la posición del eje y
+        bufferY = bufferY + pdfHeight;
+        if (bufferY >= pageHeight) {
+          doc.addPage();
+          bufferY = 15;
+        }
       });
+    }
+    //Agregamos pie de página
+    doc.setFontSize(8);
+    doc.setFont('courier');
+    doc.text(
+      `${fecha}\n ${usuarioImpresor}\n www.sedacosmetica.com`,
+      doc.internal.pageSize.width / 2,
+      pageHeight,
+      {
+        align: 'center',
+      }
+    );
+
+    //Creamos el pdf y descargamos
+    doc.save(`${fecha}_${titulo}_sedacosmetica.pdf`);
+    //Cambiamos el estado de Download
+    this.isDownloadPDF[isDownloadPDFid] = false;
   }
 
   cargatSucursales() {
