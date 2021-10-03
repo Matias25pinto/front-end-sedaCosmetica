@@ -30,6 +30,10 @@ import { BancosComponent } from './bancos/bancos.component';
 import { CrearBancoComponent } from './crear-banco/crear-banco.component';
 import { FormularioBancoComponent } from './components/formulario-banco/formulario-banco.component';
 import { EditarBancoComponent } from './editar-banco/editar-banco.component';
+import { CuentasComponent } from './cuentas/cuentas.component';
+import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
+import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component';
+import { FormularioCuentaComponent } from './components/formulario-cuenta/formulario-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,10 @@ import { EditarBancoComponent } from './editar-banco/editar-banco.component';
     CrearBancoComponent,
     FormularioBancoComponent,
     EditarBancoComponent,
+    CuentasComponent,
+    CrearCuentaComponent,
+    EditarCuentaComponent,
+    FormularioCuentaComponent,
   ],
   imports: [
     CommonModule,

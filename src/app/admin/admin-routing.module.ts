@@ -14,6 +14,9 @@ import { VerComprobantesComponent } from './ver-comprobantes/ver-comprobantes.co
 import { BancosComponent } from './bancos/bancos.component';
 import { CrearBancoComponent } from './crear-banco/crear-banco.component';
 import { EditarBancoComponent } from './editar-banco/editar-banco.component';
+import { CuentasComponent } from './cuentas/cuentas.component';
+import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
+import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component';
 
 const routes: Routes = [
   {
@@ -47,7 +50,26 @@ const routes: Routes = [
         component: CrearBancoComponent,
         canActivate: [AuthGuard, AdminGuard],
       },
-      {path:'editar-banco/:id', component:EditarBancoComponent, canActivate:[AuthGuard, AdminGuard]}
+      {
+        path: 'editar-banco/:id',
+        component: EditarBancoComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'cuentas/:banco',
+        component: CuentasComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'crear-cuenta/:banco',
+        component: CrearCuentaComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'editar-cuenta/:banco/:cuenta',
+        component: EditarCuentaComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
     ],
   },
 ];

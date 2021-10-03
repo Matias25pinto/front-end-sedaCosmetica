@@ -7,6 +7,11 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as action from 'src/app/usuario.actions';
 
+import { Banco } from '../../core/shared/models/banco.interface';
+import { Cuenta } from '../../core/shared/models/cuenta.interface';
+import { BancosService } from '../../core/shared/services/bancos.service';
+import { CuentasService } from '../../core/shared/services/cuentas.service';
+
 @Component({
   selector: 'app-crear-comprobante',
   templateUrl: './crear-comprobante.component.html',
@@ -38,11 +43,16 @@ export class CrearComprobanteComponent implements OnInit {
     'DESCUENTO',
   ];
 
+  public bancos: Banco[] = [];
+  public cuentas: Cuenta[] = [];
+
   constructor(
     private store: Store<{ usuario: any }>,
     private fb: FormBuilder,
     private arqueoService: ArqueoService,
-    private sucursalesService: SucursalesService
+    private sucursalesService: SucursalesService,
+    private bancosService: BancosService,
+    private cuentasService: CuentasService
   ) {
     this.mostrar = '';
     this.banco = '';
@@ -51,6 +61,18 @@ export class CrearComprobanteComponent implements OnInit {
   ngOnInit(): void {
     this.subirInicio();
     this.autenticarUsuario();
+  }
+  cargarBancos() {
+    let token = localStorage.getItem('token');
+    this.bancosService.bancos(token).subscribe((bancos) => {
+      this.bancos = bancos;
+    });
+  }
+  cargarCuentas(idBanco:string) {
+    let token = localStorage.getItem('token');
+    this.cuentasService.cuentas(token, idBanco).subscribe((cuentas) => {
+      this.cuentas = cuentas;
+    });
   }
   // Funcion para subir al inicio
   subirInicio(): void {

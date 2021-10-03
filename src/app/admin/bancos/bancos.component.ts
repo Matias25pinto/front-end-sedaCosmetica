@@ -91,7 +91,7 @@ export class BancosComponent implements OnInit {
               this.cargarBancos();
             },
             (err) => {
-	      console.warn(err);
+              console.warn(err);
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -111,5 +111,8 @@ export class BancosComponent implements OnInit {
           );
         }
       });
+  }
+  cuentas(banco: string) {
+    this.router.navigate(['admin', 'cuentas', banco]);
   }
 }

@@ -2,66 +2,46 @@
   <div class="banco__barra-superior">
     <button
       *ngIf="true"
-      (click)="crearBanco()"
+      (click)="crearCuenta()"
       class="usuario__arqueo-btn"
       type="button"
     >
-      Agregar Banco
+      Agregar Cuenta
     </button>
-
-    <div class="menu__buscar">
-      <input
-        #buscarTermino
-        class="menu__buscar-texto"
-        type="text"
-        placeholder="Buscar Banco"
-        (keyup.enter)="buscarBanco(buscarTermino.value)"
-      />
-      <i
-        (click)="buscarBanco(buscarTermino.value)"
-        class="menu__buscar-buscar fas fa-search"
-      ></i>
-    </div>
   </div>
   <div class="">
     <div id="reporte-pagos-tarjetas-titulo" class="reporte__dashboard-titulo">
-      <h4 class="menuDeInicio__tituloSecundario">{{ "Bancos" | uppercase }}</h4>
+      <h4 class="menuDeInicio__titulo">
+        {{ 'Cuentas Bancarias del banco '+titulo | uppercase }}
+      </h4>
     </div>
+
     <table class="menuDeInicio__table">
       <tr id="reporte-pagos-tarjetas-header" class="menuDeInicio__table-tr">
         <th class="dashboard__formulario__table-th-100">#</th>
-        <th class="dashboard__formulario__table-th-230">Banco</th>
-        <th class="dashboard__formulario__table-th-230">Descripción</th>
+        <th class="dashboard__formulario__table-th-230">Titular</th>
+        <th class="dashboard__formulario__table-th-230">Nro de Cuenta</th>
         <th class="dashboard__formulario__table-td-100"></th>
         <th class="dashboard__formulario__table-td-100">{{ 'Opción' }}</th>
         <th class="dashboard__formulario__table-td-100"></th>
       </tr>
       <tr
         id="{{'reporte-pagos-tarjetas-'+i}}"
-        *ngFor="let banco of bancos; let i = index"
+        *ngFor="let cuenta of cuentas; let i = index"
         class="menuDeInicio__table-tr"
       >
         <td class="dashboard__formulario__table-td-100">{{ i + 1 }}</td>
         <td class="dashboard__formulario__table-td-230">
-          {{ banco.nombre | uppercase }}
+          {{ cuenta.titular | uppercase }}
         </td>
         <td class="dashboard__formulario__table-td-230">
-          {{ banco.desc | uppercase }}
+          {{ cuenta.nroCuenta | uppercase }}
         </td>
+        <td class="dashboard__formulario__table-td-100"></td>
         <td class="dashboard__formulario__table-td-100">
           <button
             *ngIf="true"
-            (click)="cuentas(banco._id)"
-            class="usuario__arqueo-btn"
-            type="button"
-          >
-            Cuentas
-          </button>
-        </td>
-        <td class="dashboard__formulario__table-td-100">
-          <button
-            *ngIf="true"
-            (click)="editarBanco(banco._id)"
+            (click)="editarCuenta(idBanco, cuenta._id)"
             class="usuario__arqueo-btn"
             type="button"
           >
@@ -71,7 +51,7 @@
         <td class="dashboard__formulario__table-td-100">
           <button
             *ngIf="true"
-            (click)="eliminarBanco(banco._id, banco.nombre)"
+            (click)="eliminarCuenta(cuenta._id, cuenta.titular, cuenta.nroCuenta)"
             class="usuario__arqueo-btn"
             type="button"
           >
