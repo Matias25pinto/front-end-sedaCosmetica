@@ -1,6 +1,17 @@
 <app-navbar></app-navbar>
 <div class="usuario">
-<button
+  <button
+    *ngIf="true"
+    (click)="dashboard()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    DashBoard
+  </button>
+
+  <hr class="menuDeInicio__hr" />
+
+  <button
     *ngIf="true"
     (click)="cargarComprobante()"
     class="usuario__arqueo-btn"
@@ -15,17 +26,20 @@
     class="usuario__arqueo-btn"
     type="button"
   >
-    Ver Comprobantes
+    Comprobantes
   </button>
 
   <button
-    *ngIf="true"
-    (click)="dashboard()"
+    *ngIf="usuario.role == 'ADMIN_ROLE'"
+    (click)="bancos()"
     class="usuario__arqueo-btn"
     type="button"
   >
-    DashBoard
+    Bancos
   </button>
+
+  <hr class="menuDeInicio__hr" />
+
   <button
     *ngIf="true"
     (click)="cerrarSesion()"

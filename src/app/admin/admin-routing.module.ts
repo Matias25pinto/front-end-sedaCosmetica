@@ -11,13 +11,16 @@ import { CrearComprobanteComponent } from './crear-comprobante/crear-comprobante
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { VerComprobantesComponent } from './ver-comprobantes/ver-comprobantes.component';
+import { BancosComponent } from './bancos/bancos.component';
+import { CrearBancoComponent } from './crear-banco/crear-banco.component';
+import { EditarBancoComponent } from './editar-banco/editar-banco.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
-      {path:'', pathMatch: 'full', redirectTo: '/menu'},
+      { path: '', pathMatch: 'full', redirectTo: '/menu' },
       { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
       {
         path: 'dashboard',
@@ -34,6 +37,17 @@ const routes: Routes = [
         component: CrearComprobanteComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: 'bancos',
+        component: BancosComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'crear-banco',
+        component: CrearBancoComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {path:'editar-banco/:id', component:EditarBancoComponent, canActivate:[AuthGuard, AdminGuard]}
     ],
   },
 ];

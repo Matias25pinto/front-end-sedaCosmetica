@@ -1,0 +1,47 @@
+<div class="crear__banco-formulario">
+  <label for="tipoComprobante">Agregar Banco</label>
+  <hr />
+  <form [formGroup]="formularioBanco" (ngSubmit)="enviarFormulario()">
+    <div class="crear__banco-formulario-elemento">
+      <label for="banco">Nombre del Banco: </label>
+      <input
+        class="crear__banco-formulario-elemento-input"
+        type="text"
+        formControlName="nombre"
+        name="nombre"
+      />
+    </div>
+    <small *ngIf="nombreNoValido" class="text-danger"
+      >El campo Nombre del Banco es obligatorio.</small
+    >
+
+    <div class="crear__banco-formulario-elemento">
+      <label for="emisor">Descripción: </label>
+      <textarea
+        class="crear__banco-formulario-elemento-area"
+        type="text"
+        formControlName="desc"
+        name="desc"
+        rows="3"
+        cols="25"
+      ></textarea>
+    </div>
+    <small *ngIf="descNoValido" class="text-danger"
+      >El campo Descripción es obligatorio.</small
+    >
+
+    <div class="crear__banco-formulario-elemento">
+      <button *ngIf="!loading" class="crear__comprobantes-btn" type="submit">
+        Guardar
+      </button>
+      <button
+        disabled
+        *ngIf="loading"
+        class="crear__comprobantes-btn"
+        type="button"
+      >
+        <i class="fas fa-sync fa-spin"></i>
+      </button>
+    </div>
+  </form>
+</div>

@@ -26,6 +26,10 @@ import { CrearComprobanteComponent } from './crear-comprobante/crear-comprobante
 
 //Import Pulbic Module
 import { PublicModule } from '../public/public.module';
+import { BancosComponent } from './bancos/bancos.component';
+import { CrearBancoComponent } from './crear-banco/crear-banco.component';
+import { FormularioBancoComponent } from './components/formulario-banco/formulario-banco.component';
+import { EditarBancoComponent } from './editar-banco/editar-banco.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,10 @@ import { PublicModule } from '../public/public.module';
     ArqueosComponent,
     VerComprobantesComponent,
     CrearComprobanteComponent,
+    BancosComponent,
+    CrearBancoComponent,
+    FormularioBancoComponent,
+    EditarBancoComponent,
   ],
   imports: [
     CommonModule,
