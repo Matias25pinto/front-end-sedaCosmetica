@@ -532,10 +532,10 @@
                 {{ deposito.comprobante | uppercase }}
               </td>
               <td class="dashboard__formulario__table-td-230">
-                {{ deposito.banco | uppercase }}
+                {{ deposito.banco.nombre | uppercase }}
               </td>
               <td class="dashboard__formulario__table-td-230">
-                {{ deposito.cuentaBancaria | uppercase }}
+                {{ deposito.cuentaBancaria.titular+' - '+deposito.cuentaBancaria.nroCuenta | uppercase }}
               </td>
               <td class="dashboard__formulario__table-td-230">
                 {{ deposito.fArqueo | date: "fullDate":"GMT-3":"es" }}
@@ -597,8 +597,8 @@
           <table class="menuDeInicio__table">
             <tr id="reporte-retiros-header" class="menuDeInicio__table-tr">
               <th class="dashboard__formulario__table-th-100">#</th>
-              <th class="dashboard__formulario__table-th-230">Autorizó</th>
-              <th class="dashboard__formulario__table-th-230">Retiró</th>
+              <th class="dashboard__formulario__table-th-230">Autoriza</th>
+              <th class="dashboard__formulario__table-th-230">Retira</th>
               <th class="dashboard__formulario__table-th-230">Observación</th>
               <th class="dashboard__formulario__table-th-230">Fecha de Arqueo</th>
               <th class="dashboard__formulario__table-th-100">Monto</th>

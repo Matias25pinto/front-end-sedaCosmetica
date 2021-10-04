@@ -73,11 +73,7 @@
           </option>
         </select>
       </div>
-      <button
-        *ngIf="true"
-        class="usuario__arqueo-btn"
-        type="submit"
-      >
+      <button *ngIf="true" class="usuario__arqueo-btn" type="submit">
         Ver Comprobantes
       </button>
     </form>
@@ -270,8 +266,11 @@
         }}
       </p>
 
-      <p>Banco: {{ comprobante.banco }}</p>
-      <p>Cuenta: {{ comprobante.cuentaBancaria }}</p>
+      <p>Banco: {{ comprobante.banco.nombre}}</p>
+      <p *ngIf="comprobante.cuentaBancaria != null">
+        Cuenta: {{ comprobante.cuentaBancaria.titular + ' -
+        '+comprobante.cuentaBancaria.nroCuenta }}
+      </p>
       <p *ngIf="comprobante.fDeposito">
         Fecha de Deposito: {{ comprobante.fDeposito | date:
         "fullDate":"GMT-3":"es" }}

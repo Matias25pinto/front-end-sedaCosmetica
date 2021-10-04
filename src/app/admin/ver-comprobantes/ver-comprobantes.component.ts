@@ -16,7 +16,6 @@ import * as action from 'src/app/usuario.actions';
   templateUrl: './ver-comprobantes.component.html',
 })
 export class VerComprobantesComponent implements OnInit {
-
   public btnSiguiente = true;
 
   public usuario$: Observable<any>;
@@ -52,6 +51,7 @@ export class VerComprobantesComponent implements OnInit {
   ];
   public desde: string = '0';
   public cantidadComprobantes: number;
+
   constructor(
     private store: Store<{ usuario: any }>,
     private sucursalesService: SucursalesService,

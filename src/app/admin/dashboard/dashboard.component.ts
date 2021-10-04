@@ -377,7 +377,7 @@ export class DashboardComponent implements OnInit {
   cargarReporteDeDepositoPorBanco(comprobantesDeposito: any) {
     //cargar los bancos
     for (let deposito of comprobantesDeposito) {
-      this.bancos.add(deposito.banco);
+      this.bancos.add(deposito.banco.nombre);
       //sumar el total
       this.totalDepositoPorBanco += parseInt(deposito.monto);
     }
@@ -386,7 +386,7 @@ export class DashboardComponent implements OnInit {
     for (let banco of this.bancos) {
       this.depositoPorBanco[indiceDeBanco] = 0;
       for (let deposito of comprobantesDeposito) {
-        if (banco === deposito.banco) {
+        if (banco === deposito.banco.nombre) {
           this.depositoPorBanco[indiceDeBanco] += parseInt(deposito.monto);
         }
       }
@@ -403,7 +403,7 @@ export class DashboardComponent implements OnInit {
   cargarReporteDeDepositoPorCuenta(comprobantesDeposito: any) {
     //cargar las cuentas bancarias
     for (let deposito of comprobantesDeposito) {
-      this.cuentasBancarias.add(deposito.cuentaBancaria);
+      this.cuentasBancarias.add(deposito.cuentaBancaria.titular+' - '+deposito.cuentaBancaria.nroCuenta);
       //sumar el total
       this.totalDepositoPorCuenta += parseInt(deposito.monto);
     }
@@ -412,9 +412,9 @@ export class DashboardComponent implements OnInit {
     for (let cuenta of this.cuentasBancarias) {
       this.depositoPorCuenta[indiceDeCuenta] = 0;
       for (let deposito of comprobantesDeposito) {
-        if (cuenta === deposito.cuentaBancaria) {
+        if (cuenta === deposito.cuentaBancaria.titular+' - '+deposito.cuentaBancaria.nroCuenta) {
           this.depositoPorCuenta[indiceDeCuenta] += parseInt(deposito.monto);
-          this.cuentasBanco[indiceDeCuenta] = deposito.banco;
+          this.cuentasBanco[indiceDeCuenta] = deposito.banco.nombre;
         }
       }
       ++indiceDeCuenta;

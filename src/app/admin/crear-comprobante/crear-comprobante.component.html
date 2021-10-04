@@ -772,10 +772,10 @@
           name="banco"
           formControlName="banco"
         >
-          <option value="">Seleccione un Banco</option>
-          <option value="BANCO FAMILIAR">BANCO FAMILIAR</option>
-          <option value="BANCO ITAÚ">BANCO ITAÚ</option>
-          <option value="VISION BANCO SAECA">VISION BANCO SAECA</option>
+          <option value="">Seleccionar un Banco</option>
+	  <option *ngFor="let banco of bancos" value="{{banco._id}}">
+            {{banco.nombre}}
+          </option>
         </select>
         <span class="custom-arrow"
           ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
@@ -790,69 +790,15 @@
           name="cuentaBancaria"
           formControlName="cuentaBancaria"
         >
-          <option value="">Seleccione una Cuenta</option>
-          <option
-            *ngIf="banco == 'BANCO FAMILIAR'"
-            value="Federico Portillo | 05-2982057 | 2320359-5"
-          >
-            Federico Portillo | 05-2982057 | 2320359-5
-          </option>
-
-          <option
-            *ngIf="banco == 'BANCO FAMILIAR'"
-            value="Macro Alliance S.R.L | 03-009156879"
-          >
-            Macro Alliance S.R.L | 03-009156879
-          </option>
-
-          <option
-            *ngIf="banco == 'BANCO ITAÚ'"
-            value="Federico Portillo | 500 540 336 | 2320359-5"
-          >
-            Federico Portillo | 500 540 336 | 2320359-5
-          </option>
-          <option
-            *ngIf="banco == 'BANCO ITAÚ'"
-            value="Macro Alliance S.R.L | 70000196-6"
-          >
-            Macro Alliance S.R.L | 70000196-6
-          </option>
-          <option
-            *ngIf="banco == 'BANCO ITAÚ'"
-            value="Lavigne Arquitectura S.R.L | 701546560 | 80065975-9"
-          >
-            Lavigne Arquitectura S.R.L | 701546560 | 80065975-9
-          </option>
-          <option
-            *ngIf="banco == 'VISION BANCO SAECA'"
-            value="Federico Portillo | 900 476 871 | 2320359-5"
-          >
-            Federico Portillo | 900 476 871 | 2320359-5
-          </option>
-          <option
-            *ngIf="banco == 'VISION BANCO SAECA'"
-            value="Ana | 900 510 634 | 4659931-2"
-          >
-            Ana | 900 510 634 | 4659931-2
-          </option>
-          <option
-            *ngIf="banco == 'VISION BANCO SAECA'"
-            value="Rodrigo Zapata | 900 548 158 | 4839465-3"
-          >
-            Rodrigo Zapata | 900 548 158 | 4839465-3
-          </option>
-          <option
-            *ngIf="banco == 'VISION BANCO SAECA'"
-            value="Macro Alliance S.R.L  | 900 580 747 | 80021496-0"
-          >
-            Macro Alliance S.R.L | 900 580 747 | 80021496-0
-          </option>
-          <option
-            *ngIf="banco == 'VISION BANCO SAECA'"
-            value="Cristhian Manuel Lopez Caballero  | 900 476 053"
-          >
-            Cristhian Manuel Lopez Caballero | 900 476 053
-          </option>
+          <option value="">Seleccionar una Cuenta</option>
+          <ng-container *ngFor="let cuenta of cuentas">
+            <option
+              *ngIf="formularioComprobante.get('banco')?.value == cuenta.banco"
+	      value="{{cuenta._id}}"
+            >
+              {{cuenta.titular + ' | '+ cuenta.nroCuenta}}
+            </option>
+          </ng-container>
         </select>
         <span class="custom-arrow"
           ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i

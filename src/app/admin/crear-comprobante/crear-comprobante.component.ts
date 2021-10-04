@@ -68,7 +68,8 @@ export class CrearComprobanteComponent implements OnInit {
       this.bancos = bancos;
     });
   }
-  cargarCuentas(idBanco:string) {
+  cargarCuentas() {
+    let idBanco = 'todo';
     let token = localStorage.getItem('token');
     this.cuentasService.cuentas(token, idBanco).subscribe((cuentas) => {
       this.cuentas = cuentas;
@@ -197,6 +198,9 @@ export class CrearComprobanteComponent implements OnInit {
         nroComprobante: ['', Validators.required],
         fDeposito: ['', Validators.required],
       });
+
+      this.cargarBancos();
+      this.cargarCuentas();
     }
     if (this.mostrar == 'TARJETA') {
       this.formularioComprobante = this.fb.group({
