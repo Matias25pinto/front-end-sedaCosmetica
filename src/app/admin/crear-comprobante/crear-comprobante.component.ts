@@ -242,13 +242,15 @@ export class CrearComprobanteComponent implements OnInit {
   }
   guardarFormulario() {
     if (this.formularioComprobante.valid) {
-      this.creandoComprobante = true;
+      this.creandoComprobante = true
       let loginToken = localStorage.getItem('token');
+      console.log("FORMULARIO:", this.formularioComprobante.value);
       this.arqueoService
         .agregarComprobante(loginToken, this.formularioComprobante.value)
         .subscribe(
           (data) => {
             //imprimir mensaje
+	    console.log("RESPUESTA:",data);
             Swal.fire({
               allowOutsideClick: false, //false, no puede dar click en otro lugar
               title: 'Exito!!!',

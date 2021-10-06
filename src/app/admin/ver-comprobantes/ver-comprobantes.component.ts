@@ -177,12 +177,13 @@ export class VerComprobantesComponent implements OnInit {
     let yyyy = fecha.getFullYear().toString();
     let mm = '';
     let dd = '';
-    if (fecha.getDate() < 10) {
+    if (fecha.getDate() <= 10) {
       dd = '0' + fecha.getDate().toString();
     } else {
       dd = fecha.getDate().toString();
     }
-    if (fecha.getMonth() < 10) {
+    //en javascript 9 ya es octubre por eso hacemos solo hasta el 9
+    if (fecha.getMonth() < 9) {
       mm = '0' + (fecha.getMonth() + 1).toString();
     } else {
       mm = (fecha.getMonth() + 1).toString();
@@ -226,6 +227,7 @@ export class VerComprobantesComponent implements OnInit {
     let fechaHasta = this.formatearFecha(this.form.get('end').value);
 
     let desde = this.desde;
+    console.log("FECHA_DESDE:",fechaDesde,"FECHA_HASTA:",fechaHasta);
     this.comprobantesServices
       .getComprobantes(
         token,
