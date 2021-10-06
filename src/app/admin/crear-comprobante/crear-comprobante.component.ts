@@ -12,6 +12,8 @@ import { Cuenta } from '../../core/shared/models/cuenta.interface';
 import { BancosService } from '../../core/shared/services/bancos.service';
 import { CuentasService } from '../../core/shared/services/cuentas.service';
 
+import { ValidadoresService } from '../../core/shared/services/validadores.service';
+
 @Component({
   selector: 'app-crear-comprobante',
   templateUrl: './crear-comprobante.component.html',
@@ -52,7 +54,8 @@ export class CrearComprobanteComponent implements OnInit {
     private arqueoService: ArqueoService,
     private sucursalesService: SucursalesService,
     private bancosService: BancosService,
-    private cuentasService: CuentasService
+    private cuentasService: CuentasService,
+    private validadores: ValidadoresService
   ) {
     this.mostrar = '';
     this.banco = '';
@@ -106,7 +109,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'ANDE') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
         comprobante: ['ANDE', Validators.required],
         nis: ['', Validators.required],
@@ -118,7 +121,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'SERVICIOS') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
         comprobante: ['SERVICIOS', Validators.required],
         servicio: ['', Validators.required],
@@ -131,7 +134,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'IMPUESTO') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
         comprobante: ['IMPUESTO', Validators.required],
         impuesto: ['', Validators.required],
@@ -144,7 +147,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'SALARIO') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['SALARIO', Validators.required],
         nombreApellido: ['', Validators.required],
@@ -159,7 +162,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'INSUMOS') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['INSUMOS', Validators.required],
         comercial: ['', Validators.required],
@@ -173,7 +176,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'RETIRO') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['RETIRO', Validators.required],
         autorizaNA: ['', Validators.required],
@@ -190,13 +193,13 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'DEPOSITO') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['DEPOSITO', Validators.required],
         banco: ['', Validators.required],
         cuentaBancaria: ['', Validators.required],
         nroComprobante: ['', Validators.required],
-        fDeposito: ['', Validators.required],
+        fDeposito: ['', [Validators.required, this.validadores.validarFecha]],
       });
 
       this.cargarBancos();
@@ -205,7 +208,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'TARJETA') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['TARJETA', Validators.required],
         boleta: ['', Validators.required],
@@ -214,7 +217,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'CHEQUE') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['CHEQUE', Validators.required],
         banco: ['', Validators.required],
@@ -229,7 +232,7 @@ export class CrearComprobanteComponent implements OnInit {
     if (this.mostrar == 'DESCUENTO') {
       this.formularioComprobante = this.fb.group({
         sucursal: ['', Validators.required],
-        fArqueo: ['', Validators.required],
+        fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['DESCUENTO', Validators.required],
         autorizaNA: ['', Validators.required],
@@ -242,15 +245,15 @@ export class CrearComprobanteComponent implements OnInit {
   }
   guardarFormulario() {
     if (this.formularioComprobante.valid) {
-      this.creandoComprobante = true
+      this.creandoComprobante = true;
       let loginToken = localStorage.getItem('token');
-      console.log("FORMULARIO:", this.formularioComprobante.value);
+      console.log('FORMULARIO:', this.formularioComprobante.value);
       this.arqueoService
         .agregarComprobante(loginToken, this.formularioComprobante.value)
         .subscribe(
           (data) => {
             //imprimir mensaje
-	    console.log("RESPUESTA:",data);
+            console.log('RESPUESTA:', data);
             Swal.fire({
               allowOutsideClick: false, //false, no puede dar click en otro lugar
               title: 'Exito!!!',
