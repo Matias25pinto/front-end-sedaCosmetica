@@ -53,6 +53,46 @@ input:focus {
 }
 /*
 =====================================
+*******FORMULARIO DE SUCURSAL**********
+=====================================
+*/
+.crear__sucursal-formulario {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 5px;
+  min-width: 800px;
+}
+
+.crear__sucursal-formulario-form {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.crear__sucursal-formulario-elemento {
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  margin: 10px auto;
+  padding: 3px 10px;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+}
+.crear__sucursal-formulario-elemento-input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid var(--default-primary-color);
+  margin: 0 5px;
+  width: 50%;
+}
+
+/*
+=====================================
 *******FORMULARIO DE BANCOS**********
 =====================================
 */
@@ -67,11 +107,11 @@ input:focus {
 }
 
 .crear__banco-formulario-elemento {
-  display:flex;
-  flex-wrap:nowrap;
-  flex-direction:row;
-  justify-content:flex-start;
-  align-items:center;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -84,21 +124,17 @@ input:focus {
 .crear__banco-formulario-elemento-input {
   border: none;
   background-color: transparent;
-  border-bottom:1px solid var(--default-primary-color);
-  margin:0 5px;
-  width:50%;
+  border-bottom: 1px solid var(--default-primary-color);
+  margin: 0 5px;
+  width: 50%;
 }
 .crear__banco-formulario-elemento-textarea {
   border: none;
   background-color: transparent;
-  border-bottom:1px solid var(--default-primary-color);
-  margin:auto 10px;
-  max-width:100%;
-  
+  border-bottom: 1px solid var(--default-primary-color);
+  margin: auto 10px;
+  max-width: 100%;
 }
-
-
-
 
 /*
 =====================================
@@ -138,6 +174,15 @@ input:focus {
     page-break-before: always;
   }
 }
+.dashboard__formulario__table-th-50,
+.dashboard__formulario__table-td-50 {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+  width: 50px;
+  font-size: 0.8em;
+}
+
 .dashboard__formulario__table-th-100,
 .dashboard__formulario__table-td-100 {
   display: inline-block;

@@ -14,6 +14,8 @@ import { CuentasService } from '../../core/shared/services/cuentas.service';
 
 import { ValidadoresService } from '../../core/shared/services/validadores.service';
 
+import { Sucursal } from 'src/app/core/shared/models/sucursal.interface';
+
 @Component({
   selector: 'app-crear-comprobante',
   templateUrl: './crear-comprobante.component.html',
@@ -30,7 +32,7 @@ export class CrearComprobanteComponent implements OnInit {
 
   public creandoComprobante: Boolean = false;
 
-  public sucursales = [];
+  public sucursales: Sucursal[] = [];
 
   public listaComprobantes = [
     'DEPOSITO',
@@ -89,9 +91,9 @@ export class CrearComprobanteComponent implements OnInit {
 
     this.usuario$.subscribe((data) => {
       this.usuario = data;
-      this.sucursalesService.getSucursales().subscribe(async (data) => {
+      this.sucursalesService.getSucursales().subscribe(async (sucursales) => {
         if (this.usuario.role !== 'ADMIN_ROLE') {
-          await data['sucursalesBD'].filter((sucursal) => {
+          sucursales.filter((sucursal) => {
             if (sucursal._id == this.usuario.sucursal) {
               this.sucursales.push(sucursal);
               return sucursal;
@@ -99,7 +101,7 @@ export class CrearComprobanteComponent implements OnInit {
             return;
           });
         } else {
-          this.sucursales = data['sucursalesBD'];
+          this.sucursales = sucursales;
         }
       });
     });

@@ -17,6 +17,9 @@ import { EditarBancoComponent } from './editar-banco/editar-banco.component';
 import { CuentasComponent } from './cuentas/cuentas.component';
 import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
 import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component';
+import { SucursalComponent } from './sucursal/sucursal.component';
+import { CrearSucursalComponent } from './crear-sucursal/crear-sucursal.component';
+import { ModificarSucursalComponent } from './modificar-sucursal/modificar-sucursal.component';
 
 const routes: Routes = [
   {
@@ -68,6 +71,21 @@ const routes: Routes = [
       {
         path: 'editar-cuenta/:banco/:cuenta',
         component: EditarCuentaComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'sucursales',
+        component: SucursalComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'crear-sucursal',
+        component: CrearSucursalComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'editar-sucursal/:id',
+        component: ModificarSucursalComponent,
         canActivate: [AuthGuard, AdminGuard],
       },
     ],

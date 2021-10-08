@@ -70,7 +70,7 @@ export class BancosComponent implements OnInit {
 
     swalWithBootstrapButtons
       .fire({
-        title: `¿Está seguro de eliminar el banco ${nombre}?`,
+        title: `¿Está usted seguro de que desea eliminar el banco ${nombre}?`,
         text: 'Si está seguro presione el botón Sí',
         icon: 'warning',
         showCancelButton: true,
@@ -85,7 +85,7 @@ export class BancosComponent implements OnInit {
             (resp) => {
               swalWithBootstrapButtons.fire(
                 'Eliminado',
-                `Se eliminó el banco ${nombre}`,
+                `Se elimino el banco ${nombre}`,
                 'success'
               );
               this.cargarBancos();
@@ -106,7 +106,7 @@ export class BancosComponent implements OnInit {
         ) {
           swalWithBootstrapButtons.fire(
             'Cancelado',
-            `No se eliminó el banco ${nombre}`,
+            `No se elimino el banco ${nombre}`,
             'error'
           );
         }

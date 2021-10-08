@@ -12,12 +12,16 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as action from 'src/app/usuario.actions';
 
+import { Sucursal } from 'src/app/core/shared/models/sucursal.interface';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-  public branchOffices: any[] = [];
+
+  public branchOffices: Sucursal[] = [];
   public isSelectBranchOffice: boolean[] = [];
   public form: FormGroup;
   public loading: boolean = false;
@@ -97,9 +101,9 @@ export class DashboardComponent implements OnInit {
 
     this.usuario$.subscribe((data) => {
       this.usuario = data;
-      this.sucursales.getSucursales().subscribe(async (data) => {
+      this.sucursales.getSucursales().subscribe(async (sucursales) => {
         if (this.usuario.role !== 'ADMIN_ROLE') {
-          await data['sucursalesBD'].filter((sucursal) => {
+          sucursales.filter((sucursal) => {
             if (sucursal._id == this.usuario.sucursal) {
               this.branchOffices.push(sucursal);
               return sucursal;
@@ -107,7 +111,7 @@ export class DashboardComponent implements OnInit {
             return;
           });
         } else {
-          this.branchOffices = data['sucursalesBD'];
+          this.branchOffices = sucursales;
         }
         this.seleccionarFechaDeInicio();
         this.recargarDatos();
@@ -197,8 +201,8 @@ export class DashboardComponent implements OnInit {
 
   cargatSucursales() {
     this.sucursales.getSucursales().subscribe(
-      (resp) => {
-        this.branchOffices = resp['sucursalesBD'];
+      (sucursales) => {
+        this.branchOffices = sucursales;
         this.recargarDatos();
       },
       (err) => console.warn(err)

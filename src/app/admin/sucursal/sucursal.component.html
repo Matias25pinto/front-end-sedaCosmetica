@@ -2,76 +2,59 @@
   <div class="banco__barra-superior">
     <button
       *ngIf="true"
-      (click)="crearBanco()"
+      (click)="crearSucursal()"
       class="usuario__arqueo-btn"
       type="button"
     >
-      Agregar Banco
+      Crear Sucursal
     </button>
-
-    <div class="menu__buscar">
-      <input
-        #buscarTermino
-        class="menu__buscar-texto"
-        type="text"
-        placeholder="Buscar Banco"
-        (keyup.enter)="buscarBanco(buscarTermino.value)"
-      />
-      <i
-        (click)="buscarBanco(buscarTermino.value)"
-        class="menu__buscar-buscar fas fa-search"
-      ></i>
-    </div>
   </div>
   <div class="">
     <div id="reporte-pagos-tarjetas-titulo" class="reporte__dashboard-titulo">
-      <h4 class="menuDeInicio__tituloSecundario">{{ "Bancos" | uppercase }}</h4>
+      <h4 class="menuDeInicio__tituloSecundario">
+        {{ "Sucursales" | uppercase }}
+      </h4>
     </div>
     <table class="menuDeInicio__table">
       <tr id="reporte-pagos-tarjetas-header" class="menuDeInicio__table-tr">
         <th class="dashboard__formulario__table-th-100">#</th>
-        <th class="dashboard__formulario__table-th-230">Banco</th>
-        <th class="dashboard__formulario__table-th-230">Descripción</th>
+        <th class="dashboard__formulario__table-th-230">Sucursal</th>
+        <th class="dashboard__formulario__table-th-100">Código</th>
+        <th class="dashboard__formulario__table-th-230">Dirección</th>
         <th class="dashboard__formulario__table-th-100"></th>
-        <th class="dashboard__formulario__table-th-100">{{ 'Opciones' }}</th>
+        <th class="dashboard__formulario__table-th-50">{{ 'Opciones' }}</th>
         <th class="dashboard__formulario__table-th-100"></th>
       </tr>
       <tr
         id="{{'reporte-pagos-tarjetas-'+i}}"
-        *ngFor="let banco of bancos; let i = index"
+        *ngFor="let sucursal of sucursales; let i = index"
         class="menuDeInicio__table-tr"
       >
         <td class="dashboard__formulario__table-td-100">{{ i + 1 }}</td>
         <td class="dashboard__formulario__table-td-230">
-          {{ banco.nombre | uppercase }}
+          {{ sucursal.titulo | uppercase }}
+        </td>
+        <td class="dashboard__formulario__table-td-100">
+          {{ sucursal.codigosucursal }}
         </td>
         <td class="dashboard__formulario__table-td-230">
-          {{ banco.desc | uppercase }}
+          {{ sucursal.direccion | uppercase }}
         </td>
         <td class="dashboard__formulario__table-td-100">
           <button
             *ngIf="true"
-            (click)="cuentas(banco._id)"
-            class="usuario__arqueo-btn"
-            type="button"
-          >
-            Cuentas
-          </button>
-        </td>
-        <td class="dashboard__formulario__table-td-100">
-          <button
-            *ngIf="true"
-            (click)="editarBanco(banco._id)"
+            (click)="modificarSucursal(sucursal._id)"
             class="usuario__arqueo-btn"
             type="button"
           >
             Editar
           </button>
         </td>
+        <td class="dashboard__formulario__table-td-50"></td>
         <td class="dashboard__formulario__table-td-100">
           <button
             *ngIf="true"
-            (click)="eliminarBanco(banco._id, banco.nombre)"
+            (click)="eliminarSucursal(sucursal._id, sucursal.titulo)"
             class="usuario__arqueo-btn"
             type="button"
           >

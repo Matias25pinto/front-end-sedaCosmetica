@@ -25,7 +25,6 @@ export class FormularioBancoComponent implements OnInit {
   ngOnInit(): void {
     if (this.idBanco != '') {
       let token = localStorage.getItem('token');
-      console.log(this.idBanco);
       this.bancosService.getBanco(token, this.idBanco).subscribe((resp) => {
         this.formularioBanco.reset({ nombre: resp.nombre, desc: resp.desc });
       });

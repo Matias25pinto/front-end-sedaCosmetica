@@ -1,0 +1,96 @@
+<div class="crear__sucursal-formulario">
+  <label for="tipoComprobante">Crear Sucursal</label>
+  <hr />
+  <form class="crear__sucursal-formulario-form" [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+    <div class="crear__sucursal-formulario-elemento">
+      <label for="titulo">Sucursal: </label>
+      <input
+        class="crear__sucursal-formulario-elemento-input"
+        type="text"
+        formControlName="titulo"
+        name="titulo"
+      />
+    </div>
+    <small *ngIf="tituloNoValido" class="text-danger"
+      >El campo Sucursal es obligatorio.</small
+    >
+
+    <div class="crear__sucursal-formulario-elemento">
+      <label for="direccion">Dirección: </label>
+      <input
+        class="crear__sucursal-formulario-elemento-input"
+        type="text"
+        formControlName="direccion"
+        name="direccion"
+      />
+    </div>
+    <small *ngIf="direccionNoValido" class="text-danger"
+      >El campo Dirección es obligatorio.</small
+    >
+
+<div class="crear__sucursal-formulario-elemento">
+      <label for="tel">Télefono: </label>
+      <input
+        class="crear__sucursal-formulario-elemento-input"
+        type="text"
+        formControlName="tel"
+        name="tel"
+      />
+    </div>
+    <small *ngIf="telNoValido" class="text-danger"
+      >El campo Télefono es obligatorio.</small
+    >
+<div class="crear__sucursal-formulario-elemento">
+      <label for="cel">Celular: </label>
+      <input
+        class="crear__sucursal-formulario-elemento-input"
+        type="text"
+        formControlName="cel"
+        name="cel"
+      />
+    </div>
+    <small *ngIf="celNoValido" class="text-danger"
+      >El campo Celular es obligatorio.</small
+    >
+<div class="crear__sucursal-formulario-elemento">
+      <label for="correo">Correo: </label>
+      <input
+        class="crear__sucursal-formulario-elemento-input"
+        type="text"
+        formControlName="correo"
+        name="correo"
+      />
+    </div>
+    <small *ngIf="correoNoValido" class="text-danger"
+      >El campo Correo es obligatorio.</small
+    >
+<div class="crear__sucursal-formulario-elemento">
+      <label for="codigosucursal">Código Sucursal: </label>
+      <input
+        class="crear__sucursal-formulario-elemento-input"
+        type="text"
+        formControlName="codigosucursal"
+        name="codigosucursal"
+      />
+    </div>
+    <small *ngIf="codigosucursalNoValido" class="text-danger"
+      >El campo Código Sucursal es obligatorio.</small
+    >
+
+
+
+    <div class="crear__banco-formulario-elemento">
+      <button *ngIf="!loading" class="crear__comprobantes-btn" type="submit">
+        Guardar
+      </button>
+      <button
+        disabled
+        *ngIf="loading"
+        class="crear__comprobantes-btn"
+        type="button"
+      >
+        <i class="fas fa-sync fa-spin"></i>
+      </button>
+    </div>
+  </form>
+</div>

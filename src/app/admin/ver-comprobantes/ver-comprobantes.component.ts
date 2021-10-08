@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ComprobantesService } from 'src/app/core/shared/services/comprobantes.service';
-import { UsuariosService } from 'src/app/core/shared/services/usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Store} from '@ngrx/store';
 import * as action from 'src/app/usuario.actions';
+
+import { Sucursal } from 'src/app/core/shared/models/sucursal.interface';
+
 
 @Component({
   selector: 'app-ver-comprobantes',
@@ -21,7 +22,7 @@ export class VerComprobantesComponent implements OnInit {
   public usuario$: Observable<any>;
   public usuario: any;
 
-  public branchOffices: any[] = [];
+  public branchOffices: Sucursal[] = [];
   public isSelectBranchOffice: boolean[] = [];
   public form: FormGroup;
 
@@ -72,9 +73,9 @@ export class VerComprobantesComponent implements OnInit {
 
     this.usuario$.subscribe((data) => {
       this.usuario = data;
-      this.sucursalesService.getSucursales().subscribe(async (data) => {
+      this.sucursalesService.getSucursales().subscribe(async (sucursales) => {
         if (this.usuario.role !== 'ADMIN_ROLE') {
-          await data['sucursalesBD'].filter((sucursal) => {
+          sucursales.filter((sucursal) => {
             if (sucursal._id == this.usuario.sucursal) {
               this.branchOffices.push(sucursal);
               return sucursal;
@@ -82,7 +83,7 @@ export class VerComprobantesComponent implements OnInit {
             return;
           });
         } else {
-          this.branchOffices = data['sucursalesBD'];
+          this.branchOffices = sucursales;
         }
         this.recargarDatos();
       });
@@ -156,10 +157,8 @@ export class VerComprobantesComponent implements OnInit {
   siguiente() {
     if (this.cantidadComprobantes > parseInt(this.desde) + 10) {
       this.desde = (parseInt(this.desde) + 10).toString();
-      console.log(this.desde);
       this.recargarDatos();
     } else {
-      console.log('No hay siguiente');
       this.btnSiguiente = false;
     }
   }
@@ -227,7 +226,6 @@ export class VerComprobantesComponent implements OnInit {
     let fechaHasta = this.formatearFecha(this.form.get('end').value);
 
     let desde = this.desde;
-    console.log("FECHA_DESDE:",fechaDesde,"FECHA_HASTA:",fechaHasta);
     this.comprobantesServices
       .getComprobantes(
         token,
@@ -276,7 +274,6 @@ export class VerComprobantesComponent implements OnInit {
           .eliminarComprobante(idComprobante, token)
           .subscribe(
             (data) => {
-              console.log('Se elimino el comprobante');
               this.recargarDatos();
             },
             (err) => {

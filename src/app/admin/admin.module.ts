@@ -34,6 +34,10 @@ import { CuentasComponent } from './cuentas/cuentas.component';
 import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
 import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component';
 import { FormularioCuentaComponent } from './components/formulario-cuenta/formulario-cuenta.component';
+import { SucursalComponent } from './sucursal/sucursal.component';
+import { CrearSucursalComponent } from './crear-sucursal/crear-sucursal.component';
+import { ModificarSucursalComponent } from './modificar-sucursal/modificar-sucursal.component';
+import { FormularioSucursalComponent } from './components/formulario-sucursal/formulario-sucursal.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,10 @@ import { FormularioCuentaComponent } from './components/formulario-cuenta/formul
     CrearCuentaComponent,
     EditarCuentaComponent,
     FormularioCuentaComponent,
+    SucursalComponent,
+    CrearSucursalComponent,
+    ModificarSucursalComponent,
+    FormularioSucursalComponent,
   ],
   imports: [
     CommonModule,

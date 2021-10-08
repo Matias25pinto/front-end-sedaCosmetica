@@ -59,6 +59,10 @@ export class MenuComponent implements OnInit {
   bancos(){
     this.router.navigate(['admin', 'bancos']);
   }
+ sucursalesMenu(){
+    this.router.navigate(['admin', 'sucursales']);
+  }
+
 
   cerrarSesion() {
     localStorage.removeItem('token');

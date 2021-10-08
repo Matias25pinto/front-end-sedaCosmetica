@@ -38,6 +38,15 @@
     Bancos
   </button>
 
+  <button
+    *ngIf="usuario.role == 'ADMIN_ROLE'"
+    (click)="sucursalesMenu()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Sucursales
+  </button>
+
   <hr class="menuDeInicio__hr" />
 
   <button
