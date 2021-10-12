@@ -20,6 +20,9 @@ import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { CrearSucursalComponent } from './crear-sucursal/crear-sucursal.component';
 import { ModificarSucursalComponent } from './modificar-sucursal/modificar-sucursal.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
   {
@@ -86,6 +89,21 @@ const routes: Routes = [
       {
         path: 'editar-sucursal/:id',
         component: ModificarSucursalComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'crear-usuario',
+        component: CrearUsuarioComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+	path: 'editar-usuario/:id',
+        component: EditarUsuarioComponent,
         canActivate: [AuthGuard, AdminGuard],
       },
     ],

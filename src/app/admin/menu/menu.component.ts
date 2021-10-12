@@ -62,6 +62,9 @@ export class MenuComponent implements OnInit {
  sucursalesMenu(){
     this.router.navigate(['admin', 'sucursales']);
   }
+usuarios(){
+    this.router.navigate(['admin', 'usuarios']);
+  }
 
 
   cerrarSesion() {

@@ -1,0 +1,61 @@
+<div class="banco__contenedor">
+  <div class="banco__barra-superior">
+    <button
+      *ngIf="true"
+      (click)="crearUsuario()"
+      class="usuario__arqueo-btn"
+      type="button"
+    >
+      Crear Usuario
+    </button>
+  </div>
+  <div class="">
+    <div id="reporte-pagos-tarjetas-titulo" class="reporte__dashboard-titulo">
+      <h4 class="menuDeInicio__tituloSecundario">
+        {{ "Usuarios" | uppercase }}
+      </h4>
+    </div>
+    <table class="menuDeInicio__table">
+      <tr id="reporte-pagos-tarjetas-header" class="menuDeInicio__table-tr">
+        <th class="dashboard__formulario__table-th-100">#</th>
+        <th class="dashboard__formulario__table-th-230">Usuario</th>
+        <th class="dashboard__formulario__table-th-230">Correo</th>
+        <th class="dashboard__formulario__table-th-100"></th>
+        <th class="dashboard__formulario__table-th-50">{{ 'Opciones' }}</th>
+        <th class="dashboard__formulario__table-th-100"></th>
+      </tr>
+      <tr
+        id="{{'reporte-pagos-tarjetas-'+i}}"
+        *ngFor="let usuario of usuarios; let i = index"
+        class="menuDeInicio__table-tr"
+      >
+        <td class="dashboard__formulario__table-td-100">{{ i + 1 }}</td>
+        <td class="dashboard__formulario__table-td-230">
+          {{ usuario.nombre + " "+usuario.apellido | uppercase }}
+        </td>
+        <td class="dashboard__formulario__table-td-230">{{ usuario.email }}</td>
+        <td class="dashboard__formulario__table-td-100">
+          <button
+            *ngIf="true"
+            (click)="editarUsuario(usuario._id)"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            Editar
+          </button>
+        </td>
+        <td class="dashboard__formulario__table-td-50"></td>
+        <td class="dashboard__formulario__table-td-100">
+          <button
+            *ngIf="true"
+            (click)="eliminarUsuario(usuario._id, usuario.nombre+' '+usuario.apellido)"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

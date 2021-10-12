@@ -53,6 +53,60 @@ input:focus {
 }
 /*
 =====================================
+*******FORMULARIO DE USUARIO********
+=====================================
+*/
+.crear__usuario-formulario {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 5px;
+  min-width: 800px;
+}
+
+.crear__usuario-formulario-form {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+.crear__usuario-formulario-label {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.crear__usuario-formulario-elemento {
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  margin: 10px auto;
+  padding: 3px 10px;
+  border: none;
+  background-color: transparent;
+  width: 60%;
+}
+.crear__usuario-formulario-elemento-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.crear__usuario-formulario-elemento-input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid var(--default-primary-color);
+  margin: 0 5px;
+  width: 50%;
+}
+.crear__usuario-formulario-elemento-checkbox {
+  margin: 0px 5px;
+}
+
+/*
+=====================================
 *******FORMULARIO DE SUCURSAL**********
 =====================================
 */
@@ -81,7 +135,7 @@ input:focus {
   padding: 3px 10px;
   border: none;
   background-color: transparent;
-  width: 100%;
+  width: 60%;
 }
 .crear__sucursal-formulario-elemento-input {
   border: none;
@@ -1799,6 +1853,15 @@ input:focus {
   padding: 1em 3em 1em 1em;
   color: var(--text-primary-color);
   width: 100%;
+  height: 60px;
+  border: none;
+}
+.custom-select-50 {
+  cursor: pointer;
+  background-color: var(--default-primary-color);
+  padding: 1em 3em 1em 1em;
+  color: var(--text-primary-color);
+  width: 50%;
   height: 60px;
   border: none;
 }

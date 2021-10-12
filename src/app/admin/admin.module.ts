@@ -38,6 +38,9 @@ import { SucursalComponent } from './sucursal/sucursal.component';
 import { CrearSucursalComponent } from './crear-sucursal/crear-sucursal.component';
 import { ModificarSucursalComponent } from './modificar-sucursal/modificar-sucursal.component';
 import { FormularioSucursalComponent } from './components/formulario-sucursal/formulario-sucursal.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +64,9 @@ import { FormularioSucursalComponent } from './components/formulario-sucursal/fo
     CrearSucursalComponent,
     ModificarSucursalComponent,
     FormularioSucursalComponent,
+    UsuariosComponent,
+    CrearUsuarioComponent,
+    EditarUsuarioComponent,
   ],
   imports: [
     CommonModule,

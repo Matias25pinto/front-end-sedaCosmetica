@@ -46,6 +46,15 @@
   >
     Sucursales
   </button>
+<button
+    *ngIf="usuario.role == 'ADMIN_ROLE'"
+    (click)="usuarios()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Usuarios
+  </button>
+
 
   <hr class="menuDeInicio__hr" />
 

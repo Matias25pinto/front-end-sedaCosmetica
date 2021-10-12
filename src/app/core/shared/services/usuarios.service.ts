@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Usuario } from '../../../core/shared/models/usuario.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,36 @@ export class UsuariosService {
     return this.http.post(`${this.url}/usuarios/login`, body);
   }
 
-  getUsuario(id, token) {
+  getUsuarios(token: string) {
+    const headers = new HttpHeaders({ token });
+    return this.http.get<Array<Usuario>>(`${this.url}/usuarios`, { headers });
+  }
+
+  getUsuario(id: string, token: string) {
     let headers = new HttpHeaders({ token }).set(
       'Content-Type',
       'application/json'
     );
-    return this.http.get(`${this.url}/usuarios/usuario/${id}`, { headers });
+    return this.http.get<Usuario>(`${this.url}/usuarios/usuario/${id}`, {
+      headers,
+    });
+  }
+
+  crearUsuario(token: string, body: Usuario) {
+    const headers = new HttpHeaders({ token });
+    return this.http.post<Usuario>(`${this.url}/usuarios`, body, { headers });
+  }
+
+  editarUsuario(id: string, token: string, body: Usuario) {
+    const headers = new HttpHeaders({ token });
+    return this.http.put<Usuario>(`${this.url}/usuarios/${id}`, body, {
+      headers,
+    });
+  }
+
+  eliminarUsuario(id: string, token:string) {
+    const headers = new HttpHeaders({ token });
+    return this.http.delete<Usuario>(`${this.url}/usuarios/${id}`, { headers });
   }
 
   //cerrar sesión

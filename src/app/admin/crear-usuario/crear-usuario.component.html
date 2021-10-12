@@ -1,0 +1,266 @@
+<div class="crear__usuario-formulario">
+  <label class="crear__usuario-formulario-label" for="tipoComprobante"
+    >Crear Usuario</label
+  >
+  <hr />
+  <form
+    class="crear__usuario-formulario-form"
+    [formGroup]="formulario"
+    (ngSubmit)="enviarFormulario()"
+  >
+    <div class="crear__usuario-formulario-elemento">
+      <label for="nombre">Nombre: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="text"
+        formControlName="nombre"
+        name="nombre"
+      />
+    </div>
+    <small *ngIf="nombreNoValido" class="text-danger"
+      >El campo Nombre es obligatorio.</small
+    >
+
+    <div class="crear__usuario-formulario-elemento">
+      <label for="apellido">Apellido: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="text"
+        formControlName="apellido"
+        name="apellido"
+      />
+    </div>
+    <small *ngIf="apellidoNoValido" class="text-danger"
+      >El campo Apellido es obligatorio.</small
+    >
+    <div class="crear__usuario-formulario-elemento">
+      <label for="cedula">Cédula: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="text"
+        formControlName="cedula"
+        name="cedula"
+      />
+    </div>
+    <small *ngIf="cedulaNoValido" class="text-danger"
+      >El campo Cédula es obligatorio.</small
+    >
+
+    <div class="crear__usuario-formulario-elemento">
+      <label for="ruc">RUC: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="text"
+        formControlName="ruc"
+        name="ruc"
+      />
+    </div>
+    <small *ngIf="rucNoValido" class="text-danger"
+      >El campo RUC es obligatorio.</small
+    >
+    <div class="crear__usuario-formulario-elemento">
+      <label for="celular">Celular: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="text"
+        formControlName="celular"
+        name="celular"
+      />
+    </div>
+    <small *ngIf="celularNoValido" class="text-danger"
+      >El campo Celular es obligatorio.</small
+    >
+
+    <div class="crear__usuario-formulario-elemento">
+      <select formControlName="role" class="custom-select-50">
+        <option value="">Seleccionar ROL</option>
+        <option value="USER_ROLE">USER_ROLE</option>
+        <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+      </select>
+    </div>
+    <small *ngIf="roleNoValido" class="text-danger"
+      >El campo Rol es obligatorio.</small
+    >
+
+    <div class="crear__usuario-formulario-elemento">
+      <select formControlName="sucursal" class="custom-select-50">
+        <option value="">Seleccionar Sucursal</option>
+        <option
+          *ngFor="let sucursal of sucursales; let i = index"
+          value="{{sucursal._id}}"
+        >
+          {{sucursal.titulo}}
+        </option>
+      </select>
+    </div>
+    <small *ngIf="sucursalNoValido" class="text-danger"
+      >El campo Sucursal es obligatorio.</small
+    >
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven"
+          type="checkbox"
+          formControlName="preven"
+        />Precio venta 1
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven2">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven2"
+          type="checkbox"
+          formControlName="preven2"
+        />Precio venta 2
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven3">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven3"
+          type="checkbox"
+          formControlName="preven3"
+        />Precio venta 3
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven4">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven4"
+          type="checkbox"
+          formControlName="preven4"
+        />Precio venta 4
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven5">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven5"
+          type="checkbox"
+          formControlName="preven5"
+        />Precio venta 5
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven6">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven6"
+          type="checkbox"
+          formControlName="preven6"
+        />Precio venta 6
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven7">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven7"
+          type="checkbox"
+          formControlName="preven7"
+        />Precio venta 7
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="preven8">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="preven8"
+          type="checkbox"
+          formControlName="preven8"
+        />Precio venta 8
+      </label>
+    </div>
+
+    <div class="crear__usuario-formulario-elemento">
+      <label attr.for="pcosto">
+        <input
+          class="crear__usuario-formulario-elemento-checkbox"
+          attr.name="pcosto"
+          type="checkbox"
+          formControlName="pcosto"
+        />Precio costo
+      </label>
+    </div>
+
+    <small *ngIf="noExistePrecios" class="text-danger"
+      >Seleccione por lo menos un precio.</small
+    >
+    <div class="crear__usuario-formulario-elemento">
+      <label for="deposito">Deposito: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="text"
+        formControlName="deposito"
+        name="deposito"
+      />
+    </div>
+    <small *ngIf="depositoNoValido" class="text-danger"
+      >El campo Deposito es obligatorio.</small
+    >
+
+    <div class="crear__usuario-formulario-elemento">
+      <label for="email">Correo: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="email"
+        formControlName="email"
+        name="email"
+      />
+    </div>
+    <small *ngIf="emailNoValido" class="text-danger"
+      >El campo Email es obligatorio.</small
+    >
+    <div class="crear__usuario-formulario-elemento">
+      <label for="password">Password: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="password"
+        formControlName="password"
+        name="password"
+      />
+    </div>
+    <small *ngIf="passwordNoValido" class="text-danger"
+      >El campo Password es obligatorio.</small
+    >
+    <div class="crear__usuario-formulario-elemento">
+      <label for="verificar_password">Repetir Password: </label>
+      <input
+        class="crear__usuario-formulario-elemento-input"
+        type="password"
+        formControlName="verificar_password"
+        name="verificar_password"
+      />
+    </div>
+    <small *ngIf="verificar_passwordNoValido" class="text-danger"
+      >No coincide con el password.</small
+    >
+
+    <div class="crear__banco-formulario-elemento">
+      <button *ngIf="!loading" class="crear__comprobantes-btn" type="submit">
+        Guardar
+      </button>
+      <button
+        disabled
+        *ngIf="loading"
+        class="crear__comprobantes-btn"
+        type="button"
+      >
+        <i class="fas fa-sync fa-spin"></i>
+      </button>
+    </div>
+  </form>
+</div>
