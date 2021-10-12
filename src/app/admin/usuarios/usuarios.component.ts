@@ -36,6 +36,10 @@ export class UsuariosComponent implements OnInit {
     this.router.navigate(['admin', 'editar-usuario', id]);
   }
 
+  cambiarPassword(id: string) {
+    this.router.navigate(['admin', 'cambiar-password', id]);
+  }
+
   eliminarUsuario(id: string, nombre: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -47,7 +51,7 @@ export class UsuariosComponent implements OnInit {
 
     swalWithBootstrapButtons
       .fire({
-	title: `¿Está usted seguro de que desea eliminar al usuario: ${nombre}`,
+        title: `¿Está usted seguro de que desea eliminar al usuario: ${nombre}`,
         text: 'Si está seguro presione el botón Sí',
         icon: 'warning',
         showCancelButton: true,

@@ -44,7 +44,16 @@
             Editar
           </button>
         </td>
-        <td class="dashboard__formulario__table-td-50"></td>
+        <td class="dashboard__formulario__table-td-100">
+          <button
+            *ngIf="true"
+            (click)="cambiarPassword(usuario._id)"
+            class="usuario__arqueo-btn"
+            type="button"
+          >
+            Cambiar Contraseña
+          </button>
+        </td>
         <td class="dashboard__formulario__table-td-100">
           <button
             *ngIf="true"

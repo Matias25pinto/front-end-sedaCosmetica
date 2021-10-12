@@ -23,6 +23,7 @@ import { ModificarSucursalComponent } from './modificar-sucursal/modificar-sucur
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { PasswordUsuarioComponent } from './password-usuario/password-usuario.component';
 
 const routes: Routes = [
   {
@@ -102,8 +103,13 @@ const routes: Routes = [
         canActivate: [AuthGuard, AdminGuard],
       },
       {
-	path: 'editar-usuario/:id',
+        path: 'editar-usuario/:id',
         component: EditarUsuarioComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'cambiar-password/:id',
+        component: PasswordUsuarioComponent,
         canActivate: [AuthGuard, AdminGuard],
       },
     ],

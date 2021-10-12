@@ -42,9 +42,16 @@ export class UsuariosService {
     });
   }
 
-  eliminarUsuario(id: string, token:string) {
+  eliminarUsuario(id: string, token: string) {
     const headers = new HttpHeaders({ token });
     return this.http.delete<Usuario>(`${this.url}/usuarios/${id}`, { headers });
+  }
+
+  cambiarPassword(id: string, token: string, body: any) {
+    const headers = new HttpHeaders({ token });
+    return this.http.put<Usuario>(`${this.url}/usuarios/cambiar-password/${id}`, body, {
+      headers,
+    });
   }
 
   //cerrar sesión

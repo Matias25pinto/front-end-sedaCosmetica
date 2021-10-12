@@ -41,6 +41,7 @@ import { FormularioSucursalComponent } from './components/formulario-sucursal/fo
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { PasswordUsuarioComponent } from './password-usuario/password-usuario.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.componen
     UsuariosComponent,
     CrearUsuarioComponent,
     EditarUsuarioComponent,
+    PasswordUsuarioComponent,
   ],
   imports: [
     CommonModule,
