@@ -8,6 +8,22 @@
   >
     DashBoard
   </button>
+  <button
+    *ngIf="true"
+    (click)="objetivos()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Objetivos
+  </button>
+  <button
+    *ngIf="true"
+    (click)="crearObjetivo()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Crear Objetivo
+  </button>
 
   <hr class="menuDeInicio__hr" />
 
@@ -46,7 +62,7 @@
   >
     Sucursales
   </button>
-<button
+  <button
     *ngIf="usuario.role == 'ADMIN_ROLE'"
     (click)="usuarios()"
     class="usuario__arqueo-btn"
@@ -54,7 +70,6 @@
   >
     Usuarios
   </button>
-
 
   <hr class="menuDeInicio__hr" />
 

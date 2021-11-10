@@ -24,6 +24,9 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { PasswordUsuarioComponent } from './password-usuario/password-usuario.component';
+import { ObjetivosComponent } from './objetivos/objetivos.component';
+import { CrearObjetivoComponent } from './crear-objetivo/crear-objetivo.component';
+import { EditarObjetivoComponent } from './editar-objetivo/editar-objetivo.component';
 
 const routes: Routes = [
   {
@@ -110,6 +113,21 @@ const routes: Routes = [
       {
         path: 'cambiar-password/:id',
         component: PasswordUsuarioComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'objetivos',
+        component: ObjetivosComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'crear-objetivo',
+        component: CrearObjetivoComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+	path: 'editar-objetivo/:id',
+        component: EditarObjetivoComponent,
         canActivate: [AuthGuard, AdminGuard],
       },
     ],

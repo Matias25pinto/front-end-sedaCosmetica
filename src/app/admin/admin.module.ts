@@ -42,6 +42,9 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { PasswordUsuarioComponent } from './password-usuario/password-usuario.component';
+import { ObjetivosComponent } from './objetivos/objetivos.component';
+import { CrearObjetivoComponent } from './crear-objetivo/crear-objetivo.component';
+import { EditarObjetivoComponent } from './editar-objetivo/editar-objetivo.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,9 @@ import { PasswordUsuarioComponent } from './password-usuario/password-usuario.co
     CrearUsuarioComponent,
     EditarUsuarioComponent,
     PasswordUsuarioComponent,
+    ObjetivosComponent,
+    CrearObjetivoComponent,
+    EditarObjetivoComponent,
   ],
   imports: [
     CommonModule,

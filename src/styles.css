@@ -51,6 +51,19 @@ input:focus {
   max-width: 100%;
   padding: 10%;
 }
+.titulo__formulario {
+  margin:5px auto;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+.loading__formulario {
+  margin:50px auto;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
 /*
 =====================================
 *******FORMULARIO DE USUARIO********
@@ -245,6 +258,15 @@ input:focus {
   width: 100px;
   font-size: 0.8em;
 }
+.dashboard__formulario__table-th-150,
+.dashboard__formulario__table-td-150 {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+  width: 150px;
+  font-size: 0.8em;
+}
+
 .dashboard__formulario__table-th-230,
 .dashboard__formulario__table-td-230 {
   display: inline-block;

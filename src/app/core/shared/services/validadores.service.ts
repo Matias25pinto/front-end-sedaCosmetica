@@ -19,6 +19,14 @@ export class ValidadoresService {
     return null;
   }
 
+  validarMes(control: FormControl): ErrorValidate {
+    if (control.value > 12 || control.value < 1) {
+      return { validarFecha: true };
+    }
+
+    return null;
+  }
+
   //validar si dos pass son iguales, es asincrono
   passwordsIguales(pass1Name: string, pass2Name: string) {
     console.log('se compara los passwords');

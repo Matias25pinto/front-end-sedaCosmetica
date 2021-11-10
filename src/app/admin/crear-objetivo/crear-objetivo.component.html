@@ -1,0 +1,81 @@
+<form
+  *ngIf="true"
+  class="crear__comprobantes-container"
+  [formGroup]="formularioObjetivo"
+  (ngSubmit)="enviarFormulario()"
+>
+  <label class="titulo__formulario" for="">Crear Objetivo</label>
+
+  <div class="crear__comprobantes-formulario-elemento">
+    <label for="sucursal">Sucursal: </label>
+    <div class="crear__comprobantes-formulario-select-container">
+      <select class="custom-select" formControlName="sucursal">
+        <option value="">Seleccione Sucursal</option>
+        <option *ngFor="let sucursal of sucursales" value="{{ sucursal._id }}">
+          {{ sucursal.titulo }}
+        </option>
+      </select>
+      <span class="custom-arrow"
+        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+      ></span>
+    </div>
+    <small *ngIf="sucursalNoValido" class="text-danger"
+      >El campo Sucursal es obligatorio.</small
+    >
+    <br />
+  </div>
+  <div class="crear__comprobantes-formulario-elemento">
+    <label for="mes">Mes: </label>
+    <div class="crear__comprobantes-formulario-select-container">
+      <select class="custom-select" name="mes" formControlName="mes">
+        <option value="1">Enero</option>
+        <option value="2">Febrero</option>
+        <option value="3">Marzo</option>
+        <option value="4">Abril</option>
+        <option value="5">Mayo</option>
+        <option value="6">Junio</option>
+        <option value="7">Julio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+      </select>
+      <span class="custom-arrow"
+        ><i class="custom-arrow-img fas fa-chevron-circle-down fa-2x"></i
+      ></span>
+    </div>
+    <br />
+    <small *ngIf="mesNoValido" class="text-danger"
+      >El campo Mes es obligatorio.</small
+    >
+  </div>
+  <div class="crear__comprobantes-formulario-elemento">
+    <label for="monto">Incremento en % : </label>
+    <input
+      class="crear__comprobantes-formulario-input"
+      type="text"
+      formControlName="incremento"
+      name="incremento"
+    />
+    <br />
+    <small *ngIf="incrementoNoValido" class="text-danger"
+      >El campo Incremento es obligatorio.</small
+    >
+  </div>
+  <button
+    class="crear__comprobantes-btn"
+    *ngIf="!isLoading"
+    type="submit"
+  >
+    Crear Objetivo
+  </button>
+  <button
+    class="crear__comprobantes-loading-btn"
+    *ngIf="isLoading"
+    type="button"
+    [disabled]="true"
+  >
+    <i class="fas fa-spinner fa-pulse fa-2x"></i>
+  </button>
+</form>

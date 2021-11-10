@@ -48,6 +48,14 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['admin', 'dashboard']);
   }
 
+  objetivos() {
+    this.router.navigate(['admin', 'objetivos']);
+  }
+
+  crearObjetivo() {
+    this.router.navigate(['admin', 'crear-objetivo']);
+  }
+
   cargarComprobante() {
     this.router.navigate(['admin', 'crear-comprobante']);
   }
@@ -56,16 +64,15 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['admin', 'ver-comprobantes']);
   }
 
-  bancos(){
+  bancos() {
     this.router.navigate(['admin', 'bancos']);
   }
- sucursalesMenu(){
+  sucursalesMenu() {
     this.router.navigate(['admin', 'sucursales']);
   }
-usuarios(){
+  usuarios() {
     this.router.navigate(['admin', 'usuarios']);
   }
-
 
   cerrarSesion() {
     localStorage.removeItem('token');
