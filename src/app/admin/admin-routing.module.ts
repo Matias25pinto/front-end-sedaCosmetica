@@ -118,7 +118,7 @@ const routes: Routes = [
       {
         path: 'objetivos',
         component: ObjetivosComponent,
-        canActivate: [AuthGuard, AdminGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: 'crear-objetivo',

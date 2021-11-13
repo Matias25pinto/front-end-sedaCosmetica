@@ -6,17 +6,18 @@ import { SucursalesService } from 'src/app/core/shared/services/sucursales.servi
 import Swal from 'sweetalert2';
 
 import { Observable } from 'rxjs';
-import { Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as action from 'src/app/usuario.actions';
 
 import { Sucursal } from 'src/app/core/shared/models/sucursal.interface';
-
 
 @Component({
   selector: 'app-ver-comprobantes',
   templateUrl: './ver-comprobantes.component.html',
 })
 export class VerComprobantesComponent implements OnInit {
+  public urlImg = './assets/img/noimage.png';
+  public urlTitulo = 'no-image';
   public btnSiguiente = true;
 
   public usuario$: Observable<any>;
@@ -258,29 +259,93 @@ export class VerComprobantesComponent implements OnInit {
   }
 
   eliminarComprobante(idComprobante) {
-    let token = localStorage.getItem('token');
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
 
-    Swal.fire({
-      title: '¿Eliminar el comprobante?',
-      text: 'Si esta seguro de eliminar el comprobante presione Sí',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.comprobantesServices
-          .eliminarComprobante(idComprobante, token)
-          .subscribe(
-            (data) => {
-              this.recargarDatos();
-            },
-            (err) => {
-              console.log('ERROR!!! no se pudo eliminar el comprobante');
-            }
+    swalWithBootstrapButtons
+      .fire({
+        title: `¿Está usted seguro de que desea eliminar el comprobante`,
+        text: 'Si está seguro presione el botón Sí',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, Eliminar.',
+        cancelButtonText: 'No, Cancelar.',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          let token = localStorage.getItem('token');
+          this.comprobantesServices
+            .eliminarComprobante(idComprobante, token)
+            .subscribe(
+              (resp) => {
+                swalWithBootstrapButtons.fire(
+                  'Eliminado',
+                  `Se elimino el comprobante`,
+                  'success'
+                );
+                this.cargarComprobante();
+              },
+              (err) => {
+                console.warn(err);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: `No es posible eliminar el comprobante`,
+                  footer:
+                    'Verificar su conexión a internet, y recuerde que los comprobantes solo pueden ser eliminados en el mes al que pertenecen',
+                });
+              }
+            );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            `No se elimino el comprobante`,
+            'error'
           );
+        }
+      });
+  }
+
+  handleFileInput(id: string, files: any) {
+    console.log(files);
+    console.log(files[0]);
+    let json = JSON.stringify(files[0]);
+    const body = { img: json };
+    const token = localStorage.getItem('token');
+    this.comprobantesServices.actualizarImg(token, id, body).subscribe(
+      (resp) => {
+        console.log(resp);
+      },
+      (err) => {
+        console.warn(err);
       }
+    );
+  }
+
+  mostrarImage(
+    imageUrl: string = './assets/img/noimage.png',
+    comprobante: string,
+    fecha: string,
+    monto: number
+  ) {
+    Swal.fire({
+      title: `${comprobante}`,
+      html: `<p>Fecha: ${new Date(
+        fecha
+      ).toLocaleDateString()}</p><p>Monto: ${monto} Gs.</p> `,
+      imageUrl,
+      imageWidth: 400,
+      imageHeight: 400,
+      imageAlt: 'Custom image',
     });
   }
 }

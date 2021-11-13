@@ -52,13 +52,13 @@ input:focus {
   padding: 10%;
 }
 .titulo__formulario {
-  margin:5px auto;
+  margin: 5px auto;
   text-align: center;
   font-size: 1.2em;
   font-weight: 700;
 }
 .loading__formulario {
-  margin:50px auto;
+  margin: 50px auto;
   text-align: center;
   font-size: 1.2em;
   font-weight: 700;
@@ -1672,6 +1672,56 @@ input:focus {
 ************COMPROBANTES**************
 =====================================
 */
+/**********File Inputs**********/
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    max-width: 100%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
+}
+
+.iborrainputfile {
+	font-size:16px; 
+	font-weight:normal;
+	font-family: 'Lato';
+}
+
+/* style 1 */
+
+.inputfile-1 + label {
+    color: #fff;
+    background-color:var(--default-primary-color);
+}
+
+.inputfile-1:focus + label,
+.inputfile-1.has-focus + label,
+.inputfile-1 + label:hover {
+    background-color:  var(--default-primary-color);
+}
 .comprobantes {
   display: flex;
   flex-direction: column;
@@ -1719,6 +1769,26 @@ input:focus {
   font-weight: 400;
   margin: 10px auto;
 }
+.comprobantes__btn {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+.comprobantes__btn-eliminar:hover {
+  color: var(--danger);
+}
+.comprobantes__btn-ver-comprobante:hover {
+  color: var(--sobraCaja);
+}
+.comprobantes__contenedor-btn {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
 /*
 =====================================
 ************CREAR__COMPROBANTES*****

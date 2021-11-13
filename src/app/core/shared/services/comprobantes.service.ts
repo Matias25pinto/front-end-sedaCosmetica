@@ -19,10 +19,10 @@ export class ComprobantesService {
   ) {
     let filtros = {};
     filtros['token'] = token;
-    if (sucursal != "") {
+    if (sucursal != '') {
       filtros['sucursal'] = sucursal;
     }
-    if (comprobante != "") {
+    if (comprobante != '') {
       filtros['comprobante'] = comprobante;
     }
     if (fechaDesde) {
@@ -31,7 +31,7 @@ export class ComprobantesService {
     if (fechaHasta) {
       filtros['fechaHasta'] = fechaHasta;
     }
-    if (desde != "") {
+    if (desde != '') {
       filtros['desde'] = desde;
     }
     if (hasta) {
@@ -40,10 +40,32 @@ export class ComprobantesService {
     let headers = new HttpHeaders(filtros);
     return this.http.get(`${this.url}/comprobantes`, { headers });
   }
-  eliminarComprobante(idComprobante:string, token:string){
- 
-    let headers = new HttpHeaders({token});
+  agregarComprobante(loginToken, body) {
+    // con headers indicamos como vamos a enviar la información
+    let headers = new HttpHeaders({
+      token: loginToken,
+    }).set('Content-Type', 'application/json');
 
-    return this.http.delete(`${this.url}/comprobantes/${idComprobante}`,{headers});
+    return this.http.post(this.url + `/comprobantes`, body, {
+      headers,
+    });
+  }
+
+  actualizarImg(token: string, id:string, body: any) {
+    let headers = new HttpHeaders({
+      token: token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.put(this.url + `/comprobantes/actualizar-img/${id}`, body, {
+      headers,
+    });
+  }
+
+  eliminarComprobante(idComprobante: string, token: string) {
+    let headers = new HttpHeaders({ token });
+
+    return this.http.delete(`${this.url}/comprobantes/${idComprobante}`, {
+      headers,
+    });
   }
 }

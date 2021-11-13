@@ -17,7 +17,7 @@
     Objetivos
   </button>
   <button
-    *ngIf="true"
+    *ngIf="usuario.role == 'ADMIN_ROLE'"
     (click)="crearObjetivo()"
     class="usuario__arqueo-btn"
     type="button"
