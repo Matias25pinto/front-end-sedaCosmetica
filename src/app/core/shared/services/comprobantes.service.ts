@@ -40,25 +40,29 @@ export class ComprobantesService {
     let headers = new HttpHeaders(filtros);
     return this.http.get(`${this.url}/comprobantes`, { headers });
   }
-  agregarComprobante(loginToken, body) {
+  agregarComprobante(loginToken: string, body: any) {
     // con headers indicamos como vamos a enviar la información
     let headers = new HttpHeaders({
       token: loginToken,
-    }).set('Content-Type', 'application/json');
+    });
 
     return this.http.post(this.url + `/comprobantes`, body, {
       headers,
     });
   }
 
-  actualizarImg(token: string, id:string, body: any) {
+  actualizarImg(token: string, id: string, body: any) {
     let headers = new HttpHeaders({
-      token: token,
-    }).set('Content-Type', 'application/json');
-
-    return this.http.put(this.url + `/comprobantes/actualizar-img/${id}`, body, {
-      headers,
+      token,
     });
+
+    return this.http.put(
+      this.url + `/comprobantes/actualizar-img/${id}`,
+      body,
+      {
+        headers,
+      }
+    );
   }
 
   eliminarComprobante(idComprobante: string, token: string) {

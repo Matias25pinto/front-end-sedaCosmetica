@@ -17,6 +17,7 @@ import { Sucursal } from 'src/app/core/shared/models/sucursal.interface';
 })
 export class VerComprobantesComponent implements OnInit {
   public urlImg = './assets/img/noimage.png';
+  public isLoadingIMG = false;
   public urlTitulo = 'no-image';
   public btnSiguiente = true;
 
@@ -316,17 +317,32 @@ export class VerComprobantesComponent implements OnInit {
   }
 
   handleFileInput(id: string, files: any) {
-    console.log(files);
-    console.log(files[0]);
-    let json = JSON.stringify(files[0]);
-    const body = { img: json };
+    this.isLoadingIMG = true;
+    let formData = new FormData();
+    formData.append('img', files[0]);
+    const body = formData;
     const token = localStorage.getItem('token');
     this.comprobantesServices.actualizarImg(token, id, body).subscribe(
       (resp) => {
-        console.log(resp);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Comprobante actualizado con Exito!!!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+	this.isLoadingIMG = false;
+	this.cargarComprobante();
       },
       (err) => {
         console.warn(err);
+	this.isLoadingIMG = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No es posible actualizar el comprobante',
+          footer: '<p>verificar su conexión a internet</p>',
+        });
       }
     );
   }

@@ -66,7 +66,7 @@
     <div class="crear__comprobantes-formulario-elemento">
       <mat-label>Vencimiento: </mat-label>
       <input
-        formControlName="vencimiento"
+        formControlName="fVencimiento"
         class="crear__comprobantes-formulario-input-fecha"
         matInput
         [matDatepicker]="picker"
@@ -94,7 +94,37 @@
         name="monto"
       />
     </div>
-
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -204,6 +234,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -313,6 +374,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -440,6 +532,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -559,6 +682,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -710,6 +864,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -773,7 +958,7 @@
           formControlName="banco"
         >
           <option value="">Seleccionar un Banco</option>
-	  <option *ngFor="let banco of bancos" value="{{banco._id}}">
+          <option *ngFor="let banco of bancos" value="{{banco._id}}">
             {{banco.nombre}}
           </option>
         </select>
@@ -794,7 +979,7 @@
           <ng-container *ngFor="let cuenta of cuentas">
             <option
               *ngIf="formularioComprobante.get('banco')?.value == cuenta.banco"
-	      value="{{cuenta._id}}"
+              value="{{cuenta._id}}"
             >
               {{cuenta.titular + ' | '+ cuenta.nroCuenta}}
             </option>
@@ -838,6 +1023,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -902,7 +1118,7 @@
       />
     </div>
     <div class="crear__comprobantes-formulario-elemento">
-      <label for="monto">Monto G: </label>
+      <label for="monto">Monto Gs: </label>
       <input
         class="crear__comprobantes-formulario-input"
         type="text"
@@ -910,6 +1126,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -969,8 +1216,8 @@
       <input
         class="crear__comprobantes-formulario-input"
         type="text"
-        formControlName="banco"
-        name="banco"
+        formControlName="bancoCliente"
+        name="bancoCliente"
       />
     </div>
 
@@ -1043,6 +1290,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"
@@ -1158,6 +1436,37 @@
         name="monto"
       />
     </div>
+    <!--Cargar img-->
+    <!--ESTILO 7-->
+    <div class="crear__comprobantes-formulario-elemento">
+      <input
+        (change)="handleFileInput($event.target.files)"
+        type="file"
+        name="file-7"
+        id="file-7"
+        class="inputfile inputfile-7"
+      />
+      <label for="file-7">
+        <span *ngIf="comprobanteIMG" class="iborrainputfile"
+          >{{comprobanteIMG.name}}</span
+        >
+        <strong>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="iborrainputfile"
+            width="20"
+            height="17"
+            viewBox="0 0 20 17"
+          >
+            <path
+              d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"
+            ></path>
+          </svg>
+          Seleccionar comprobante
+        </strong>
+      </label>
+    </div>
+    <!--Fin cargar img-->
     <button
       class="crear__comprobantes-btn"
       *ngIf="!creandoComprobante"

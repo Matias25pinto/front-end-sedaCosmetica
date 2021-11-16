@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArqueoService } from 'src/app/core/shared/services/arqueo.service';
 import { SucursalesService } from 'src/app/core/shared/services/sucursales.service';
+import { ComprobantesService } from 'src/app/core/shared/services/comprobantes.service';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -50,10 +51,14 @@ export class CrearComprobanteComponent implements OnInit {
   public bancos: Banco[] = [];
   public cuentas: Cuenta[] = [];
 
+  public isLoadingIMG = false;
+  public comprobanteIMG: any = {};
+
   constructor(
     private store: Store<{ usuario: any }>,
     private fb: FormBuilder,
     private arqueoService: ArqueoService,
+    private comprobantesService: ComprobantesService,
     private sucursalesService: SucursalesService,
     private bancosService: BancosService,
     private cuentasService: CuentasService,
@@ -115,7 +120,7 @@ export class CrearComprobanteComponent implements OnInit {
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,9}$')]],
         comprobante: ['ANDE', Validators.required],
         nis: ['', Validators.required],
-        vencimiento: ['', Validators.required],
+        fVencimiento: ['', Validators.required],
         nroComprobante: ['', Validators.required],
       });
     }
@@ -222,7 +227,7 @@ export class CrearComprobanteComponent implements OnInit {
         fArqueo: ['', [Validators.required, this.validadores.validarFecha]],
         monto: ['', [Validators.required, Validators.pattern('^[0-9]{3,10}$')]],
         comprobante: ['CHEQUE', Validators.required],
-        banco: ['', Validators.required],
+        bancoCliente: ['', Validators.required],
         emisor: ['', Validators.required],
         cedula: ['', Validators.required],
         cuentaNro: ['', Validators.required],
@@ -245,41 +250,280 @@ export class CrearComprobanteComponent implements OnInit {
       });
     }
   }
+  crearBody() {
+    //Cargar img al body
+    let formData = new FormData();
+    formData.append('img', this.comprobanteIMG);
+    let fecha = `${this.formularioComprobante
+      .get('fArqueo')
+      ?.value.getFullYear()}-${
+      this.formularioComprobante.get('fArqueo')?.value.getMonth() + 1
+    }-${this.formularioComprobante.get('fArqueo')?.value.getDate()}`;
+    formData.append('fArqueo', fecha);
+    formData.append(
+      'sucursal',
+      this.formularioComprobante.get('sucursal')?.value
+    );
+    formData.append('monto', this.formularioComprobante.get('monto')?.value);
+    formData.append(
+      'comprobante',
+      this.formularioComprobante.get('comprobante')?.value
+    );
+
+    if (this.mostrar == 'ANDE') {
+      formData.append('nis', this.formularioComprobante.get('nis')?.value);
+      let fechaVencimiento = `${this.formularioComprobante
+        .get('fVencimiento')
+        ?.value.getFullYear()}-${
+        this.formularioComprobante.get('fVencimiento')?.value.getMonth() + 1
+      }-${this.formularioComprobante.get('fVencimiento')?.value.getDate()}`;
+
+      formData.append(
+        'fVencimiento',
+	fechaVencimiento
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+    }
+    if (this.mostrar == 'SERVICIOS') {
+      formData.append(
+        'servicio',
+        this.formularioComprobante.get('servicio')?.value
+      );
+      formData.append(
+        'tipoComprobante',
+        this.formularioComprobante.get('tipoComprobante')?.value
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+    }
+    if (this.mostrar == 'IMPUESTO') {
+      formData.append(
+        'tipoComprobante',
+        this.formularioComprobante.get('tipoComprobante')?.value
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append(
+        'impuesto',
+        this.formularioComprobante.get('impuesto')?.value
+      );
+    }
+    if (this.mostrar == 'SALARIO') {
+      formData.append(
+        'tipoComprobante',
+        this.formularioComprobante.get('tipoComprobante')?.value
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append(
+        'nombreApellido',
+        this.formularioComprobante.get('nombreApellido')?.value
+      );
+      formData.append(
+        'cedula',
+        this.formularioComprobante.get('cedula')?.value
+      );
+      formData.append('cargo', this.formularioComprobante.get('cargo')?.value);
+    }
+    if (this.mostrar == 'INSUMOS') {
+      formData.append(
+        'tipoComprobante',
+        this.formularioComprobante.get('tipoComprobante')?.value
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append(
+        'comercial',
+        this.formularioComprobante.get('comercial')?.value
+      );
+      formData.append(
+        'insumos',
+        this.formularioComprobante.get('insumo')?.value
+      );
+    }
+    if (this.mostrar == 'RETIRO') {
+      formData.append(
+        'tipoComprobante',
+        this.formularioComprobante.get('tipoComprobante')?.value
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append(
+        'autorizaNA',
+        this.formularioComprobante.get('autorizaNA')?.value
+      );
+      formData.append(
+        'autorizaCI',
+        this.formularioComprobante.get('autorizaCI')?.value
+      );
+      formData.append(
+        'retiraNA',
+        this.formularioComprobante.get('retiraNA')?.value
+      );
+      formData.append(
+        'retiraCI',
+        this.formularioComprobante.get('retiraCI')?.value
+      );
+      formData.append(
+        'motivo',
+        this.formularioComprobante.get('motivo')?.value
+      );
+    }
+    if (this.mostrar == 'DEPOSITO') {
+      formData.append(
+        'tipoComprobante',
+        this.formularioComprobante.get('tipoComprobante')?.value
+      );
+      formData.append(
+        'nroComprobante',
+        this.formularioComprobante.get('nroComprobante')?.value
+      );
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append('banco', this.formularioComprobante.get('banco')?.value);
+      formData.append(
+        'cuentaBancaria',
+        this.formularioComprobante.get('cuentaBancaria')?.value
+      );
+      let fechaDeposito = `${this.formularioComprobante
+        .get('fDeposito')
+        ?.value.getFullYear()}-${
+        this.formularioComprobante.get('fDeposito')?.value.getMonth() + 1
+      }-${this.formularioComprobante.get('fDeposito')?.value.getDate()}`;
+      formData.append('fDeposito', fechaDeposito);
+    }
+    if (this.mostrar == 'TARJETA') {
+      formData.append(
+        'boleta',
+        this.formularioComprobante.get('boleta')?.value
+      );
+    }
+    if (this.mostrar == 'CHEQUE') {
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append(
+        'bancoCliente',
+        this.formularioComprobante.get('bancoCliente')?.value
+      );
+      formData.append(
+        'emisor',
+        this.formularioComprobante.get('emisor')?.value
+      );
+      formData.append(
+        'cedula',
+        this.formularioComprobante.get('cedula')?.value
+      );
+      formData.append(
+        'cuentaNro',
+        this.formularioComprobante.get('cuentaNro')?.value
+      );
+      formData.append(
+        'chequeNro',
+        this.formularioComprobante.get('chequeNro')?.value
+      );
+      formData.append(
+        'paguese',
+        this.formularioComprobante.get('paguese')?.value
+      );
+    }
+    if (this.mostrar == 'DESCUENTO') {
+      formData.append(
+        'observacion',
+        this.formularioComprobante.get('observacion')?.value
+      );
+      formData.append(
+        'autorizaNA',
+        this.formularioComprobante.get('autorizaNA')?.value
+      );
+      formData.append(
+        'autorizaCI',
+        this.formularioComprobante.get('autorizaCI')?.value
+      );
+      formData.append(
+        'empleadoNA',
+        this.formularioComprobante.get('empleadoNA')?.value
+      );
+      formData.append(
+        'empleadoCI',
+        this.formularioComprobante.get('empleadoCI')?.value
+      );
+    }
+    return formData;
+  }
   guardarFormulario() {
-    if (this.formularioComprobante.valid) {
+    if (this.formularioComprobante.valid && this.comprobanteIMG) {
       this.creandoComprobante = true;
+      //leer token
       let loginToken = localStorage.getItem('token');
-      console.log('FORMULARIO:', this.formularioComprobante.value);
-      this.arqueoService
-        .agregarComprobante(loginToken, this.formularioComprobante.value)
-        .subscribe(
-          (data) => {
-            //imprimir mensaje
-            console.log('RESPUESTA:', data);
-            Swal.fire({
-              allowOutsideClick: false, //false, no puede dar click en otro lugar
-              title: 'Exito!!!',
-              text: 'El comprobante fue agregado',
-              icon: 'success',
-              confirmButtonText: 'Ok',
-            });
-            //vaciar formulario
-            this.borrarFormulario();
-            //ocultar btn de carga
-            this.creandoComprobante = false;
-          },
-          (err) => {
-            //ocultar btn carga
-            this.creandoComprobante = false;
-            Swal.fire({
-              allowOutsideClick: false, //false, no puede dar click en otro lugar
-              title: 'Error!!!',
-              text: 'No se pudo crear el comprobante',
-              icon: 'error',
-              confirmButtonText: 'Ok',
-            });
-          }
-        );
+      const body = this.crearBody(); //creamos el body
+      console.log('formulario: ', this.formularioComprobante.value);
+      console.log('formDara', body);
+      this.comprobantesService.agregarComprobante(loginToken, body).subscribe(
+        (data) => {
+          //imprimir mensaje
+          console.log(data);
+          Swal.fire({
+            allowOutsideClick: false, //false, no puede dar click en otro lugar
+            title: 'Exito!!!',
+            text: 'El comprobante fue agregado',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+          });
+          //vaciar formulario
+          this.borrarFormulario();
+          //ocultar btn de carga
+          this.creandoComprobante = false;
+        },
+        (err) => {
+          console.warn(err);
+          //ocultar btn carga
+          this.creandoComprobante = false;
+          Swal.fire({
+            allowOutsideClick: false, //false, no puede dar click en otro lugar
+            title: 'Error!!!',
+            text: 'No se pudo crear el comprobante',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+          });
+        }
+      );
     } else {
       Swal.fire({
         allowOutsideClick: false, //false, no puede dar click en otro lugar
@@ -296,6 +540,7 @@ export class CrearComprobanteComponent implements OnInit {
   }
 
   borrarFormulario() {
+    this.comprobanteIMG = {};
     if (this.mostrar == 'ANDE') {
       this.formularioComprobante.reset({
         sucursal: '',
@@ -303,7 +548,7 @@ export class CrearComprobanteComponent implements OnInit {
         monto: '',
         comprobante: 'ANDE',
         nis: '',
-        vencimiento: '',
+        fVencimiento: '',
         nroComprobante: '',
       });
     }
@@ -401,7 +646,7 @@ export class CrearComprobanteComponent implements OnInit {
         fArqueo: '',
         monto: '',
         comprobante: 'CHEQUE',
-        banco: '',
+        bancoCliente: '',
         emisor: '',
         cedula: '',
         cuentaNro: '',
@@ -423,6 +668,11 @@ export class CrearComprobanteComponent implements OnInit {
         observacion: '',
       });
     }
+  }
+
+  handleFileInput(files: any) {
+    this.isLoadingIMG = true;
+    this.comprobanteIMG = files[0];
   }
 
   onChange(banco) {
