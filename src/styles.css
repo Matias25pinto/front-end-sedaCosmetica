@@ -1673,55 +1673,122 @@ input:focus {
 =====================================
 */
 /**********File Inputs**********/
+.inputfile-loading {
+  text-decoration: none;
+  width: 30%;
+  padding: 10px;
+  margin: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: var(--text-primary-color);
+  background-color: var(--default-primary-color);
+  border-radius: 6px;
+  border: 2px solid var(--accent-color);
+  cursor: pointer;
+}
 
 .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .inputfile + label {
-    max-width: 100%;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-    display: inline-block;
-    overflow: hidden;
-    padding: 0.625rem 1.25rem;
+  max-width: 100%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.625rem 1.25rem;
 }
 
 .inputfile + label svg {
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
-    fill: currentColor;
-    margin-top: -0.25em;
-    margin-right: 0.25em;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  margin-right: 0.25em;
 }
 
 .iborrainputfile {
-	font-size:16px; 
-	font-weight:normal;
-	font-family: 'Lato';
+  font-size: 16px;
+  font-weight: normal;
+  font-family: "Lato";
 }
 
 /* style 1 */
 
 .inputfile-1 + label {
-    color: #fff;
-    background-color:var(--default-primary-color);
+  color: #fff;
+  background-color: var(--default-primary-color);
 }
 
 .inputfile-1:focus + label,
 .inputfile-1.has-focus + label,
 .inputfile-1 + label:hover {
-    background-color:  var(--default-primary-color);
+  background-color: var(--default-primary-color);
 }
+
+/* style 7 */
+
+.inputfile-7 + label {
+  color: var(--texto-input);
+}
+
+.inputfile-7 + label {
+  border: 1px solid var(--default-primary-color);
+  font-size: 1rem;
+  background-color: #fff;
+  padding: 0;
+}
+
+.inputfile-7:focus + label,
+.inputfile-7.has-focus + label,
+.inputfile-7 + label:hover {
+  border-color: var(--default-primary-color);
+}
+
+.inputfile-7 + label span,
+.inputfile-7 + label strong {
+  padding: 0.625rem 1.25rem;
+}
+
+.inputfile-7 + label span {
+  width: 200px;
+  min-height: 1em;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.inputfile-7 + label strong {
+  height: 100%;
+  color: #fff;
+  background-color: var(--default-primary-color);
+  display: inline-block;
+}
+
+.inputfile-7:focus + label strong,
+.inputfile-7.has-focus + label strong,
+.inputfile-7 + label:hover strong {
+  background-color: var(--default-primary-color);
+}
+
+@media screen and (max-width: 50em) {
+  .inputfile-7 + label strong {
+    display: block;
+  }
+}
+/**********End File Inputs**********/
 .comprobantes {
   display: flex;
   flex-direction: column;
