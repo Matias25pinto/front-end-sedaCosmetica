@@ -114,7 +114,13 @@ export class VerComprobantesComponent implements OnInit {
       date.getMonth(),
       date.getDate()
     );*/
-    let ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    //date.getMonth() < 11 ? date.getMonth() + 1 : 11 => la formula funciona del 1 al 10 pero en 11 diciembre debemos válidar para que no explote el código
+
+    let ultimoDia = new Date(
+      date.getFullYear(),
+      date.getMonth() < 11 ? date.getMonth() + 1 : 11,
+      date.getMonth() < 11 ? 0 : 31
+    );
 
     this.asignarFechaStartAndEnd(primerDia, ultimoDia);
     //asignamos las fechas start al formulario
@@ -331,12 +337,12 @@ export class VerComprobantesComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-	this.isLoadingIMG = false;
-	this.cargarComprobante();
+        this.isLoadingIMG = false;
+        this.cargarComprobante();
       },
       (err) => {
         console.warn(err);
-	this.isLoadingIMG = false;
+        this.isLoadingIMG = false;
         Swal.fire({
           icon: 'error',
           title: 'Oops...',

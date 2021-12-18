@@ -14,13 +14,11 @@ import * as action from 'src/app/usuario.actions';
 
 import { Sucursal } from 'src/app/core/shared/models/sucursal.interface';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-
   public branchOffices: Sucursal[] = [];
   public isSelectBranchOffice: boolean[] = [];
   public form: FormGroup;
@@ -235,7 +233,12 @@ export class DashboardComponent implements OnInit {
       date.getMonth(),
       date.getDate()
     );*/
-    let ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    //date.getMonth() < 11 ? date.getMonth() + 1 : 11 => la formula funciona del 1 al 10 pero en 11 diciembre debemos válidar para que no explote el código
+    let ultimoDia = new Date(
+      date.getFullYear(),
+      date.getMonth() < 11 ? date.getMonth() + 1 : 11,
+      date.getMonth() < 11 ? 0 : 31
+    );
 
     this.asignarFechaStartAndEnd(primerDia, ultimoDia);
     //asignamos las fechas start al formulario
@@ -407,7 +410,11 @@ export class DashboardComponent implements OnInit {
   cargarReporteDeDepositoPorCuenta(comprobantesDeposito: any) {
     //cargar las cuentas bancarias
     for (let deposito of comprobantesDeposito) {
-      this.cuentasBancarias.add(deposito.cuentaBancaria.titular+' - '+deposito.cuentaBancaria.nroCuenta);
+      this.cuentasBancarias.add(
+        deposito.cuentaBancaria.titular +
+          ' - ' +
+          deposito.cuentaBancaria.nroCuenta
+      );
       //sumar el total
       this.totalDepositoPorCuenta += parseInt(deposito.monto);
     }
@@ -416,7 +423,12 @@ export class DashboardComponent implements OnInit {
     for (let cuenta of this.cuentasBancarias) {
       this.depositoPorCuenta[indiceDeCuenta] = 0;
       for (let deposito of comprobantesDeposito) {
-        if (cuenta === deposito.cuentaBancaria.titular+' - '+deposito.cuentaBancaria.nroCuenta) {
+        if (
+          cuenta ===
+          deposito.cuentaBancaria.titular +
+            ' - ' +
+            deposito.cuentaBancaria.nroCuenta
+        ) {
           this.depositoPorCuenta[indiceDeCuenta] += parseInt(deposito.monto);
           this.cuentasBanco[indiceDeCuenta] = deposito.banco.nombre;
         }
