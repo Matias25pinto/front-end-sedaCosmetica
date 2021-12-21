@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="usuario">
   <button
-    *ngIf="true"
+    *ngIf="usuario.role == 'ADMIN_ROLE' || usuario.role == 'USER_ROLE'"
     (click)="dashboard()"
     class="usuario__arqueo-btn"
     type="button"
@@ -9,7 +9,7 @@
     DashBoard
   </button>
   <button
-    *ngIf="true"
+    *ngIf="usuario.role == 'ADMIN_ROLE' || usuario.role == 'USER_ROLE'"
     (click)="objetivos()"
     class="usuario__arqueo-btn"
     type="button"

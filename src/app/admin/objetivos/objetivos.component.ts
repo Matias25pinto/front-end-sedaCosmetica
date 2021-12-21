@@ -100,6 +100,7 @@ export class ObjetivosComponent implements OnInit {
   enviarFormulario(sucursal: string, mes: number, year: number) {
     this.isLoading = true;
     const token = localStorage.getItem('token');
+    console.log("request:", sucursal, mes, year);
     this.objetivosService.getObjetivos(token, sucursal, mes, year).subscribe(
       (resp) => {
         if (resp['sucursal']) {
@@ -112,6 +113,7 @@ export class ObjetivosComponent implements OnInit {
         }
 
         this.isLoading = false;
+	console.log("resp:", resp);
       },
       (err) => {
         console.log(err);

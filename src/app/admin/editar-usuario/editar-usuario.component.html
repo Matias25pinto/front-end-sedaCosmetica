@@ -74,8 +74,9 @@
     <div class="crear__usuario-formulario-elemento">
       <select formControlName="role" class="custom-select-50">
         <option value="">Seleccionar ROL</option>
-        <option value="USER_ROLE">USER_ROLE</option>
-        <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+        <option value="CAJERO_ROLE">Cajero</option>
+        <option value="USER_ROLE">Encargado de Sucursal</option>
+        <option value="ADMIN_ROLE">Administrador</option>
       </select>
     </div>
     <small *ngIf="roleNoValido" class="text-danger"

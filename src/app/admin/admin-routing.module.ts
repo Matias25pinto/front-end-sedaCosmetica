@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 //Guards
 import { AuthGuard } from '../core/shared/guards/auth.guard';
 import { AdminGuard } from '../core/shared/guards/admin.guard';
+import { AdminUserGuard } from '../core/shared/guards/admin-user.guard';
 
 //Components
 import { AdminComponent } from './admin.component';
@@ -38,7 +39,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminUserGuard],
       },
       {
         path: 'ver-comprobantes',
@@ -118,7 +119,7 @@ const routes: Routes = [
       {
         path: 'objetivos',
         component: ObjetivosComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminUserGuard],
       },
       {
         path: 'crear-objetivo',
