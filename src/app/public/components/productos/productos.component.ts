@@ -32,6 +32,7 @@ export class ProductosComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     if (
+      this.isLogin &&
       this.productos.length == 1 &&
       this.titulo == 'Productos:' &&
       this.detalle.codigoBarra != this.productos[0].codigoBarra
