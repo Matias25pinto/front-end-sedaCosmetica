@@ -75,8 +75,6 @@ export class NavbarComponent
   }
 
   ngOnInit(): void {
-    this.usuarioLogueado();
-
     // verificar tamaño de menu nav
     let menunav = document.getElementById('nav');
     let menuflotante = document.getElementById('menuflotante');
@@ -104,7 +102,6 @@ export class NavbarComponent
     });
   }
 
-
   ngDoCheck() {
     //Cargar usuario
     if (this.usuario) {
@@ -115,8 +112,7 @@ export class NavbarComponent
   }
 
   ngAfterViewChecked() {}
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   // Funcion para subir al inicio
   subirInicio(): void {
@@ -182,8 +178,4 @@ export class NavbarComponent
   buscarMercaderia(termino: string) {
     this.routes.navigate(['', 'buscar', termino, '0']);
   }
-
-  usuarioLogueado() {}
-
-  cerrarLogin() {}
 }

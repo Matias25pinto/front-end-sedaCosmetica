@@ -136,8 +136,11 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="usuario.role === 'ADMIN_ROLE'" class="row d-flex justify-content-center align-items-center">
-                <div  class="col-3">
+              <div
+                *ngIf="usuario.role === 'ADMIN_ROLE'"
+                class="row d-flex justify-content-center align-items-center"
+              >
+                <div class="col-3">
                   <span class="badge bg-light text-dark"
                     >{{ "Ref" | uppercase }}</span
                   >

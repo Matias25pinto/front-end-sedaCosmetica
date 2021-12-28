@@ -23,11 +23,15 @@
             "styles": [
               "src/assets/css/normalize.css",
               "src/styles.css",
-              "src/assets/fontawesome/css/all.min.css"
+              "src/assets/fontawesome/css/all.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": [
               "node_modules/html2canvas/dist/html2canvas.min.js",
-              "node_modules/jspdf/dist/jspdf.es.min.js"
+              "node_modules/jspdf/dist/jspdf.es.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js"
             ]
           },
           "configurations": {

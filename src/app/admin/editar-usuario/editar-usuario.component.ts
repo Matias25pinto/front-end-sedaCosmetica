@@ -51,6 +51,11 @@ export class EditarUsuarioComponent implements OnInit {
       preven6: [false, []],
       preven7: [false, []],
       preven8: [false, []],
+      preven9: [false, []],
+      preven10: [false, []],
+      preven11: [false, []],
+      preven12: [false, []],
+      preven13: [false, []],
       pcosto: [false, []],
       deposito: ['', [Validators.required, Validators.pattern('[0-9]{1,2}$')]],
       email: [
@@ -157,6 +162,21 @@ export class EditarUsuarioComponent implements OnInit {
     if (this.formulario.get('preven8').value === true) {
       this.precios.push('preven8');
     }
+    if (this.formulario.get('preven9').value === true) {
+      this.precios.push('preven9');
+    }
+    if (this.formulario.get('preven10').value === true) {
+      this.precios.push('preven10');
+    }
+    if (this.formulario.get('preven11').value === true) {
+      this.precios.push('preven11');
+    }
+    if (this.formulario.get('preven12').value === true) {
+      this.precios.push('preven12');
+    }
+    if (this.formulario.get('preven13').value === true) {
+      this.precios.push('preven13');
+    }
     if (this.formulario.get('pcosto').value === true) {
       this.precios.push('pcosto');
     }
@@ -251,6 +271,16 @@ export class EditarUsuarioComponent implements OnInit {
       preven6: this.usuario.precios.includes('preven6') == true ? true : false,
       preven7: this.usuario.precios.includes('preven7') == true ? true : false,
       preven8: this.usuario.precios.includes('preven8') == true ? true : false,
+      preven9: this.usuario.precios.includes('preven9') == true ? true : false,
+      preven10:
+        this.usuario.precios.includes('preven10') == true ? true : false,
+      preven11:
+        this.usuario.precios.includes('preven11') == true ? true : false,
+      preven12:
+        this.usuario.precios.includes('preven12') == true ? true : false,
+      preven13:
+        this.usuario.precios.includes('preven13') == true ? true : false,
+
       pcosto: this.usuario.precios.includes('pcosto') == true ? true : false,
       deposito: this.usuario.deposito,
       email: this.usuario.email,
