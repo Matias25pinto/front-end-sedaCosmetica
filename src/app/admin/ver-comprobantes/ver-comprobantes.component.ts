@@ -184,16 +184,16 @@ export class VerComprobantesComponent implements OnInit {
     let yyyy = fecha.getFullYear().toString();
     let mm = '';
     let dd = '';
-    if (fecha.getDate() <= 10) {
+    if (fecha.getDate() < 10) {
       dd = '0' + fecha.getDate().toString();
     } else {
       dd = fecha.getDate().toString();
     }
-    //en javascript 9 ya es octubre por eso hacemos solo hasta el 9
-    if (fecha.getMonth() < 9) {
-      mm = '0' + (fecha.getMonth() + 1).toString();
+    let mes = fecha.getMonth()+1//en javascript los meses empiezan en 0, por eso le sumamos + 1
+    if (mes < 10) {
+      mm = '0' + mes.toString();
     } else {
-      mm = (fecha.getMonth() + 1).toString();
+      mm = mes.toString();
     }
 
     return `${yyyy}-${mm}-${dd}T03:00:00.000Z`;
@@ -245,6 +245,7 @@ export class VerComprobantesComponent implements OnInit {
       )
       .subscribe(
         (data) => {
+        
           this.comprobantes = [];
           this.comprobantes = data['comprobantes'];
           this.cantidadComprobantes = 0;

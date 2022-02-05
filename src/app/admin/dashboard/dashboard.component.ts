@@ -306,6 +306,7 @@ export class DashboardComponent implements OnInit {
           .getReporte(sucursal._id, loginToken, `${this.start}`, `${this.end}`)
           .subscribe(
             (data) => {
+              
               this.cargarData(data);
             },
             (err) => {

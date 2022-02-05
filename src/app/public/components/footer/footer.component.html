@@ -1,71 +1,5 @@
 <div class="informacion">
-  <div class="informacion__superior">
-    <div class="informacion__elemento">
-      <h3 class="informacion__elemento-titulo">
-        {{ "Catálogo Impreso" | uppercase }}
-      </h3>
-      <img
-        [routerLink]="['catalogo']"
-        src="{{ './assets/img/PDF-Logo.png' }}"
-        alt="catalogo"
-        class="informacion__elemento-img"
-      />
-    </div>
-    <div class="informacion__elemento">
-      <h3 class="informacion__elemento-titulo">
-        {{ "sobre Seda" | uppercase }}
-      </h3>
-      <ul class="informacion__elemento-ul">
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#">La empresa</a>
-        </li>
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#">Locales comerciales</a>
-        </li>
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#">Atención al cliente</a>
-        </li>
-      </ul>
-    </div>
-    <div class="informacion__elemento">
-      <h3 class="informacion__elemento-titulo">
-        {{ "Legales & preguntas" | uppercase }}
-      </h3>
-      <ul class="informacion__elemento-ul">
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#">Términos y condiciones</a>
-        </li>
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#"
-            >Políticas de Privacidad</a
-          >
-        </li>
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#">Preguntas frecuentes</a>
-        </li>
-        <li class="informacion__elemento-li">
-          <a class="informacion__elemento-a" href="#">Cómo comprar</a>
-        </li>
-      </ul>
-    </div>
-    <div class="informacion__elemento">
-      <h3 class="informacion__elemento-titulo">
-        {{ "Medios de pago" | uppercase }}
-      </h3>
-      <div class="informacion__medios-pago">
-        <img
-          src="{{ './assets/img/payment_icon.png' }}"
-          alt="medios_pago"
-          class="informacion__elemento-img-pagos"
-        />
-        <h4 class="informacion__elemento-h4">
-          {{ "efectivo" | uppercase }}
-          <i class="fas fa-money-bill-wave"></i>
-        </h4>
-      </div>
-    </div>
-  </div>
-  <hr class="elemento__hr" />
+  
   <div class="informacion__inferior">
     <div class="informacion__inferior-elemento">
       <i class="informacion__inferior-icono fas fa-phone-alt"></i>
@@ -93,6 +27,7 @@
         </p>
       </div>
     </div>
+   
     <div class="informacion__inferior-sociales">
       <div class="informacion__inferior-texto">
         <h4 class="informacion__inferior-h4">
@@ -104,15 +39,29 @@
       </div>
       <div class="redes-sociales">
         <div class="facebook">
-          <a href="#"><i class="fab fa-facebook-square"></i></a>
-        </div>
-        <div class="twitter">
-          <a href="#"><i class="fab fa-twitter-square"></i></a>
+          <a href="https://www.facebook.com/sedacosmeticaoficial/" target="_blank"><i class="fab fa-facebook-square"></i></a>
         </div>
         <div class="instagram">
-          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.instagram.com/sedacosmeticaoficial/" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
   </div>
+  <hr class="elemento__hr" />
+  <div class="informacion__superior">
+    
+    <div class="informacion__inferior-elemento">
+      <div class="informacion__inferior-texto">
+       
+        <p class="informacion__inferior-p">
+          {{logo}} 
+          &copy;
+         {{ year }} 
+        </p>
+       
+      </div>
+    </div>
+   
+  </div>
+
 </div>

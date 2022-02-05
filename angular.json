@@ -19,7 +19,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/seda-icono.ico", "src/assets"],
             "styles": [
               "src/assets/css/normalize.css",
               "src/styles.css",

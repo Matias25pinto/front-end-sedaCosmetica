@@ -38,6 +38,7 @@ export class ComprobantesService {
       filtros['hasta'] = hasta;
     }
     let headers = new HttpHeaders(filtros);
+  
     return this.http.get(`${this.url}/comprobantes`, { headers });
   }
   agregarComprobante(loginToken: string, body: any) {

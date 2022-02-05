@@ -7,6 +7,7 @@ import { ActualizarUsuarioGuard } from '../core/shared/guards/actualizar-usuario
 import { HomeComponent } from './home/containers/home.component';
 import { LoginComponent } from './login/login.component';
 import { PublicComponent } from './public.component';
+import { LocalesComponent } from './locales/locales.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+        canActivate: [ActualizarUsuarioGuard],
+      },
+      {
+        path: 'locales',
+        component: LocalesComponent,
         canActivate: [ActualizarUsuarioGuard],
       },
       {

@@ -16,6 +16,10 @@ import { BuscarProductoComponent } from './buscar-producto/buscar-producto.compo
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../core/shared/shared.module';
+import { LocalesComponent } from './locales/locales.component';
+import { ImagePipe } from './pipes/image.pipe';
+
+//Pipes
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import { SharedModule } from '../core/shared/shared.module';
     ProductosComponent,
     BuscarProductoComponent,
     LoginComponent,
+    LocalesComponent,
+    ImagePipe,
+ 
   ],
   imports: [
     CommonModule,

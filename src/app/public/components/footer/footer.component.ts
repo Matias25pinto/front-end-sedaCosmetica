@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  public logo: string = 'www.sedacosmetica.com';
+  public fecha: Date = new Date();
+  public year: number = 0;
+
+  constructor() {
+    this.year = this.fecha.getFullYear();
+   }
 
   ngOnInit(): void {
   }

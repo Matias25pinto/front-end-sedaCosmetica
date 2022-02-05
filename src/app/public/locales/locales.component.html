@@ -1,0 +1,36 @@
+<div class="locales__contenedor">
+  <!--<iframe
+    class="locales__iframe"
+    src="https://www.google.com/maps/d/embed?mid=1v6Cq2jKQbLXfEhZz3cQKyzA02aHUvfTk&z=7"
+  ></iframe>-->
+  <!--<div class="locales__encabezado">
+    <h3 class="locales__titulo">Nuestros Locales</h3>
+  </div>-->
+  <div *ngIf="locales.length === 0" class="productos__loading">
+    <div class="productos__loading-icono">
+      <i class="fas fa-spinner fa-pulse fa-3x"></i>
+    </div>
+    <div class="productos__loading-texto">
+      <p>cargando...</p>
+    </div>
+  </div>
+  <div *ngIf="locales.length > 0" class="locales__local">
+    <div *ngFor="let local of locales" class="locales__local-elemento">
+      <div class="locales__local-img">
+        <img
+          class="locales__local-imagen"
+          src="{{local.img | image:'locales'}}"
+          alt="imagen de local"
+        />
+      </div>
+      <div class="locales__local-info">
+        <h3 class="locales__local-titulo">{{ local.titulo | uppercase }}</h3>
+        <p class="locales__local-direccion"><i class="fas fa-map-marker-alt"></i> {{ local.direccion }}</p>
+       <p><a class="locales__local-tel" href="tel:0228630182" target="_blank"
+        ><i class="fas fa-phone-alt"></i> {{local.tel}}</a
+      ></p>
+        <a href="mailto:{{local.correo}}" target="_blank" class="locales__local-correo"><i class="far fa-envelope"></i> {{ local.correo | slice:0:28 }}</a>
+      </div>
+    </div>
+  </div>
+</div>

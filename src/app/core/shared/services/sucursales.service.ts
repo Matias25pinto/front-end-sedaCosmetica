@@ -18,6 +18,7 @@ export class SucursalesService {
       headers,
     });
   }
+  
   getSucursal(id: string) {
     return this.http.get<Sucursal>(`${this.url}/sucursales/${id}`);
   }
