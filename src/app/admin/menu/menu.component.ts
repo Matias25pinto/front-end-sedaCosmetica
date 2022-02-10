@@ -74,6 +74,10 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['admin', 'usuarios']);
   }
 
+  consultarProducto() {
+    this.router.navigate(['admin', 'consultar-producto']);
+  }
+
   cerrarSesion() {
     localStorage.removeItem('token');
     this.store.dispatch(action.deleteUsuario());

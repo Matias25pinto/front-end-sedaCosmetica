@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { Producto } from 'src/app/core/shared/models/producto.interface';
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as action from 'src/app/usuario.actions';
 import bootstrap from 'node_modules/bootstrap/dist/js/bootstrap.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-productos',
@@ -17,6 +18,7 @@ export class ProductosComponent implements OnInit, DoCheck {
   public usuario$: Observable<any>;
   public usuario: any;
   public isLogin: boolean = false;
+  public isLoading = true;
 
   public detalle: Producto = {
     producto: '',
@@ -24,6 +26,7 @@ export class ProductosComponent implements OnInit, DoCheck {
     existencia: 0,
     precios: [],
   };
+  
   constructor(private store: Store<{ usuario: any }>) {}
 
   ngOnInit(): void {
@@ -35,8 +38,9 @@ export class ProductosComponent implements OnInit, DoCheck {
       this.isLogin &&
       this.productos.length == 1 &&
       this.titulo == 'Productos:' &&
-      this.detalle.codigoBarra != this.productos[0].codigoBarra
+      this.productos[0].codigoBarra != this.detalle.codigoBarra
     ) {
+      
       this.cargarModal(this.productos[0]);
       this.mostrarModal();
     }
@@ -44,15 +48,20 @@ export class ProductosComponent implements OnInit, DoCheck {
 
   cargarModal(producto: Producto) {
     this.detalle = producto;
+    this.isLoading = false;
   }
   mostrarModal() {
-    let myModal = new bootstrap.Modal(
-      document.getElementById('staticBackdrop'),
-      {
-        focus: true,
-      }
-    );
-    myModal.show();
+    try {
+      let myModal = new bootstrap.Modal(
+        document.getElementById('staticBackdrop'),
+        {
+          focus: true,
+        }
+      );
+      myModal.show();
+    } catch (error) {
+      console.log("ERROR!!!", error);
+    }
   }
 
   autenticarUsuario() {

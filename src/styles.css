@@ -501,6 +501,27 @@ input:focus {
 }
 /*
 =====================================
+************CONSULTAR PRODUCTO*****************
+=====================================
+*/
+.consultar__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content:center;
+  line-height: 10px;
+  width: 40%;
+  max-width: 100%;
+  margin: 10px auto;
+  padding: 20px;
+  border: solid var(--text-primary-color);
+  border-radius: 10px;
+  background-color: var(--text-primary-color);
+  color: var(--texto-input);
+}
+
+/*
+=====================================
 ************Cabecera*****************
 =====================================
 */
@@ -558,6 +579,7 @@ input:focus {
 .cabecera__menu-elemento:hover {
   color: var(--dark-primary-color);
 }
+
 
 /*
 =====================================
@@ -2091,6 +2113,14 @@ input:focus {
 =====================================
 */
 @media screen and (max-width: 800px) {
+  /*
+=====================================
+************CONSULTAR PRODUCTO*****************
+=====================================
+*/
+.consultar__container {
+  width: 90%;
+}
   /*
 =====================================
 ************MENU**************

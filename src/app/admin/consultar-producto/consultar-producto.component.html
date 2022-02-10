@@ -1,0 +1,168 @@
+<div class="cabecera">
+   <div class="cabecera__nav">
+    <img
+    *ngIf="true"
+    class="cabecera__img"
+    src="{{ './assets/img/logo_seda.png' }}"
+    alt="logo-seda"
+  />
+   </div>
+   <div class="crear__comprobantes">
+    <form
+    *ngIf="true"
+    [formGroup]="formulario"
+    (ngSubmit)="enviarFormulario()"
+    class="consultar__container"
+    >
+        <div class="menu__buscar">
+          <input
+                #someInput
+                type="text" 
+                placeholder="Buscar Producto" 
+                class="menu__buscar-texto"
+                formControlName="termino">
+                <i class="menu__buscar-buscar fas fa-search"></i>
+        </div>
+        
+    </form>
+   </div>
+</div>
+
+<div class="container">
+
+  <div *ngIf="productos.length === 0 && isLoading" class="productos__loading">
+    <div class="productos__loading-icono">
+      <i class="fas fa-spinner fa-pulse fa-3x"></i>
+    </div>
+    <div class="productos__loading-texto">
+      <p>cargando...</p>
+    </div>
+  </div>
+
+  <div *ngIf="productos.length > 1 && !mostrarProducto" class="productos">
+    <div class="row">
+      <h2 class="productos__titulo">
+        <i class="productos__icono fas fa-circle"></i>{{ 'Resultados:' | uppercase }}
+      </h2>
+     
+      <div *ngIf="productos.length > 0" class="productos__contenedor">
+        <div *ngFor="let producto of productos" class="productos__producto">
+          <img
+            class="productos__producto-img"
+            src="{{ './assets/img/no-image/noimage.png' }}"
+            alt="no-imagen"
+          />
+          <p class="productos__producto-titulo">
+            {{ producto.producto | uppercase }}
+          </p>
+          <p class="productos__producto-titulo">
+            código de barra: {{ producto.codigoBarra }}
+          </p>
+          <!-- Button trigger modal -->
+          <button
+            (click)="cargarDetalleProducto(producto)"
+            type="button"
+            class="productos__producto-link"
+          >
+            {{ "ver más" | uppercase }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="mostrarProducto && !sinProductos" class="productos">
+    <div class="row">
+      <p class="productos__producto-titulo">
+        {{ detalle.producto | uppercase }}
+      </p>
+    </div>
+    <div class="row flex-column flex-lg-row">
+      <div class="col-12 col-lg-6">
+        <img
+          class="productos__producto-img"
+          src="{{ './assets/img/no-image/noimage.png' }}"
+          alt="no-imagen"
+        />
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-3">
+            <i class="fas fa-barcode fa-3x"></i>
+          </div>
+          <div
+            class="col-9 d-flex justify-content-start align-items-center"
+          >
+            <p class="productos__producto-titulo m-2">
+              {{ detalle.codigoBarra }}
+            </p>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-3">
+            <span *ngIf="detalle.existencia > 0" class="badge bg-success"
+              >Stock</span
+            >
+            <span *ngIf="detalle.existencia == 0" class="badge bg-danger"
+              >Stock</span
+            >
+          </div>
+          <div
+            class="col-9 d-flex justify-content-start align-items-center"
+          >
+            <p class="productos__producto-titulo m-auto ms-2">
+              {{ detalle.existencia | number }}
+              <span class="badge bg-light text-dark"
+                >{{ "deposito" | uppercase }}</span
+              >
+              {{ detalle.codigoDeposito }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <div
+            *ngFor="let precio of detalle.precios"
+            class="row d-flex justify-content-center align-items-center"
+          >
+            <div class="col-3">
+              <span class="badge bg-light text-dark"
+                >{{ precio.tipoPrecio | uppercase }}</span
+              >
+            </div>
+            <div
+              class="
+                col-9
+                d-flex
+                justify-content-start
+                align-items-center
+              "
+            >
+              <p class="productos__producto-titulo m-auto ms-2">
+                {{ (precio.precio | number) + " Gs." }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+    <div *ngIf="sinProductos && !isLoading" class="productos__loading">
+      <p class="productos__loading-texto">No hay resultados para {{ termino }}</p>
+      <i class="productos__loading-icono fas fa-exclamation-circle fa-3x"></i>
+    </div>
+    <div *ngIf="!mostrarProducto && productos.length > 1" class="row text-center d-flex justify-content-center">
+      <p
+        [ngClass]="{ 'productos__producto-titulo-disabled': (desde == '0') }"
+        (click)="anterior()"
+        class="col-6 cursor productos__producto-titulo"
+      >
+        <i class="fas fa-angle-double-left"></i> anterior
+      </p>
+      <p (click)="siguiente()" class="col-4 cursor productos__producto-titulo">
+        siguiente <i class="fas fa-angle-double-right"></i>
+      </p>
+    </div>
+</div>
+
+  

@@ -17,9 +17,9 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../core/shared/shared.module';
 import { LocalesComponent } from './locales/locales.component';
-import { ImagePipe } from './pipes/image.pipe';
 
-//Pipes
+//Pipes 
+import { ImagePipe } from '../pipes/image.pipe';
 
 @NgModule({
   declarations: [
@@ -33,8 +33,8 @@ import { ImagePipe } from './pipes/image.pipe';
     BuscarProductoComponent,
     LoginComponent,
     LocalesComponent,
-    ImagePipe,
- 
+    ImagePipe
+
   ],
   imports: [
     CommonModule,
@@ -42,6 +42,6 @@ import { ImagePipe } from './pipes/image.pipe';
     PublicRoutingModule,
     ReactiveFormsModule,
   ],
-  exports: [NavbarComponent],
+  exports: [NavbarComponent, ImagePipe, ProductosComponent],
 })
 export class PublicModule {}

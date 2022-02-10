@@ -28,6 +28,7 @@ import { PasswordUsuarioComponent } from './password-usuario/password-usuario.co
 import { ObjetivosComponent } from './objetivos/objetivos.component';
 import { CrearObjetivoComponent } from './crear-objetivo/crear-objetivo.component';
 import { EditarObjetivoComponent } from './editar-objetivo/editar-objetivo.component';
+import { ConsultarProductoComponent } from './consultar-producto/consultar-producto.component';
 
 const routes: Routes = [
   {
@@ -127,10 +128,15 @@ const routes: Routes = [
         canActivate: [AuthGuard, AdminGuard],
       },
       {
-	path: 'editar-objetivo/:id',
+	      path: 'editar-objetivo/:id',
         component: EditarObjetivoComponent,
         canActivate: [AuthGuard, AdminGuard],
       },
+      {
+        path:'consultar-producto',
+        component:ConsultarProductoComponent,
+        canActivate: [AuthGuard]
+      }
     ],
   },
 ];

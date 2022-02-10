@@ -1,6 +1,14 @@
 <app-navbar></app-navbar>
 <div class="usuario">
   <button
+    *ngIf="true"
+    (click)="consultarProducto()"
+    class="usuario__arqueo-btn"
+    type="button"
+  >
+    Consultar Productos
+  </button>
+  <button
     *ngIf="usuario.role == 'ADMIN_ROLE' || usuario.role == 'USER_ROLE'"
     (click)="dashboard()"
     class="usuario__arqueo-btn"

@@ -3,7 +3,7 @@
     <h2 class="productos__titulo">
       <i class="productos__icono fas fa-circle"></i>{{ titulo | uppercase }}
     </h2>
-    <div *ngIf="productos.length === 0" class="productos__loading">
+    <div *ngIf="productos.length === 0 &&isLoading" class="productos__loading">
       <div class="productos__loading-icono">
         <i class="fas fa-spinner fa-pulse fa-3x"></i>
       </div>
