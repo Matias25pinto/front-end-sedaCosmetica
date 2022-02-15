@@ -58,6 +58,7 @@ export class CrearUsuarioComponent implements OnInit {
         preven11: [false, []],
         preven12: [false, []],
         preven13: [false, []],
+        pferia: [false, []],
         pcosto: [false, []],
         deposito: [
           '',
@@ -194,6 +195,9 @@ export class CrearUsuarioComponent implements OnInit {
     if (this.formulario.get('preven13').value === true) {
       this.precios.push('preven13');
     }
+    if (this.formulario.get('pferia').value === true) {
+      this.precios.push('pferia');
+    }
     if (this.formulario.get('pcosto').value === true) {
       this.precios.push('pcosto');
     }
@@ -296,6 +300,7 @@ export class CrearUsuarioComponent implements OnInit {
       preven11: false,
       preven12: false,
       preven13: false,
+      pferia: false,
       pcosto: false,
       deposito: '',
       email: '',

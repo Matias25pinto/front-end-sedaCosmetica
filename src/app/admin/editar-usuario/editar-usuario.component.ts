@@ -56,6 +56,7 @@ export class EditarUsuarioComponent implements OnInit {
       preven11: [false, []],
       preven12: [false, []],
       preven13: [false, []],
+      pferia: [false, []],
       pcosto: [false, []],
       deposito: ['', [Validators.required, Validators.pattern('[0-9]{1,2}$')]],
       email: [
@@ -177,6 +178,9 @@ export class EditarUsuarioComponent implements OnInit {
     if (this.formulario.get('preven13').value === true) {
       this.precios.push('preven13');
     }
+    if (this.formulario.get('pferia').value === true) {
+      this.precios.push('pferia');
+    }
     if (this.formulario.get('pcosto').value === true) {
       this.precios.push('pcosto');
     }
@@ -280,6 +284,8 @@ export class EditarUsuarioComponent implements OnInit {
         this.usuario.precios.includes('preven12') == true ? true : false,
       preven13:
         this.usuario.precios.includes('preven13') == true ? true : false,
+
+      pferia: this.usuario.precios.includes('pferia') == true ? true : false,
 
       pcosto: this.usuario.precios.includes('pcosto') == true ? true : false,
       deposito: this.usuario.deposito,

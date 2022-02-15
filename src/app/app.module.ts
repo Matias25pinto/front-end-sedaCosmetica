@@ -40,6 +40,7 @@ import { StoreModule } from '@ngrx/store';
 import { usuarioReducer } from './usuario.reducer';
 
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

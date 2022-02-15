@@ -119,28 +119,53 @@
             </p>
           </div>
         </div>
+
+        <div *ngFor="let precio of detalle.precios">
+          <ng-container *ngIf="precio.tipoPrecio == 'pferia'">
+            <div *ngFor="let precio of detalle.precios" class="row d-flex justify-content-center align-items-center">
+              <ng-container *ngIf="precio.tipoPrecio == 'preven2'">
+                <div class="col-4 col-lg-3">
+                  <span class="badge bg-danger"
+                  >Precio Feria</span
+                  >
+                </div>
+                <div  class="col-8 col-lg-9">
+                  <span  class="badge bg-danger"
+                  >{{ (precio.precio-(precio.precio*0.2) | number) + " Gs." }} 20% OFF</span>  
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+
         <div>
+
           <div
             *ngFor="let precio of detalle.precios"
             class="row d-flex justify-content-center align-items-center"
           >
-            <div class="col-3">
-              <span class="badge bg-light text-dark"
-                >{{ precio.tipoPrecio | uppercase }}</span
+            <ng-container *ngIf="precio.precio != null">
+              <div class="col-3">
+                <span class="badge bg-light text-dark"
+                  >{{ precio.tipoPrecio | precio }}</span
+                >
+              </div>
+  
+              <div
+                class="
+                  col-9
+                  d-flex
+                  justify-content-start
+                  align-items-center
+                "
               >
-            </div>
-            <div
-              class="
-                col-9
-                d-flex
-                justify-content-start
-                align-items-center
-              "
-            >
-              <p class="productos__producto-titulo m-auto ms-2">
-                {{ (precio.precio | number) + " Gs." }}
-              </p>
-            </div>
+  
+                <p class="productos__producto-titulo m-auto ms-2">
+                  {{ (precio.precio | number) + " Gs." }}
+                </p>
+              </div>
+            </ng-container>
+
           </div>
         </div>
       </div>

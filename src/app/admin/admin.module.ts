@@ -46,7 +46,6 @@ import { ObjetivosComponent } from './objetivos/objetivos.component';
 import { CrearObjetivoComponent } from './crear-objetivo/crear-objetivo.component';
 import { EditarObjetivoComponent } from './editar-objetivo/editar-objetivo.component';
 import { ConsultarProductoComponent } from './consultar-producto/consultar-producto.component';
-import { ImagePipe } from '../pipes/image.pipe';
 
 
 

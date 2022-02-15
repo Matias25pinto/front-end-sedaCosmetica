@@ -20,6 +20,7 @@ import { LocalesComponent } from './locales/locales.component';
 
 //Pipes 
 import { ImagePipe } from '../pipes/image.pipe';
+import { PrecioPipe } from '../pipes/precio.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ImagePipe } from '../pipes/image.pipe';
     BuscarProductoComponent,
     LoginComponent,
     LocalesComponent,
-    ImagePipe
+    ImagePipe,
+    PrecioPipe
 
   ],
   imports: [
@@ -42,6 +44,6 @@ import { ImagePipe } from '../pipes/image.pipe';
     PublicRoutingModule,
     ReactiveFormsModule,
   ],
-  exports: [NavbarComponent, ImagePipe, ProductosComponent],
+  exports: [NavbarComponent, ImagePipe, ProductosComponent, PrecioPipe],
 })
 export class PublicModule {}
