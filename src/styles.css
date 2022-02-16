@@ -532,7 +532,7 @@ input:focus {
 }
 .cabecera__nav {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
@@ -544,8 +544,10 @@ input:focus {
   font-weight: 700;
 }
 .cabecera__img {
+  display:block;
   margin: 0 auto;
-  max-width: 100%;
+  max-width:600px;
+  max-height:177px;
   z-index: 1;
 }
 .banner__contenedor-titulo {
