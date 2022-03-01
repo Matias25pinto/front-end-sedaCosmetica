@@ -22,6 +22,9 @@ import { LocalesComponent } from './locales/locales.component';
 import { ImagePipe } from '../pipes/image.pipe';
 import { PrecioPipe } from '../pipes/precio.pipe';
 
+//NgFallimgModule mostrar img por defecto
+import { NgFallimgModule } from 'ng-fallimg';
+
 @NgModule({
   declarations: [
     PublicComponent,
@@ -43,6 +46,7 @@ import { PrecioPipe } from '../pipes/precio.pipe';
     SharedModule,
     PublicRoutingModule,
     ReactiveFormsModule,
+    NgFallimgModule
   ],
   exports: [NavbarComponent, ImagePipe, ProductosComponent, PrecioPipe],
 })

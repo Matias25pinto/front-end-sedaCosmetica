@@ -13,10 +13,12 @@ export class HomeComponent implements OnInit {
   constructor(private productosServices: ProductosService) {
     this.productosServices.productosMasVendidos().subscribe((resp) => {
       this.productosMasVendidos = resp;
+      console.log("productosMasVendidos:",this.productosMasVendidos);
     });
 
     this.productosServices.nuevosProductos().subscribe((resp) => {
       this.nuevosProductos = resp;
+      console.log("nuevosProductos:",this.nuevosProductos);
     });
   }
 

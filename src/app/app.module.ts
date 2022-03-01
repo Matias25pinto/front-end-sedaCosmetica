@@ -39,7 +39,8 @@ import { StoreModule } from '@ngrx/store';
 //ngrx
 import { usuarioReducer } from './usuario.reducer';
 
-
+//NgFallimgModule mostrar img por defecto
+import { NgFallimgModule } from 'ng-fallimg';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,6 +54,11 @@ import { usuarioReducer } from './usuario.reducer';
     MatNativeDateModule,
     MatFormFieldModule,
     StoreModule.forRoot({ usuario: usuarioReducer }),
+    NgFallimgModule.forRoot({
+      default: './assets/img/no-image/noimage.jpg',
+      picture1:  'assets/mypicture.png',
+      picture2: 'data:image/jpeg;base64',
+    })
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

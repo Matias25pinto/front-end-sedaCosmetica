@@ -3,7 +3,7 @@
     <img
       *ngIf="true"
       class="cabecera__img"
-      src="{{ './assets/img/logo_seda.png' }}"
+      src="{{ './assets/img/logo_seda.png'}}"
       alt="logo-seda"
     />
   </div>
@@ -52,8 +52,9 @@
         <div *ngFor="let producto of productos" class="productos__producto">
           <img
             class="productos__producto-img"
-            src="{{ './assets/img/no-image/noimage.png' }}"
-            alt="no-imagen"
+            src="{{ './assets/img/productos/'+producto.codigoInterno+'.jpg'}}"
+            alt="{{detalle.producto+'-image'}}"
+            fallimg
           />
           <p class="productos__producto-titulo">
             {{ producto.producto | uppercase }}
@@ -84,8 +85,9 @@
       <div class="col-12 col-lg-6">
         <img
           class="productos__producto-img"
-          src="{{ './assets/img/no-image/noimage.png' }}"
-          alt="no-imagen"
+          src="{{ './assets/img/productos/'+detalle.codigoInterno+'.jpg'}}"
+          alt="{{detalle.producto+'-image'}}"
+          fallimg
         />
       </div>
       <div class="col-12 col-lg-6">

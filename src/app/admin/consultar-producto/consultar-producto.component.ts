@@ -22,6 +22,7 @@ export class ConsultarProductoComponent implements OnInit {
   public detalle: Producto = {
     producto: '',
     codigoBarra: '',
+    codigoInterno:'',
     existencia: 0,
     precios: [],
   };

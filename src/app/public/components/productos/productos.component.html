@@ -14,10 +14,11 @@
     <div *ngIf="productos.length > 0" class="productos__contenedor">
       <div *ngFor="let producto of productos" class="productos__producto">
         <img
-          class="productos__producto-img"
-          src="{{ './assets/img/no-image/noimage.png' }}"
-          alt="no-imagen"
-        />
+        class="productos__producto-img"
+        src="{{ './assets/img/productos/'+producto.codigoInterno+'.jpg'}}"
+        alt="{{producto.producto+'-image'}}"
+        fallimg
+      />
         <p class="productos__producto-titulo">
           {{ producto.producto | uppercase }}
         </p>
@@ -48,7 +49,7 @@
   <div
     class="modal fade"
     id="staticBackdrop"
-    data-bs-backdrop="static"
+    data-bs-backdrop="true"
     data-bs-keyboard="false"
     tabindex="-1"
     aria-labelledby="staticBackdropLabel"
@@ -73,10 +74,11 @@
           <div class="row flex-column flex-lg-row">
             <div class="col-12 col-lg-6">
               <img
-                class="productos__producto-img"
-                src="{{ './assets/img/no-image/noimage.png' }}"
-                alt="no-imagen"
-              />
+              class="productos__producto-img"
+              src="{{ './assets/img/productos/'+detalle.codigoInterno+'.jpg'}}"
+              alt="{{detalle.codigoInterno+'.jpg'}}"
+              fallimg
+            />
             </div>
             <div class="col-12 col-lg-6">
               <div class="row d-flex justify-content-center align-items-center">

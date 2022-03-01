@@ -1,5 +1,6 @@
 export interface Producto {
   codigoBarra: string;
+  codigoInterno:string;
   producto: string;
   empresa?: number;
   iddeposito?: number;

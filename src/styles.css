@@ -861,7 +861,8 @@ input:focus {
   margin: 10px 20px;
 }
 .productos__producto-img {
-  max-width: 100%;
+  max-width: 200px;
+  max-height: 200px;
   margin-bottom: 10px;
 }
 .productos__producto-titulo {

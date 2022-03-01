@@ -47,7 +47,8 @@ import { CrearObjetivoComponent } from './crear-objetivo/crear-objetivo.componen
 import { EditarObjetivoComponent } from './editar-objetivo/editar-objetivo.component';
 import { ConsultarProductoComponent } from './consultar-producto/consultar-producto.component';
 
-
+//NgFallimgModule mostrar img por defecto
+import { NgFallimgModule } from 'ng-fallimg';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ConsultarProductoComponent } from './consultar-producto/consultar-produ
     ReactiveFormsModule,
     ChartsModule,
     PublicModule,
+    NgFallimgModule
   ],
 })
 export class AdminModule {}

@@ -1,5 +1,6 @@
 
 # dependencies
 /node_modules
-/dist/paginaSeda
+/dist
 /.vim
+/src/assets/img/productos

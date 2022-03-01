@@ -23,6 +23,7 @@ export class ProductosComponent implements OnInit, DoCheck {
   public detalle: Producto = {
     producto: '',
     codigoBarra: '',
+    codigoInterno:'',
     existencia: 0,
     precios: [],
   };
